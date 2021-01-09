@@ -3,19 +3,20 @@ import React from 'react';
 // import {
 //   getSomething
 // } from '../api';
+console.log("will's updates")
 
 const App = () => {
-//   const [message, setMessage] = useState('');
+  //   const [message, setMessage] = useState('');
 
-//   useEffect(() => {
-//     getSomething()
-//       .then(response => {
-//         setMessage(response.message);
-//       })
-//       .catch(error => {
-//         setMessage(error.message);
-//       });
-//   });
+  //   useEffect(() => {
+  //     getSomething()
+  //       .then(response => {
+  //         setMessage(response.message);
+  //       })
+  //       .catch(error => {
+  //         setMessage(error.message);
+  //       });
+  //   });
 
   return (
     <div className="App">
