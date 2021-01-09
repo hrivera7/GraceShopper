@@ -3,7 +3,7 @@ import React from 'react';
 // import {
 //   getSomething
 // } from '../api';
-console.log("will's updates")
+console.log("making an update to the console log")
 
 const App = () => {
   //   const [message, setMessage] = useState('');
@@ -15,7 +15,7 @@ const App = () => {
   //       })
   //       .catch(error => {
   //         setMessage(error.message);
-  //       });
+  //       }
   //   });
 
   return (
