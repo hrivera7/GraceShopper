@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "postinstall": "npm run client:build",
     "client:dev": "react-scripts start",
     "server:dev": "nodemon index.js",
+    "client:build": "react-scripts build",
     "db:build": "node ./db/init_db",
     "start": "node index.js",
     "seed:dev": "nodemon ./db/init_db.js"
@@ -20,11 +22,28 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.6",
     "pg": "^8.5.1",
+    "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
+    "react-scripts": "^4.0.1",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  },
+  "proxy": "http://localhost:5000",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
