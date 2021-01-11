@@ -1,29 +1,49 @@
-import React from 'react';
-// { useState, useEffect }
-// import {
-//   getSomething
-// } from '../api';
-console.log("will's updates")
+import React, { useState, useEffect } from "react";
+
+import {
+  getProducts,
+  /* getUsers,
+  createUser,
+  getUserByUsername,
+  getUserById,
+  getProductById,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+  deleteUser,
+  updateUser, 
+ */
+} from "../api";
+console.log("will's updates");
 
 const App = () => {
-  //   const [message, setMessage] = useState('');
+  const [products, setProducts] = useState([]);
 
-  //   useEffect(() => {
-  //     getSomething()
-  //       .then(response => {
-  //         setMessage(response.message);
-  //       })
-  //       .catch(error => {
-  //         setMessage(error.message);
-  //       });
-  //   });
-
+  useEffect(() => {
+    getProducts()
+      .then((response) => {
+        console.log("response", response);
+        setProducts(response.allProducts);
+      })
+      .catch((error) => {
+        setProducts(error.message);
+      });
+  }, []);
+  console.log("products", products);
   return (
-    <div className="App">
+    <div className="app">
       <h1>Hello, World!</h1>
-
+      {products
+        ? products.map((product) => {
+            return (
+              <>
+                <h1>{product.name}</h1>
+              </>
+            );
+          })
+        : null}
     </div>
   );
-}
+};
 
 export default App;

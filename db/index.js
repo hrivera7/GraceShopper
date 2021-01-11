@@ -47,6 +47,31 @@ async function createUser({ username, email, role, password }) {
   }
 }
 
+async function updateUser({ username, email, password, userId }) {
+  console.log("parameters", username, email, password, userId);
+  try {
+    const retrievedUser = await getUserById(userId);
+    console.log("retrieved user", retrievedUser);
+    if (retrievedUser === null) {
+      throw new Error("User with that id does not exist.");
+    }
+    const {
+      rows: [user],
+    } = await client.query(
+      `
+        UPDATE users
+        SET username = $1, email = $2, password = $3
+        WHERE id = $4
+        RETURNING *
+    `,
+      [username, email, password, userId]
+    );
+    return user;
+  } catch (error) {
+    throw error;
+  }
+}
+
 // select single user
 async function getUserById(userId) {
   try {
@@ -98,6 +123,37 @@ async function getProducts() {
   }
 }
 
+// get all orders
+// ADMIN only
+/* async function getOrders() {
+  try {
+    const { rows } = await client.query(`
+      SELECT * FROM orders
+    `);
+
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+} */
+
+async function getProductById(productId) {
+  try {
+    const {
+      rows: [product],
+    } = await client.query(`
+      SELECT * FROM products
+      WHERE id = ${productId}    
+      `);
+    if (!product) {
+      return null;
+    }
+    return product;
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function createProduct({
   name,
   description,
@@ -125,7 +181,91 @@ async function createProduct({
   }
 }
 
-// export
+async function updateProduct({
+  name,
+  description,
+  photoUrl,
+  quantity,
+  price,
+  department,
+  inStock,
+  productId,
+}) {
+  try {
+    // retrieve product by id
+    const retrievedProduct = await getProductById(productId);
+    console.log("retrieved product", retrievedProduct);
+    // if product doesnt exists throw error
+    if (retrievedProduct === null) {
+      throw new Error("Product with that id does not exist.");
+    }
+    // update products table
+    const {
+      rows: [product],
+    } = await client.query(
+      `
+        UPDATE products 
+        SET name = $1, description = $2, "photoUrl" = $3, quantity = $4, price = $5, department = $6, "inStock" = $7
+        WHERE id = $8
+        RETURNING *
+      `,
+      [
+        name,
+        description,
+        photoUrl,
+        quantity,
+        price,
+        department,
+        inStock,
+        productId,
+      ]
+    );
+    // return product
+    return product;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function deleteUser(userId) {
+  try {
+    const {
+      rows: [user],
+    } = await client.query(
+      `
+      DELETE FROM users
+      WHERE id = $1
+      RETURNING *
+    `,
+      [userId]
+    );
+    console.log("user", user);
+    return user;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function deleteProduct(productId) {
+  try {
+    const {
+      rows: [product],
+    } = await client.query(
+      `
+      DELETE FROM products
+      WHERE id = $1
+      RETURNING *
+    `,
+      [productId]
+    );
+    console.log("product", product);
+    return product;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// export db functions
 module.exports = {
   client,
   // db methods
@@ -135,6 +275,12 @@ module.exports = {
   getUserByUsername,
   getProducts,
   createProduct,
+  getProductById,
+  updateUser,
+  updateProduct,
+  deleteUser,
+  deleteProduct,
+  //getCart,
+  //updateCart,
+  //getOrders,
 };
-// updateUser
-// updateProducts
