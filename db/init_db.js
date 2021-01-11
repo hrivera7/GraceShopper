@@ -1,10 +1,11 @@
-// code to build and initialize DB goes here
+// code to build and initialize DB
 const {
   client,
   getUsers,
   getUserById,
   getUserByUsername,
   getProducts,
+  getProductById,
   createProduct,
   createUser,
   // other db methods
@@ -337,7 +338,9 @@ async function populateInitialData() {
     console.log("Getting all users:\n", await getUsers());
     const user1 = await getUserById(1);
     const user2 = await getUserByUsername("TestUser2");
+    const product1 = await getProductById(1);
     console.log("Getting user 1 and 2:\n", user1, user2);
+    console.log("Getting product 1:\n", product1);
     console.log("Getting all products:\n", await getProducts());
 
     console.log("filled database and need to do testing");
