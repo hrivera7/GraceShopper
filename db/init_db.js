@@ -8,6 +8,11 @@ const {
   getProductById,
   createProduct,
   createUser,
+  /* getCart,
+  createCart,
+  addToCart,
+  checkout,
+  getOrder, */
   // other db methods
 } = require("./index");
 
@@ -60,7 +65,7 @@ async function buildTables() {
         CREATE TABLE cart (
         id SERIAL PRIMARY KEY,
         "userId" INTEGER REFERENCES users(id),
-        "productId" INTEGER REFERENCES products(id),
+        "productId" INTEGER[],
         status TEXT NOT NULL
       );
 
@@ -339,8 +344,11 @@ async function populateInitialData() {
     const user1 = await getUserById(1);
     const user2 = await getUserByUsername("TestUser2");
     const product1 = await getProductById(1);
+
     console.log("Getting user 1 and 2:\n", user1, user2);
     console.log("Getting product 1:\n", product1);
+
+    //
     console.log("Getting all products:\n", await getProducts());
 
     console.log("filled database and need to do testing");
