@@ -30,3 +30,159 @@ export async function getProducts() {
     throw error;
   }
 }
+
+// get product by id > products/productId route
+export async function getProductById(productId) {
+  try {
+    const { data } = await axios.get(`/api/products/${productId}`);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// create user > register route
+// user object fields required
+export async function createUser(username, email, role, password) {
+  const dataToSend = { username, email, role, password };
+  try {
+    if (
+      dataToSend.username.length > 0 &&
+      dataToSend.email.length > 0 &&
+      dataToSend.role.length > 0 &&
+      dataToSend.password.length > 0
+    ) {
+      const { data } = await axios.post(`/api/register`, dataToSend);
+      return data;
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+// update user
+// user object fields required
+export async function updateUser(username, email, password, userId) {
+  const dataToSend = { username, email, password, userId };
+  try {
+    if (
+      dataToSend.username.length > 0 &&
+      dataToSend.email.length > 0 &&
+      dataToSend.password.length > 0
+    ) {
+      const { data } = await axios.patch(
+        `/api/users/${userId}/update`,
+        dataToSend
+      );
+      return data;
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+// create product
+// fields product object - no id
+export async function createProduct(
+  name,
+  description,
+  photoUrl,
+  quantity,
+  price,
+  department,
+  inStock
+) {
+  const dataToSend = {
+    name,
+    description,
+    photoUrl,
+    quantity,
+    price,
+    department,
+    inStock,
+  };
+
+  try {
+    if (
+      dataToSend.name.length > 0 &&
+      dataToSend.description.length > 0 &&
+      dataToSend.photoUrl.length > 0 &&
+      dataToSend.quantity.length > 0 &&
+      dataToSend.price.length > 0 &&
+      dataToSend.department.length > 0 &&
+      dataToSend.inStock.length > 0
+    ) {
+      const { data } = await axios.post(`/api/products`, dataToSend);
+      return data;
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+//update product
+// fields product object
+export async function updateProduct(
+  name,
+  description,
+  photoUrl,
+  quantity,
+  price,
+  department,
+  inStock,
+  productId
+) {
+  const dataToSend = {
+    name,
+    description,
+    photoUrl,
+    quantity,
+    price,
+    department,
+    inStock,
+    productId,
+  };
+
+  try {
+    if (
+      dataToSend.name.length > 0 &&
+      dataToSend.description.length > 0 &&
+      dataToSend.photoUrl.length > 0 &&
+      dataToSend.quantity.length > 0 &&
+      dataToSend.price.length > 0 &&
+      dataToSend.department.length > 0 &&
+      dataToSend.inStock.length > 0 &&
+      dataToSend.productId.length > 0
+    ) {
+      const { data } = await axios.patch(
+        `/api/products/${productId}/update`,
+        dataToSend
+      );
+      return data;
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function deleteUser(userId) {
+  const dataToSend = { userId };
+  try {
+    const { data } = await axios.delete(`/api/users/${userId}`, dataToSend);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function deleteProduct(productId) {
+  const dataToSend = { productId };
+  try {
+    const { data } = await axios.delete(
+      `/api/products/${productId}`,
+      dataToSend
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
