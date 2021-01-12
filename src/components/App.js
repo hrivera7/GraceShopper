@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from "react";
+import PageHeader from '../components/Header'
 
 import {
   getProducts,
@@ -33,7 +34,7 @@ const App = () => {
   console.log("products", products);
   return (
     <div className="app">
-      <h1>Hello, World!</h1>
+      <PageHeader />
 
       {products
         ? products.map((product) => {

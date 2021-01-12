@@ -5,14 +5,15 @@ const Nav = () => {
     const [navItem, setNavItem] = useState('home')
     const isLoggedIn = true
 
+    console.log("state for navItem:", navItem)
 
-    console.log(navItem)
     const handleNavClick = (event, { name }) => {
         // event.preventDefault()
         // let theValue = event.target.value
-        // console.log("name", name)
+        console.log("name", name)
         // console.log("theValue", theValue)
         setNavItem(name)
+
 
     }
 
