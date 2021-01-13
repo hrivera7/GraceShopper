@@ -13,6 +13,20 @@ body {
   background-color: lightgray;
 }
 
+
+/* THE PRODUCT CARDS */
+.productSection {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#showText:hover {
+cursor: pointer;
+color: blueviolet; 
+}
+/* ================= */
 .header {
   /* background-color: blue; */
   /* display: flex;

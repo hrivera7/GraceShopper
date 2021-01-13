@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from "react";
+import DisplayAllProducts from "./DisplayAllProducts";
 import PageHeader from '../components/Header'
 
 import {
@@ -20,6 +21,7 @@ console.log("will's updates");
 
 const App = () => {
   const [products, setProducts] = useState([]);
+  //const [productCount, setProductCount] = useState(0) consider storing productCount in App.js so the cart can access
 
   useEffect(() => {
     getProducts()
@@ -32,21 +34,16 @@ const App = () => {
       });
   }, []);
   console.log("products", products);
+
+
   return (
     <div className="app">
       <PageHeader />
-
-      {products
-        ? products.map((product) => {
-          return (
-            <>
-              <h1>{product.name}</h1>
-            </>
-          );
-        })
-        : null}
+      <DisplayAllProducts products={products} /*  setProductCount={setProductCount} productCount={productCount}  *//>
+     
     </div>
   );
+
 };
 
 export default App;
