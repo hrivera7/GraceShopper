@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import DisplayAllProducts from "./DisplayAllProducts";
 
 import {
   getProducts,
@@ -18,6 +19,7 @@ console.log("will's updates");
 
 const App = () => {
   const [products, setProducts] = useState([]);
+  //const [productCount, setProductCount] = useState(0) consider storing productCount in App.js so the cart can access
 
   useEffect(() => {
     getProducts()
@@ -30,20 +32,7 @@ const App = () => {
       });
   }, []);
   console.log("products", products);
-  return (
-    <div className="app">
-      <h1>Hello, World!</h1>
-      {products
-        ? products.map((product) => {
-            return (
-              <>
-                <h1>{product.name}</h1>
-              </>
-            );
-          })
-        : null}
-    </div>
-  );
+  return <DisplayAllProducts products={products} /* setProductCount={setProductCount} productCount={productCount}  *//>;
 };
 
 export default App;
