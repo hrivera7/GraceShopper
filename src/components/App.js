@@ -1,5 +1,7 @@
+
 import React, { useState, useEffect } from "react";
 import DisplayAllProducts from "./DisplayAllProducts";
+import PageHeader from '../components/Header'
 
 import {
   getProducts,
@@ -32,7 +34,16 @@ const App = () => {
       });
   }, []);
   console.log("products", products);
-  return <DisplayAllProducts products={products} /* setProductCount={setProductCount} productCount={productCount}  *//>;
+
+
+  return (
+    <div className="app">
+      <PageHeader />
+      <DisplayAllProducts products={products} /*  setProductCount={setProductCount} productCount={productCount}  *//>
+     
+    </div>
+  );
+
 };
 
 export default App;

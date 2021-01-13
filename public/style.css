@@ -27,3 +27,18 @@ cursor: pointer;
 color: blueviolet; 
 }
 /* ================= */
+.header {
+  /* background-color: blue; */
+  /* display: flex;
+  flex-direction: column;
+  flex-wrap: wrap; */
+  background-color: whitesmoke;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 55px 55px; 
+  justify-items: center;
+  align-items: center;
+
+
+
+}

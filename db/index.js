@@ -123,20 +123,6 @@ async function getProducts() {
   }
 }
 
-// get all orders
-// ADMIN only
-/* async function getOrders() {
-  try {
-    const { rows } = await client.query(`
-      SELECT * FROM orders
-    `);
-
-    return rows;
-  } catch (error) {
-    throw error;
-  }
-} */
-
 async function getProductById(productId) {
   try {
     const {
@@ -226,7 +212,7 @@ async function updateProduct({
     throw error;
   }
 }
-
+//
 async function deleteUser(userId) {
   try {
     const {
@@ -280,7 +266,9 @@ module.exports = {
   updateProduct,
   deleteUser,
   deleteProduct,
-  //getCart,
-  //updateCart,
-  //getOrders,
+  /* getCart,
+  createCart,
+  addToCart,
+  checkout,
+  getOrder, */
 };
