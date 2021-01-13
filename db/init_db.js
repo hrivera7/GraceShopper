@@ -88,20 +88,6 @@ async function createInitialUsers() {
     });
 
     const userTwo = await createUser({
-      username: "TestUser2",
-      email: "testuser2@gmail.com",
-      role: "user",
-      password: "password456",
-    });
-
-    const userThree = await createUser({
-      username: "TestUser3",
-      email: "testuser3@gmail.com",
-      role: "user",
-      password: "password789",
-    });
-
-    const userFour = await createUser({
       username: "Admin",
       email: "admin@gmail.com",
       role: "admin",
@@ -110,7 +96,7 @@ async function createInitialUsers() {
 
     console.log("Success creating users!");
 
-    return [userOne, userTwo, userThree, userFour];
+    return [userOne, userTwo];
   } catch (error) {
     console.error("error while creating users");
     throw error;
@@ -156,7 +142,7 @@ async function createInitialProducts() {
       department: "Connected Home & Housewares",
       inStock: true,
     });
-
+ 
     const productFour = await createProduct({
       name: "Energizer - MAX Batteries AA (4-Pack)",
       description: "4-pack AA alkaline batteries; battery tester included",
@@ -299,7 +285,7 @@ async function createInitialProducts() {
       price: 16.99,
       department: "Car Electronics & GPS",
       inStock: true,
-    });
+    }); 
 
     console.log("Success creating products!");
 
