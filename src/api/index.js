@@ -1,10 +1,14 @@
 // axios does not need json conversion
 // doesn't need .then chaining
 import axios from "axios";
+const axiosWithAuth = () => {
+  const token = `Bearer ${localStorage.getItem("token")}`;
+  return axios.create({ headers: { Authorization: token } });
+};
 
 export async function getUsers() {
   try {
-    const { data } = await axios.get("/api/users");
+    const { data } = await axiosWithAuth().get("/api/users");
     return data;
   } catch (error) {
     throw error;
@@ -41,7 +45,34 @@ export async function getProductById(productId) {
   }
 }
 
-// create user > register route
+// grabs cart for user
+export async function getCart() {
+  try {
+    const { data } = await axiosWithAuth().get(`/api/cart`);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// adds product to cart
+export async function addToCart(userId, productId) {
+  const dataToSend = {
+    userId,
+    productId,
+  };
+
+  try {
+    if (dataToSend.userId.length > 0 && dataToSend.productId.length > 0) {
+      const { data } = await axiosWithAuth().patch(`/api/cart`, dataToSend);
+      return data;
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+// creates user > register route/endpoint
 // user object fields required
 export async function createUser(username, email, role, password) {
   const dataToSend = { username, email, role, password };
@@ -53,6 +84,19 @@ export async function createUser(username, email, role, password) {
       dataToSend.password.length > 0
     ) {
       const { data } = await axios.post(`/api/register`, dataToSend);
+      return data;
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+// user login
+export async function loginUser(username, password) {
+  const dataToSend = { username, password };
+  try {
+    if (dataToSend.username.length > 0 && dataToSend.password.length > 0) {
+      const { data } = await axios.post(`/api/login`, dataToSend);
       return data;
     }
   } catch (error) {
@@ -119,7 +163,7 @@ export async function createProduct(
     throw error;
   }
 }
-//update product
+// update product
 // fields product object
 export async function updateProduct(
   name,
@@ -167,7 +211,10 @@ export async function updateProduct(
 export async function deleteUser(userId) {
   const dataToSend = { userId };
   try {
-    const { data } = await axios.delete(`/api/users/${userId}`, dataToSend);
+    const { data } = await axiosWithAuth().delete(
+      `/api/users/${userId}`,
+      dataToSend
+    );
     return data;
   } catch (error) {
     throw error;
@@ -177,7 +224,7 @@ export async function deleteUser(userId) {
 export async function deleteProduct(productId) {
   const dataToSend = { productId };
   try {
-    const { data } = await axios.delete(
+    const { data } = await axiosWithAuth().delete(
       `/api/products/${productId}`,
       dataToSend
     );

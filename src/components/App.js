@@ -14,7 +14,6 @@ import {
   updateUser, 
  */
 } from "../api";
-console.log("will's updates");
 
 const App = () => {
   const [products, setProducts] = useState([]);

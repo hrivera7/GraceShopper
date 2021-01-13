@@ -17,9 +17,12 @@ const {
   deleteProduct,
   deleteUser,
   updateUser,
-  //getCart,
-  //updateCart,
-  //getOrders
+  getCart,
+  createCart,
+  addToCart,
+  checkout,
+  getOrder,
+  removeFromCart,
 } = require("../db");
 
 // verify headers in token
@@ -54,7 +57,7 @@ apiRouter.get("/", (req, res, next) => {
   });
 });
 
-// takes in middleware
+// takes in verify token middleware
 // authData = user object
 // ADMIN only
 apiRouter.get("/users", verifyToken, async (req, res, next) => {
@@ -106,23 +109,59 @@ apiRouter.get("/products/:productId", async (req, res, next) => {
   }
 });
 
+// verify token - user is logged in
+apiRouter.get("/cart", verifyToken, async (req, res, next) => {
+  try {
+    jwt.verify(req.token, "secretkey", async (err, authData) => {
+      if (err) {
+        res.send({ error: err, status: 403 });
+      } else {
+        const cart = await getCart({ userId: authData.user.id });
+        console.log("auth data", authData);
+        res.send({ cart });
+      }
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+apiRouter.get("/orders", verifyToken, async (req, res, next) => {
+  try {
+    jwt.verify(req.token, "secretkey", async (err, authData) => {
+      if (err) {
+        res.send({ error: err, status: 403 });
+      } else {
+        const order = await getOrder(authData.user.id);
+        console.log("auth data", authData);
+        res.send({ order });
+      }
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 // POST
 // send username and password
+// gets user by username
+// check if user exists
+// check if db user password and user passwords match
 apiRouter.post("/login", async (req, res, next) => {
   const { username, password } = req.body;
   try {
     const user = await getUserByUsername(username);
     console.log("password", password);
-    // check if db user password and user passwords match
+
     if (user) {
       if (user.password === password) {
         console.log("logged in", user);
-        // encrypting user object, needs encrypting method
+        // encrypts user object, needs encrypting method
+        // callback to handle error or send token in json
         jwt.sign({ user }, "secretkey", { expiresIn: "1day" }, (err, token) => {
           if (err) {
             console.log("jwt error", err);
             res.send({ error: err, status: 403 });
-            // send token
           } else {
             res.json({ token });
           }
@@ -138,14 +177,13 @@ apiRouter.post("/login", async (req, res, next) => {
   }
 });
 
-// creates user and adds to db
+// creates/registers user and adds to db
 // required fields
 // anybody can register as admin???
 apiRouter.post("/register", async (req, res, next) => {
   // required fields from table
   const { username, email, role, password } = req.body;
   try {
-    // from index.js db
     const user = await createUser({ username, email, role, password });
     if (user) {
       console.log("created user", user);
@@ -200,7 +238,27 @@ apiRouter.post("/products", async (req, res, next) => {
   }
 });
 
-// DELETE request
+// creates order and cart row
+apiRouter.post("/checkout", async (req, res, next) => {
+  // required fields from table
+  const { userId, cartId } = req.body;
+  try {
+    // from index.js db
+    const order = await checkout({
+      userId,
+      cartId,
+    });
+    if (order) {
+      console.log("created order", order);
+      res.json({ order });
+    }
+    await createCart({ userId, productId: [] });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// DELETE users
 // ADMIN only
 apiRouter.delete("/users/:userId", verifyToken, async (req, res, next) => {
   const { userId } = req.params;
@@ -256,6 +314,7 @@ apiRouter.delete(
 );
 
 // PATCH
+
 // update user
 // update role status > admin???
 apiRouter.patch(
@@ -328,6 +387,43 @@ apiRouter.patch(
     }
   }
 );
+
+// updates cart
+apiRouter.patch("/cart", verifyToken, async (req, res, next) => {
+  const { userId, productId } = req.body;
+  try {
+    jwt.verify(req.token, "secretkey", async (err, authData) => {
+      if (err) {
+        res.send({ error: err, status: 403 });
+      } else {
+        const updatedCart = await addToCart({ userId, productId });
+        console.log("updated cart", updatedCart);
+        res.send({ updatedCart });
+      }
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// remove from cart
+// still working on this one... db index
+apiRouter.patch("/cart/update", verifyToken, async (req, res, next) => {
+  const { userId, productId } = req.body;
+  try {
+    jwt.verify(req.token, "secretkey", async (err, authData) => {
+      if (err) {
+        res.send({ error: err, status: 403 });
+      } else {
+        const updatedCart = await removeFromCart({ userId, productId });
+        console.log("updated cart", updatedCart);
+        res.send({ updatedCart });
+      }
+    });
+  } catch (error) {
+    next(error);
+  }
+});
 
 //export router
 module.exports = apiRouter;
