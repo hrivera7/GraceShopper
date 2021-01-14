@@ -18,10 +18,10 @@ useEffect(() => {
 
     return (
         <>
-       {users.map((user) => {
+       {/* {users.map((user) => {
            console.log('this is user: ',  user)
-           conso
-       })}
+    
+       })} */}
        </>
     )
 }
