@@ -18,10 +18,6 @@ import {
   updateUser, 
  */
 } from "../api";
-<<<<<<< HEAD
-
-=======
->>>>>>> 27bce17ccb630bb169f197ad7c74fc8081d8d12e
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -49,7 +45,7 @@ const App = () => {
       <PageHeader navItem={navItem} setNavItem={setNavItem} />
       {navItem === 'sign in' ? <FakeModal /> : ""}
       <DisplayAllProducts products={products} /*  setProductCount={setProductCount} productCount={productCount}  */ />
-
+      <DisplayAllUsers />
     </div>
   );
 
