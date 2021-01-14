@@ -18,7 +18,10 @@ import {
   updateUser, 
  */
 } from "../api";
+<<<<<<< HEAD
 
+=======
+>>>>>>> 27bce17ccb630bb169f197ad7c74fc8081d8d12e
 
 const App = () => {
   const [products, setProducts] = useState([]);

@@ -8,11 +8,11 @@ const {
   getProductById,
   createProduct,
   createUser,
-  /* getCart,
+  getCart,
   createCart,
   addToCart,
   checkout,
-  getOrder, */
+  getOrder,
   // other db methods
 } = require("./index");
 
@@ -104,6 +104,39 @@ async function createInitialUsers() {
     return [userOne, userTwo];
   } catch (error) {
     console.error("error while creating users");
+    throw error;
+  }
+}
+
+async function createInitialCarts() {
+  try {
+    // create customers
+    console.log("trying to create carts");
+    const cartOne = await createCart({
+      userId: 1,
+      productId: [1, 4, 5],
+    });
+
+    const cartTwo = await createCart({
+      userId: 2,
+      productId: [1, 3, 5],
+    });
+
+    const cartThree = await createCart({
+      userId: 3,
+      productId: [2, 4, 7],
+    });
+
+    const cartFour = await createCart({
+      userId: 4,
+      productId: [1, 4, 7],
+    });
+
+    console.log("Success creating carts!");
+
+    return [cartOne, cartTwo, cartThree, cartFour];
+  } catch (error) {
+    console.error("error while creating carts");
     throw error;
   }
 }
@@ -324,6 +357,7 @@ async function populateInitialData() {
 
     await createInitialUsers();
     await createInitialProducts();
+    await createInitialCarts();
 
     /* These lines should always work */
     console.log("Getting all users:\n", await getUsers());
@@ -331,10 +365,15 @@ async function populateInitialData() {
     const user2 = await getUserByUsername("TestUser2");
     const product1 = await getProductById(1);
 
+    await checkout({ userId: 1, cartId: 1 });
+    const orders = await getOrder(1);
+    const cart1 = await getCart({ userId: 2 });
+
     console.log("Getting user 1 and 2:\n", user1, user2);
     console.log("Getting product 1:\n", product1);
 
-    //
+    console.log("Getting cart 1:\n", cart1);
+    console.log("Getting order 1:\n", orders);
     console.log("Getting all products:\n", await getProducts());
 
     console.log("filled database and need to do testing");
