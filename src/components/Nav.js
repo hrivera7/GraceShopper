@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import { Menu } from 'semantic-ui-react'
 
-const Nav = () => {
-    const [navItem, setNavItem] = useState('home')
-    const isLoggedIn = true
+const Nav = ({ navItem, setNavItem }) => {
+    // const [navItem, setNavItem] = useState('home')
+    // const [modalOpen, setModalOpen] = useState(false)
+    const isLoggedIn = false
 
-    console.log("state for navItem:", navItem)
+
+
 
     const handleNavClick = (event, { name }) => {
         // event.preventDefault()
@@ -17,6 +19,10 @@ const Nav = () => {
 
     }
 
+
+    // const handleSignIn = () => {
+    //     setSignIn(true)
+    // }
 
 
     return (
