@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import DisplayAllProducts from "./DisplayAllProducts";
+import DisplayAllUsers from "./DisplayAllUsers"
 import PageHeader from '../components/Header'
 
 import {
@@ -40,7 +41,7 @@ const App = () => {
     <div className="app">
       <PageHeader />
       <DisplayAllProducts products={products} /*  setProductCount={setProductCount} productCount={productCount}  *//>
-     
+     <DisplayAllUsers />
     </div>
   );
 
