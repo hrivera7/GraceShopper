@@ -1,8 +1,9 @@
 
 import React, { useState, useEffect } from "react";
 import DisplayAllProducts from "./DisplayAllProducts";
-import PageHeader from '../components/Header'
-import FakeModal from './Modal'
+import DisplayAllUsers from "./DisplayAllUsers";
+import PageHeader from '../components/Header';
+import FakeModal from './Modal';
 
 import {
   getProducts,
