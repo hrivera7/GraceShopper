@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import DisplayAllProducts from "./DisplayAllProducts";
 import PageHeader from '../components/Header'
+import FakeModal from './Modal'
 
 import {
   getProducts,
@@ -20,6 +21,10 @@ import {
 
 const App = () => {
   const [products, setProducts] = useState([]);
+  const [navItem, setNavItem] = useState('home')
+
+
+
   //const [productCount, setProductCount] = useState(0) consider storing productCount in App.js so the cart can access
 
   useEffect(() => {
@@ -37,9 +42,10 @@ const App = () => {
 
   return (
     <div className="app">
-      <PageHeader />
-      <DisplayAllProducts products={products} /*  setProductCount={setProductCount} productCount={productCount}  *//>
-     
+      <PageHeader navItem={navItem} setNavItem={setNavItem} />
+      {navItem === 'sign in' ? <FakeModal /> : ""}
+      <DisplayAllProducts products={products} /*  setProductCount={setProductCount} productCount={productCount}  */ />
+      <DisplayAllUsers />
     </div>
   );
 
