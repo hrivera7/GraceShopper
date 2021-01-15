@@ -1,27 +1,30 @@
-import React, {useState, useEffect} from 'react'
-import {getUsers} from '../api'
+import React, { useState, useEffect } from "react";
+import { getUsers } from "../api";
 
 export default function DisplayAllUsers() {
+  const [users, setUsers] = useState([]);
 
-const [users, setUsers] = useState([])
-
-useEffect(() => {
+  // do not need local storage here
+  // auth is handled once user signs in
+  // once admin logs in; keys to the castle
+  useEffect(() => {
     getUsers()
-    .then((response) => {
-        console.log('this is the useEffect: ', response)
-        setUsers(response)
-    })
-    .catch((error) => {
-        setUsers(error.message)
-    })
-}, [])
+      .then((response) => {
+        console.log("this is the useEffect: ", response);
+        setUsers(response.allUsers);
+      })
+      .catch((error) => {
+        setUsers(error.message);
+      });
+  }, []);
 
-    return (
-        <>
-       {/* {users.map((user) => {
-           console.log('this is user: ',  user)
-    
-       })} */}
-       </>
-    )
+  return (
+    <>
+      <h1>Display all Users</h1>
+      {users &&
+        users.map((user) => {
+          return <p>{user.username}</p>;
+        })}
+    </>
+  );
 }

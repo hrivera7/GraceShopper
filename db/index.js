@@ -343,9 +343,10 @@ async function addToCart({ userId, productId }) {
     for (i = 0; i < oldProducts.length; i++) {
       newProducts.push(oldProducts[i].id);
     }
-    newProducts.push(productId);
+    console.log("productId", productId);
+    newProducts.push(...productId);
   } else {
-    newProducts.push(productId);
+    newProducts.push(...productId);
   }
   console.log("new cart", newProducts);
   try {
@@ -442,7 +443,29 @@ async function checkout({ userId, cartId }) {
 }
 
 async function deleteUser(userId) {
+  console.log("userId", userId);
   try {
+    const {
+      rows: [order],
+    } = await client.query(
+      `
+      DELETE FROM orders
+      WHERE id = $1
+      RETURNING *
+    `,
+      [userId]
+    );
+
+    const {
+      rows: [cart],
+    } = await client.query(
+      `
+      DELETE FROM cart
+      WHERE id = $1
+      RETURNING *
+    `,
+      [userId]
+    );
     const {
       rows: [user],
     } = await client.query(
@@ -453,8 +476,9 @@ async function deleteUser(userId) {
     `,
       [userId]
     );
+
     console.log("user", user);
-    return user;
+    return { order, cart, user };
   } catch (error) {
     throw error;
   }
