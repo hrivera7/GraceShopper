@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { Menu } from 'semantic-ui-react'
-import {getUsers} from '../api'
+import NewModal from './NewModal'
 
-const Nav = ({ navItem, setNavItem, setUsers }) => {
+const Nav = ({ navItem, setNavItem, setToken, setRole }) => {
     // const [navItem, setNavItem] = useState('home')
     // const [modalOpen, setModalOpen] = useState(false)
     const isLoggedIn = true
    
+
 
 
 
@@ -20,7 +21,8 @@ const Nav = ({ navItem, setNavItem, setUsers }) => {
 
 
     // const handleSignIn = () => {
-    //     setSignIn(true)
+    //     console.log("you clicked sign in")
+    //     setSignInModal(true)
     // }
 
 
@@ -58,12 +60,13 @@ const Nav = ({ navItem, setNavItem, setUsers }) => {
                     
                     </> :
                 <>
-                    <Menu.Item
-                        name='sign in'
-                        active={navItem === 'sign in'}
-                        value={"sign in"}
-                        onClick={handleNavClick}
-                    />
+                    <Menu.Item >
+                        <NewModal setToken={setToken} setRole={setRole} />
+                        {/* // name='sign in'
+                        // active={navItem === 'sign in'}
+                        // value={"sign in"}
+                        // onClick={handleSignIn} */}
+                    </Menu.Item>
                     <Menu.Item
                         name='register'
                         active={navItem === 'register'}
