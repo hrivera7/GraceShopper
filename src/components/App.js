@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import DisplayAllProducts from "./DisplayAllProducts";
 import DisplayAllUsers from "./DisplayAllUsers";
-import PageHeader from "../components/Header";
-import Modal from "./Modal";
+import PageHeader from "../components/PageHeader";
+import NewModal from "./NewModal";
 //import Routes from "./utils/Routes"
 
 import {
@@ -23,6 +23,10 @@ import {
 const App = () => {
   const [products, setProducts] = useState([]);
   const [navItem, setNavItem] = useState("home");
+  const [token, setToken] = useState("")
+  const [role, setRole] = useState("")
+  console.log("token in app from login", token)
+  console.log("role in app from login", role)
 
   //const [productCount, setProductCount] = useState(0) consider storing productCount in App.js so the cart can access
 
@@ -40,8 +44,8 @@ const App = () => {
 
   return (
     <div className="app">
-      <PageHeader navItem={navItem} setNavItem={setNavItem} />
-      {navItem === "sign in" ? <Modal /> : ""}
+      <PageHeader navItem={navItem} setNavItem={setNavItem} setToken={setToken} setRole={setRole} />
+      {navItem === "sign in" ? <NewModal /> : ""}
       <DisplayAllProducts
         products={
           products
