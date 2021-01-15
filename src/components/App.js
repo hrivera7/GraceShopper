@@ -26,6 +26,7 @@ const App = () => {
 
 
 
+
   //const [productCount, setProductCount] = useState(0) consider storing productCount in App.js so the cart can access
 
   useEffect(() => {
