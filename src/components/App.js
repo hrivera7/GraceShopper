@@ -23,6 +23,7 @@ import {
 const App = () => {
   const [products, setProducts] = useState([]);
   const [navItem, setNavItem] = useState('home')
+  const [users, setUsers] = useState([])
 
 
 
@@ -31,22 +32,22 @@ const App = () => {
   useEffect(() => {
     getProducts()
       .then((response) => {
-        console.log("response", response);
         setProducts(response.allProducts);
+        
       })
       .catch((error) => {
         setProducts(error.message);
       });
   }, []);
-  console.log("products", products);
+ 
 
 
   return (
     <div className="app">
-      <PageHeader navItem={navItem} setNavItem={setNavItem} />
+      <PageHeader navItem={navItem} setNavItem={setNavItem} setUsers={setUsers} />
       {navItem === 'sign in' ? <FakeModal /> : ""}
-      <DisplayAllProducts products={products} /*  setProductCount={setProductCount} productCount={productCount}  */ />
-      <DisplayAllUsers />
+      {navItem === 'home' ? <DisplayAllProducts products={products} /*  setProductCount={setProductCount} productCount={productCount}  */ /> : '' }
+      {navItem === 'Display Users' ? <DisplayAllUsers users={users}/> : ""}
     </div>
   );
 

@@ -5,23 +5,16 @@ export default function DisplayAllUsers() {
 
 const [users, setUsers] = useState([])
 
-useEffect(() => {
-    getUsers()
-    .then((response) => {
-        console.log('this is the useEffect: ', response)
-        setUsers(response)
-    })
-    .catch((error) => {
-        setUsers(error.message)
-    })
-}, [])
+
 
     return (
         <>
-       {/* {users.map((user) => {
-           console.log('this is user: ',  user)
-    
-       })} */}
+     <button onClick={async () => {
+         const theUsers = await getUsers()
+         console.log('the users are : ', theUsers)
+         setUsers(theUsers)
+         console.log(users)
+     }}>displayAllUsers</button>
        </>
     )
 }

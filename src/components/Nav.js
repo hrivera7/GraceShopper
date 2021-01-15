@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { Menu } from 'semantic-ui-react'
+import {getUsers} from '../api'
 
-const Nav = ({ navItem, setNavItem }) => {
+const Nav = ({ navItem, setNavItem, setUsers }) => {
     // const [navItem, setNavItem] = useState('home')
     // const [modalOpen, setModalOpen] = useState(false)
-    const isLoggedIn = false
-
+    const isLoggedIn = true
+   
 
 
 
@@ -15,8 +16,6 @@ const Nav = ({ navItem, setNavItem }) => {
         console.log("name", name)
         // console.log("theValue", theValue)
         setNavItem(name)
-
-
     }
 
 
@@ -45,7 +44,19 @@ const Nav = ({ navItem, setNavItem }) => {
                         active={navItem === 'sign out'}
                         value={"sign out"}
                         onClick={handleNavClick}
-                    /> </> :
+                    /> 
+                     <Menu.Item
+                        name='Display Users'
+                        active={navItem === 'Display Users'}
+                        value={"Display Users"}
+                        onClick={handleNavClick/* async () => {
+                            handleNavClick()
+                            const theUsers = await getUsers()
+                            setUsers(theUsers)
+                        } */}
+                    />
+                    
+                    </> :
                 <>
                     <Menu.Item
                         name='sign in'

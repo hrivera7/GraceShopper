@@ -1,14 +1,17 @@
 // axios does not need json conversion
 // doesn't need .then chaining
 import axios from "axios";
+
 const axiosWithAuth = () => {
   const token = `Bearer ${localStorage.getItem("token")}`;
+  console.log("this is the token: ", token)
   return axios.create({ headers: { Authorization: token } });
 };
 
 export async function getUsers() {
   try {
     const { data } = await axiosWithAuth().get("/api/users");
+    console.log('This is the data in the api: ', data)
     return data;
   } catch (error) {
     throw error;
