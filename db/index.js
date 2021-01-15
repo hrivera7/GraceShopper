@@ -226,8 +226,262 @@ async function updateProduct({
   }
 }
 
-async function deleteUser(userId) {
+<<<<<<< HEAD
+=======
+// cart created, products added = processing and checkout = completed
+// cart for specific user
+// productId pushed into products array
+async function createCart({ userId, productId, status = "created" }) {
   try {
+    const {
+      rows: [cart],
+    } = await client.query(
+      `
+      INSERT INTO cart("userId", "productId", status)
+      VALUES ($1, $2, $3)
+      RETURNING *;
+    `,
+      [userId, productId, status]
+    );
+
+    return cart;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// not grabbing completed carts only created and processing.
+// grab user specific cart
+async function getCart({ userId }) {
+  console.log("userId", userId);
+  try {
+    const { rows } = await client.query(
+      `
+      SELECT * FROM cart
+      WHERE id = $1 AND status = 'created' OR status = 'processing'
+    `,
+      [userId]
+    );
+    console.log("rows", rows);
+    if (rows.length > 0) {
+      console.log("inside cart", rows);
+      const products = rows[0].productId;
+      const productArr = [];
+      for (i = 0; i < products.length; i++) {
+        console.log("product Id", products[i]);
+        const {
+          rows: [product],
+        } = await client.query(`
+            SELECT * FROM products
+            WHERE id = ${products[i]}
+          `);
+        productArr.push(product);
+      }
+      console.log("list of products", productArr);
+      return { id: rows[0].id, products: productArr, status: rows[0].status };
+    } else {
+      console.log("outside cart", rows);
+      return [];
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+// user adds item to cart > status = processing
+// result is all completed orders
+// helper function - no need to export
+async function getCompletedCart({ userId }) {
+  try {
+    const { rows } = await client.query(
+      `
+      SELECT * FROM cart
+      WHERE id = $1 AND status = 'completed'
+    `,
+      [userId]
+    );
+    if (rows.length > 0) {
+      console.log("inside cart", rows);
+      const products = rows[0].productId;
+      const productArr = [];
+      for (i = 0; i < products.length; i++) {
+        console.log("product Id", products[i]);
+        const {
+          rows: [product],
+        } = await client.query(`
+            SELECT * FROM products
+            WHERE id = ${products[i]}
+          `);
+        productArr.push(product);
+      }
+      console.log("list of products", productArr);
+      return { id: rows[0].id, products: productArr, status: rows[0].status };
+    } else {
+      console.log("outside cart", rows);
+      return [];
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+// list of orders for admin
+async function getOrder(userId) {
+  try {
+    const { rows } = await client.query(`
+    SELECT * from orders
+    WHERE "userId" = ${userId}
+  `);
+    console.log("getOrder rows", rows);
+    const cartArr = [];
+    for (i = 0; i < rows.length; i++) {
+      cart = await getCompletedCart({ userId: rows[i].cartId });
+      cartArr.push(cart);
+    }
+    console.log("cart array", cartArr);
+    // rows are order; cartArr is list of completed carts
+    return { rows, cartArr };
+  } catch (error) {
+    throw error;
+  }
+}
+
+// add to cart function
+// check if cart has products
+async function addToCart({ userId, productId }) {
+  // get cart for user
+  const cart = await getCart({ userId });
+  const oldProducts = cart.products;
+  console.log("add to cart", cart);
+  const newProducts = [];
+  if (oldProducts.length > 0) {
+    for (i = 0; i < oldProducts.length; i++) {
+      newProducts.push(oldProducts[i].id);
+    }
+    console.log("productId", productId);
+    newProducts.push(...productId);
+  } else {
+    newProducts.push(...productId);
+  }
+  console.log("new cart", newProducts);
+  try {
+    const {
+      rows: [updatedCart],
+    } = await client.query(
+      `
+      UPDATE cart
+      SET "productId" = $1, status = $2
+      WHERE id = $3
+      RETURNING *;
+    `,
+      [newProducts, "processing", userId]
+    );
+    console.log("updated cart", updatedCart);
+    return updatedCart;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// still working on this bad boy...
+async function removeFromCart({ userId, productId }) {
+  console.log("userId, productId", userId, productId);
+  const cart = await getCart({ userId });
+
+  const oldProducts = cart.products;
+  const idArr = [];
+  try {
+    if (oldProducts.length > 0) {
+      const index = oldProducts.findIndex(
+        (product) => product.id === productId
+      );
+      console.log("INDEX", index, oldProducts, productId);
+      if (index !== -1) {
+        oldProducts.splice(index, 1);
+        console.log("ARRAY", oldProducts);
+      }
+
+      for (i = 0; i < oldProducts.length; i++) {
+        idArr.push(oldProducts[i].id);
+      }
+
+      const {
+        rows: [updatedCart],
+      } = await client.query(
+        `
+        UPDATE cart 
+        SET "productId" = $1, status = $2 
+        WHERE id = ${userId} 
+        RETURNING *;
+        `,
+        [idArr, "processing"]
+      );
+
+      console.log("UPDATEDCART", updatedCart);
+
+      return updatedCart;
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+// who is checking out and which cart
+async function checkout({ userId, cartId }) {
+  try {
+    const {
+      rows: [updatedCart],
+    } = await client.query(
+      `
+      UPDATE cart
+      SET status = $1
+      WHERE id = $2
+    `,
+      ["completed", userId]
+    );
+    const {
+      rows: [order],
+    } = await client.query(
+      `
+      INSERT INTO orders("userId", "cartId")
+      VALUES ($1, $2)
+      RETURNING *
+    `,
+      [userId, cartId]
+    );
+
+    console.log("created order", order);
+    return order;
+  } catch (error) {
+    throw error;
+  }
+}
+
+>>>>>>> master
+async function deleteUser(userId) {
+  console.log("userId", userId);
+  try {
+    const {
+      rows: [order],
+    } = await client.query(
+      `
+      DELETE FROM orders
+      WHERE id = $1
+      RETURNING *
+    `,
+      [userId]
+    );
+
+    const {
+      rows: [cart],
+    } = await client.query(
+      `
+      DELETE FROM cart
+      WHERE id = $1
+      RETURNING *
+    `,
+      [userId]
+    );
     const {
       rows: [user],
     } = await client.query(
@@ -238,8 +492,9 @@ async function deleteUser(userId) {
     `,
       [userId]
     );
+
     console.log("user", user);
-    return user;
+    return { order, cart, user };
   } catch (error) {
     throw error;
   }

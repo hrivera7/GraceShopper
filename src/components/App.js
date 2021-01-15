@@ -1,9 +1,9 @@
-
 import React, { useState, useEffect } from "react";
 import DisplayAllProducts from "./DisplayAllProducts";
 import DisplayAllUsers from "./DisplayAllUsers";
-import PageHeader from '../components/Header';
-import FakeModal from './Modal';
+import PageHeader from "../components/Header";
+import Modal from "./Modal";
+//import Routes from "./utils/Routes"
 
 import {
   getProducts,
@@ -22,10 +22,7 @@ import {
 
 const App = () => {
   const [products, setProducts] = useState([]);
-  const [navItem, setNavItem] = useState('home')
-  const [users, setUsers] = useState([])
-
-
+  const [navItem, setNavItem] = useState("home");
 
   //const [productCount, setProductCount] = useState(0) consider storing productCount in App.js so the cart can access
 
@@ -41,16 +38,21 @@ const App = () => {
   }, []);
  
 
-
   return (
     <div className="app">
-      <PageHeader navItem={navItem} setNavItem={setNavItem} setUsers={setUsers} />
-      {navItem === 'sign in' ? <FakeModal /> : ""}
-      {navItem === 'home' ? <DisplayAllProducts products={products} /*  setProductCount={setProductCount} productCount={productCount}  */ /> : '' }
-      {navItem === 'Display Users' ? <DisplayAllUsers users={users}/> : ""}
+      <PageHeader navItem={navItem} setNavItem={setNavItem} />
+      {navItem === "sign in" ? <Modal /> : ""}
+      <DisplayAllProducts
+        products={
+          products
+        } /*  setProductCount={setProductCount} productCount={productCount}  */
+      />
+      <DisplayAllUsers />
+      {/* return only needs to display Routes 
+       it contains all components with respective paths */}
+      {/*  <Routes></Routes> */}
     </div>
   );
-
 };
 
 export default App;

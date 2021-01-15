@@ -166,7 +166,7 @@ apiRouter.post("/login", async (req, res, next) => {
             console.log("jwt error", err);
             res.send({ error: err, status: 403 });
           } else {
-            res.json({ token });
+            res.json({ user, token });
           }
         });
       } else {
@@ -196,7 +196,7 @@ apiRouter.post("/register", async (req, res, next) => {
           console.log("jwt error", err);
           res.sendStatus(403);
         } else {
-          res.json({ token });
+          res.json({ user, token });
         }
       });
     } else {
@@ -411,7 +411,7 @@ apiRouter.patch("/cart", verifyToken, async (req, res, next) => {
 
 // remove from cart
 // still working on this one... db index
-apiRouter.patch("/cart/update", verifyToken, async (req, res, next) => {
+apiRouter.patch("/cart/remove", verifyToken, async (req, res, next) => {
   const { userId, productId } = req.body;
   try {
     jwt.verify(req.token, "secretkey", async (err, authData) => {
