@@ -379,7 +379,7 @@ async function populateInitialData() {
     const user2 = await getUserByUsername("TestUser2");
     const product1 = await getProductById(1);
 
-    await addToCart({ userId: 1, productId: 2 });
+    await addToCart({ userId: 1, productId: [2] });
     await checkout({ userId: 1, cartId: 1 });
     const orders = await getOrder(1);
     const cart1 = await getCart({ userId: 2 });
