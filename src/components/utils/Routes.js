@@ -1,12 +1,11 @@
 // import all components here
-// Routes exported to
 import React from "react";
 import { Route } from "react-router-dom";
 import Home from "../Home";
-import Registration from "../Registration";
-import Nav from "../Nav";
 import Modal from "../Modal";
-import ProductCard from "../ProductCard";
+/* import Register from "../Register";
+import Cart from "../Cart";
+import ProductCard from "../ProductCard";  */
 
 const Routes = (props) => {
   console.log("router props", props);
@@ -15,27 +14,19 @@ const Routes = (props) => {
       <Route exact path="/">
         <Home />
       </Route>
-      <Route path="/login">
-        <Modal />
+      {/* <Route path="/cart">
+        <Cart/>
       </Route>
       <Route path="/register">
-        <Registration />
-      </Route>
-      <Route path="/account">
-        <Account />
-      </Route>
+        <Register />
+      </Route> */}
       <Route path="/login">
         <Modal />
       </Route>
-      {/* getProductById */}
-      <Route
+      {/* <Route
         path="/products/:productId"
         render={(props) => <ProductbyId {...props} />}
-      ></Route>
-      <Route
-        path="/view/:postId"
-        render={(props) => <Outgoing {...props} />}
-      ></Route>
+      ></Route>  */}
     </>
   );
 };
