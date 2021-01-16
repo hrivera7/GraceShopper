@@ -53,7 +53,7 @@ const Nav = ({ setToken, setRole, token }) => {
         as={Link}
         to="/cart"
         name="cart"
-        // active={navItem === 'cart'}
+        //active={navItem === "cart"}
         value={"cart"}
         onClick={() => {
           alert("You clicked the cart!");
