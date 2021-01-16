@@ -3,3 +3,4 @@ build
 .env
 .env.test
 .eslintcache
+debug.log

@@ -1,26 +1,8 @@
-import React, { useState, useEffect } from "react";
-import DisplayAllProducts from "./DisplayAllProducts";
-import DisplayAllUsers from "./DisplayAllUsers";
-import PageHeader from "../components/PageHeader";
-import NewModal from "./NewModal";
-//import Routes from "./utils/Routes"
-
-import {
-  getProducts,
-  /* getUsers,
-  createUser,
-  getUserByUsername,
-  getUserById,
-  getProductById,
-  createProduct,
-  updateProduct,
-  deleteProduct,
-  deleteUser,
-  updateUser, 
- */
-} from "../api";
+import React from "react";
+import Routes from "./utils/Routes";
 
 const App = () => {
+<<<<<<< HEAD
   const [products, setProducts] = useState([]);
 
   const [token, setToken] = useState("")
@@ -56,6 +38,9 @@ const App = () => {
       {/*  <Routes></Routes> */}
     </div>
   );
+=======
+  return <Routes />;
+>>>>>>> master
 };
 
 export default App;
