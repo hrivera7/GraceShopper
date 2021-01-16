@@ -1,23 +1,30 @@
 import React, { useState } from "react";
 import { Button, Input, Form } from "semantic-ui-react";
-import { loginUser } from "../api";
+import { createUser } from "../api";
 
-const Register = ({ setOpen }) => {
+const Register = ({ setOpen, setToken, setRole }) => {
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
+    email: "",
   });
 
-  const login = async () => {
+  const register = async () => {
     event.preventDefault();
-    await loginUser(credentials.username, credentials.password)
+    await createUser(
+      credentials.username,
+      credentials.email,
+      "user",
+      credentials.password
+    )
       .then((response) => {
-        console.log(response);
+        console.log("response from createUser", response);
         localStorage.setItem("token", response.token);
+        setToken(response.token);
+        setRole(response.user.role);
         setOpen(false);
       })
       .catch((error) => {
-        setOpen(true);
         console.log(error);
       });
   };
@@ -28,18 +35,29 @@ const Register = ({ setOpen }) => {
 
   return (
     <>
-      <h2>Register</h2>
-      <Form>
+      <Form className="register">
+        <h2>Register</h2>
+
         <Input
+          style={{ width: "50%" }}
+          name="email"
+          value={credentials.email}
+          onChange={handleChanges}
+          placeholder="email"
+        />
+        <br></br>
+
+        <Input
+          style={{ width: "50%" }}
           name="username"
           value={credentials.username}
           onChange={handleChanges}
           placeholder="username"
         />
         <br></br>
-      </Form>
-      <Form>
+
         <Input
+          style={{ width: "50%" }}
           autoComplete="new-password"
           name="password"
           type="password"
@@ -48,8 +66,13 @@ const Register = ({ setOpen }) => {
           placeholder="password"
         />
         <br></br>
+
+        <Button
+          style={{ width: "50%" }}
+          content="Submit"
+          onClick={register}
+        ></Button>
       </Form>
-      <Button content="Submit" onClick={login}></Button>
     </>
   );
 };
