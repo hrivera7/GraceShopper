@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Menu } from "semantic-ui-react";
+import NewModal from "./NewModal";
 import { Link } from "react-router-dom";
 
-const Nav = ({ navItem, setNavItem }) => {
+const Nav = ({ navItem, setNavItem, setToken, setRole }) => {
   // const [navItem, setNavItem] = useState('home')
   // const [modalOpen, setModalOpen] = useState(false)
   const isLoggedIn = false;
@@ -14,10 +15,6 @@ const Nav = ({ navItem, setNavItem }) => {
     // console.log("theValue", theValue)
     setNavItem(name);
   };
-
-  // const handleSignIn = () => {
-  //     setSignIn(true)
-  // }
 
   return (
     <Menu secondary>
