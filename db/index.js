@@ -519,7 +519,7 @@ async function deleteProduct(productId) {
 // export db functions
 module.exports = {
   client,
-  
+  // db methods
   getUsers,
   createUser,
   getUserById,
@@ -531,7 +531,10 @@ module.exports = {
   updateProduct,
   deleteUser,
   deleteProduct,
-  //getCart,
-  //updateCart,
-  //getOrders,
+  getCart,
+  createCart,
+  addToCart,
+  checkout,
+  getOrder,
+  removeFromCart
 };
