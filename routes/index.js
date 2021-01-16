@@ -62,11 +62,14 @@ apiRouter.get("/", (req, res, next) => {
 // ADMIN only
 apiRouter.get("/users", verifyToken, async (req, res, next) => {
   try {
+    console.log('am i in the /users route?')
     jwt.verify(req.token, "secretkey", async (err, authData) => {
       if (err) {
         res.send({ error: err, status: 403 });
       } else if (authData.user.role === "admin") {
+        
         const allUsers = await getUsers();
+        console.log('all the users: ', allUsers)
         console.log("authdata", authData);
         res.send({
           allUsers,
@@ -85,7 +88,7 @@ apiRouter.get("/users", verifyToken, async (req, res, next) => {
 apiRouter.get("/products", async (req, res, next) => {
   try {
     const allProducts = await getProducts();
-    console.log("all products", allProducts);
+    // console.log("all products", allProducts);
     res.send({
       allProducts,
     });

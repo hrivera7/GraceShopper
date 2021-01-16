@@ -31,25 +31,24 @@ const Home = () => {
   useEffect(() => {
     getProducts()
       .then((response) => {
-        console.log("response", response);
+       // console.log("response", response);
         setProducts(response.allProducts);
       })
       .catch((error) => {
         setProducts(error.message);
       });
   }, []);
-  console.log("products", products);
+ // console.log("products", products);
 
   return (
     <div className="app">
-      <PageHeader setToken={setToken} setRole={setRole} token={token} />
+      <PageHeader setToken={setToken} setRole={setRole} token={token} role={role}/>
 
       <DisplayAllProducts
         products={
           products
         } /*  setProductCount={setProductCount} productCount={productCount}  */
       />
-      <DisplayAllUsers />
       {/* return only needs to display Routes 
        it contains all components with respective paths */}
     </div>

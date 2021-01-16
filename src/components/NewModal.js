@@ -9,7 +9,7 @@ function NewModal({ setToken, setRole }) {
 
 
     return (
-        <Modal size='medium'
+        <Modal size='large'
             onClose={() => setOpen(false)}
             onOpen={() => setOpen(true)}
             open={open}

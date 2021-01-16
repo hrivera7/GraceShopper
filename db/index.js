@@ -20,7 +20,6 @@ async function getUsers() {
     const { rows } = await client.query(`
       SELECT * FROM users
     `);
-
     return rows;
   } catch (error) {
     throw error;
@@ -122,6 +121,20 @@ async function getProducts() {
     throw error;
   }
 }
+
+// get all orders
+// ADMIN only
+/* async function getOrders() {
+  try {
+    const { rows } = await client.query(`
+      SELECT * FROM orders
+    `);
+
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+} */
 
 async function getProductById(productId) {
   try {
@@ -523,5 +536,5 @@ module.exports = {
   addToCart,
   checkout,
   getOrder,
-  removeFromCart,
+  removeFromCart
 };

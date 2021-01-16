@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { getUsers } from "../api";
+import UserCards from './UserCards'
+import PageHeader from './PageHeader'
+
 
 export default function DisplayAllUsers() {
   const [users, setUsers] = useState([]);
+
 
   // do not need local storage here
   // auth is handled once user signs in
@@ -19,12 +23,9 @@ export default function DisplayAllUsers() {
   }, []);
 
   return (
-    <>
-      <h1>Display all Users</h1>
-      {users &&
-        users.map((user) => {
-          return <p>{user.username}</p>;
-        })}
-    </>
+    <div className='userCardSection'>   
+    <PageHeader />
+   <UserCards users={users} setUsers={setUsers} />
+    </div>
   );
 }
