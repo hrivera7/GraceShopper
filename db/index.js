@@ -519,7 +519,7 @@ async function deleteProduct(productId) {
 // export db functions
 module.exports = {
   client,
-  // db methods
+  
   getUsers,
   createUser,
   getUserById,
