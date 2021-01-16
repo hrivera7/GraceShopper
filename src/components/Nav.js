@@ -3,7 +3,7 @@ import { Menu } from "semantic-ui-react";
 import NewModal from "./NewModal";
 import { Link } from "react-router-dom";
 
-const Nav = ({ setToken, setRole, token }) => {
+const Nav = ({ setToken, setRole, token, role }) => {
   const handleSignOut = () => {
     setToken(false);
     setRole("");
@@ -22,6 +22,16 @@ const Nav = ({ setToken, setRole, token }) => {
           alert("You clicked home!");
         }}
       />
+    {role === 'admin' ? <Menu.Item
+        as={Link}
+        to="/users"
+        name="Display Users"
+        // active={navItem === 'cart'}
+        value={"cart"}
+        onClick={() => {
+          alert("You clicked the users!");
+        }}
+      /> : ''} 
       {token ? (
         <>
           <Menu.Item

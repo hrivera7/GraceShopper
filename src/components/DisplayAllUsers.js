@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { getUsers } from "../api";
 import UserCards from './UserCards'
+import PageHeader from './PageHeader'
+
 
 export default function DisplayAllUsers() {
   const [users, setUsers] = useState([]);
@@ -12,7 +14,7 @@ export default function DisplayAllUsers() {
   useEffect(() => {
     getUsers()
       .then((response) => {
-        //console.log("this is the useEffect: ", response);
+        console.log("this is the useEffect: ", response);
         setUsers(response.allUsers);
       })
       .catch((error) => {
@@ -21,7 +23,8 @@ export default function DisplayAllUsers() {
   }, []);
 
   return (
-    <div className='userCardSection'>    
+    <div className='userCardSection'>   
+    <PageHeader />
    <UserCards users={users} setUsers={setUsers} />
     </div>
   );
