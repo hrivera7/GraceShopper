@@ -8,9 +8,6 @@ const Nav = ({ navItem, setNavItem, setToken, setRole }) => {
     const isLoggedIn = true
    
 
-
-
-
     const handleNavClick = (event, { name }) => {
         // event.preventDefault()
         // let theValue = event.target.value
@@ -51,11 +48,7 @@ const Nav = ({ navItem, setNavItem, setToken, setRole }) => {
                         name='Display Users'
                         active={navItem === 'Display Users'}
                         value={"Display Users"}
-                        onClick={handleNavClick/* async () => {
-                            handleNavClick()
-                            const theUsers = await getUsers()
-                            setUsers(theUsers)
-                        } */}
+                        onClick={handleNavClick}
                     />
                     
                     </> :

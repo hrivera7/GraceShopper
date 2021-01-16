@@ -27,6 +27,32 @@ cursor: pointer;
 color: blueviolet; 
 }
 /* ================= */
+
+
+/* THE USER CARDS/ITEMS */
+
+
+.userCardContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 3rem;
+  background-color: rgb(247, 242, 242);
+}
+
+
+
+.userCardContainer:hover {
+  font-size: 105%;
+  transition: .2s;
+}
+
+#trashCanUser {
+  margin-left: 5px;
+}
+
+
+/* ============== */
 .header {
   /* background-color: blue; */
   /* display: flex;
@@ -38,7 +64,4 @@ color: blueviolet;
   grid-template-rows: 55px 55px; 
   justify-items: center;
   align-items: center;
-
-
-
 }

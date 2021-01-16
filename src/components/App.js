@@ -25,8 +25,8 @@ const App = () => {
   const [navItem, setNavItem] = useState("home");
   const [token, setToken] = useState("")
   const [role, setRole] = useState("")
-  console.log("token in app from login", token)
-  console.log("role in app from login", role)
+ // console.log("token in app from login", token)
+  //console.log("role in app from login", role)
 
   //const [productCount, setProductCount] = useState(0) consider storing productCount in App.js so the cart can access
 
@@ -34,7 +34,6 @@ const App = () => {
     getProducts()
       .then((response) => {
         setProducts(response.allProducts);
-        
       })
       .catch((error) => {
         setProducts(error.message);
@@ -51,7 +50,7 @@ const App = () => {
           products
         } /*  setProductCount={setProductCount} productCount={productCount}  */
       />
-      <DisplayAllUsers />
+    <DisplayAllUsers />
       {/* return only needs to display Routes 
        it contains all components with respective paths */}
       {/*  <Routes></Routes> */}

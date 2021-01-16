@@ -11,7 +11,6 @@ const axiosWithAuth = () => {
 export async function getUsers() {
   try {
     const { data } = await axiosWithAuth().get("/api/users");
-    console.log('This is the data in the api: ', data)
     return data;
   } catch (error) {
     throw error;

@@ -226,8 +226,6 @@ async function updateProduct({
   }
 }
 
-<<<<<<< HEAD
-=======
 // cart created, products added = processing and checkout = completed
 // cart for specific user
 // productId pushed into products array
@@ -457,7 +455,6 @@ async function checkout({ userId, cartId }) {
   }
 }
 
->>>>>>> master
 async function deleteUser(userId) {
   console.log("userId", userId);
   try {
