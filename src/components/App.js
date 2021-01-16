@@ -22,7 +22,7 @@ import {
 
 const App = () => {
   const [products, setProducts] = useState([]);
-  const [navItem, setNavItem] = useState("home");
+
   const [token, setToken] = useState("")
   const [role, setRole] = useState("")
  // console.log("token in app from login", token)
@@ -43,8 +43,8 @@ const App = () => {
 
   return (
     <div className="app">
-      <PageHeader navItem={navItem} setNavItem={setNavItem} setToken={setToken} setRole={setRole} />
-      {navItem === "sign in" ? <NewModal /> : ""}
+      <PageHeader setToken={setToken} setRole={setRole} token={token} />
+
       <DisplayAllProducts
         products={
           products
