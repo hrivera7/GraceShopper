@@ -12,6 +12,7 @@ const LogIn = ({ setOpen, setToken, setRole }) => {
         username: "",
         password: "",
     });
+    const [loginError, setLoginError] = useState(false)
 
 
 
@@ -20,13 +21,18 @@ const LogIn = ({ setOpen, setToken, setRole }) => {
         await loginUser(credentials.username, credentials.password)
             .then((response) => {
                 console.log(response);
-                localStorage.setItem("token", response.token);
-                setToken(response.token)
-                setRole(response.user.role)
-                setOpen(false)
+                if (response.message) {
+                    console.log("username or pw BADD")
+                    setLoginError(true)
+                } else {
+                    localStorage.setItem("token", response.token);
+                    setToken(response.token)
+                    setRole(response.user.role)
+                    setOpen(false)
+                }
             })
             .catch((error) => {
-                setOpen(true)
+
                 console.log(error);
             });
     };
@@ -38,20 +44,22 @@ const LogIn = ({ setOpen, setToken, setRole }) => {
 
     return (
         <>
-            <h2>Log in</h2>
-            <Button color='facebook'>
-                <Icon name='facebook' /> Facebook
+            <Form className="signIn">
+                <h2>Log in</h2>
+
+                <Button color='facebook'>
+                    <Icon name='facebook' /> Continue with Facebook
     </Button>
-            <Form>
-                <Input
+                <p>Or</p>
+                <Input style={{ width: "50%" }}
                     name="username"
                     value={credentials.username}
                     onChange={handleChanges}
                     placeholder="username"
                 /><br></br>
-            </Form>
-            <Form>
-                <Input
+                {/* </Form> */}
+                {/* <Form> */}
+                <Input style={{ width: "50%" }}
                     autoComplete="current-password"
                     name="password"
                     type="password"
@@ -59,9 +67,12 @@ const LogIn = ({ setOpen, setToken, setRole }) => {
                     onChange={handleChanges}
                     placeholder="password"
                 /><br></br>
-            </Form>
-            <Button content="Submit" onClick={login}></Button>
+                {loginError ? <div>Login failed: Incorrect username or password. Please try again. </div> : ""}
+                {/* </Form> */}
+                <Button style={{ width: "50%" }} content="Submit" onClick={login}></Button>
+                <p>Or</p>
 
+            </Form>
         </>
     )
 
