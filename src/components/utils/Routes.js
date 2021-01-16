@@ -2,7 +2,7 @@
 import React from "react";
 import { Route } from "react-router-dom";
 import Home from "../Home";
-import Modal from "../Modal";
+import NewModal from "../Modal";
 /* import Register from "../Register";
 import Cart from "../Cart";
 import ProductCard from "../ProductCard";  */
@@ -21,7 +21,7 @@ const Routes = (props) => {
         <Register />
       </Route> */}
       <Route path="/login">
-        <Modal />
+        <NewModal />
       </Route>
       {/* <Route
         path="/products/:productId"

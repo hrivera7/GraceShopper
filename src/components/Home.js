@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import DisplayAllProducts from "./DisplayAllProducts";
 import DisplayAllUsers from "./DisplayAllUsers";
-import Header1 from "./Header";
-import Modal from "./Modal";
+import PageHeader from "./PageHeader";
+import NewModal from "./Modal";
 import { getProducts } from "../api";
 
 const Home = () => {
@@ -25,8 +25,8 @@ const Home = () => {
 
   return (
     <div className="app">
-      <Header1 navItem={navItem} setNavItem={setNavItem} />
-      {navItem === "sign in" ? <Modal /> : ""}
+      <PageHeader navItem={navItem} setNavItem={setNavItem} />
+      {navItem === "sign in" ? <NewModal /> : ""}
       <DisplayAllProducts
         products={
           products
