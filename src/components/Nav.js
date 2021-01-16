@@ -1,6 +1,7 @@
 import React from "react";
 import { Menu } from "semantic-ui-react";
 import NewModal from "./NewModal";
+import { Link } from "react-router-dom";
 
 const Nav = ({ setToken, setRole, token }) => {
   const handleSignOut = () => {
@@ -12,6 +13,8 @@ const Nav = ({ setToken, setRole, token }) => {
   return (
     <Menu secondary>
       <Menu.Item
+        as={Link}
+        to="/"
         name="home"
         // active={navItem === 'home'}
         value="home"
@@ -22,6 +25,8 @@ const Nav = ({ setToken, setRole, token }) => {
       {token ? (
         <>
           <Menu.Item
+            as={Link}
+            to="/orders"
             name="orders"
             // active={navItem === 'orders'}
             value={"orders"}
@@ -45,6 +50,8 @@ const Nav = ({ setToken, setRole, token }) => {
       )}
 
       <Menu.Item
+        as={Link}
+        to="/cart"
         name="cart"
         // active={navItem === 'cart'}
         value={"cart"}
