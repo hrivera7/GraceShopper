@@ -31,22 +31,6 @@ color: blueviolet;
 
 /* THE USER CARDS/ITEMS */
 
-
-.userCardContainer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 3rem;
-  background-color: rgb(247, 242, 242);
-}
-
-
-
-.userCardContainer:hover {
-  font-size: 105%;
-  transition: .2s;
-}
-
 #trashCanUser {
   margin-left: 5px;
 }

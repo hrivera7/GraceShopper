@@ -11,6 +11,7 @@ const {
   getUserByUsername,
   getProducts,
   //getUserById,
+  promoteUser,
   getProductById,
   createProduct,
   updateProduct,
@@ -24,6 +25,7 @@ const {
   getOrder,
   removeFromCart,
 } = require("../db");
+
 
 // verify headers in token
 // middleware for token verification
@@ -317,6 +319,18 @@ apiRouter.delete(
 );
 
 // PATCH
+apiRouter.patch("/users/:userId/role", async (req, res, next) => {
+  const {userId} = req.params
+  const {role} = req.body
+  console.log('this is the role in the routes: ', role)
+
+  try {
+    const updatedUserList = await promoteUser(userId, role)
+    res.send(updatedUserList) 
+  } catch (error){
+    next(error)
+  }
+})
 
 // update user
 // update role status > admin???

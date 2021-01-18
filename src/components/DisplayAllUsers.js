@@ -4,7 +4,7 @@ import UserCards from './UserCards'
 import PageHeader from './PageHeader'
 
 
-export default function DisplayAllUsers() {
+export default function DisplayAllUsers({setToken, setRole, token, role}) {
   const [users, setUsers] = useState([]);
 
 
@@ -24,7 +24,7 @@ export default function DisplayAllUsers() {
 
   return (
     <div className='userCardSection'>   
-    <PageHeader />
+    <PageHeader setToken={setToken} setRole={setRole} token={token} role={role}/>
    <UserCards users={users} setUsers={setUsers} />
     </div>
   );

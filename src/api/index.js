@@ -127,6 +127,17 @@ export async function updateUser(username, email, password, userId) {
   }
 }
 
+//Update Role
+export async function updateRole(userId, role) {
+  try {
+    const {data} = await axios.patch(`/api/users/${userId}/role`, {role})
+   // console.log("this is in the api: ", data)
+    return data
+  } catch (error){
+    throw error
+  }
+}
+
 // create product
 // fields product object - no id
 export async function createProduct(
