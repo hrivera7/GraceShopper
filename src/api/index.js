@@ -129,9 +129,9 @@ export async function updateUser(username, email, password, userId) {
 
 //Update Role
 export async function updateRole(userId, role) {
+
   try {
-    const {data} = await axios.patch(`/api/users/${userId}/role`, {role})
-   // console.log("this is in the api: ", data)
+    const {data} = await axios.patch(`/api/users/${userId}/role`, {role: role})
     return data
   } catch (error){
     throw error

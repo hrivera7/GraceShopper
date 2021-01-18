@@ -14,7 +14,6 @@ export default function DisplayAllUsers({setToken, setRole, token, role}) {
   useEffect(() => {
     getUsers()
       .then((response) => {
-        console.log("this is the useEffect: ", response);
         setUsers(response.allUsers);
       })
       .catch((error) => {
@@ -25,7 +24,7 @@ export default function DisplayAllUsers({setToken, setRole, token, role}) {
   return (
     <div className='userCardSection'>   
     <PageHeader setToken={setToken} setRole={setRole} token={token} role={role}/>
-   <UserCards users={users} setUsers={setUsers} />
+    <UserCards users={users} setUsers={setUsers} />
     </div>
   );
 }

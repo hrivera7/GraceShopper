@@ -322,7 +322,6 @@ apiRouter.delete(
 apiRouter.patch("/users/:userId/role", async (req, res, next) => {
   const {userId} = req.params
   const {role} = req.body
-  console.log('this is the role in the routes: ', role)
 
   try {
     const updatedUserList = await promoteUser(userId, role)

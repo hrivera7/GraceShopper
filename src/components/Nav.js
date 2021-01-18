@@ -18,9 +18,6 @@ const Nav = ({ setToken, setRole, token, role }) => {
         name="home"
         // active={navItem === 'home'}
         value="home"
-        onClick={() => {
-          alert("You clicked home!");
-        }}
       />
     {role === 'admin' ? <Menu.Item
         as={Link}
@@ -28,9 +25,6 @@ const Nav = ({ setToken, setRole, token, role }) => {
         name="Display Users"
         // active={navItem === 'cart'}
         value={"cart"}
-        onClick={() => {
-          alert("You clicked the users!");
-        }}
       /> : ''} 
       {token ? (
         <>

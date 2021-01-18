@@ -72,7 +72,6 @@ async function updateUser({ username, email, password, userId }) {
 }
 
 async function promoteUser(userId, role) {
-console.log('this is the role in the db: ', role)
   
   try {
     role === 'user' ?
