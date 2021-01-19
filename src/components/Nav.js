@@ -4,7 +4,7 @@ import NewModal from "./NewModal";
 import { Link } from "react-router-dom";
 
 const Nav = (
-  {
+  { isAdmin
     /*  setToken,   setRole,  token,  role */
   }
 ) => {
@@ -27,11 +27,8 @@ const Nav = (
         name="home"
         // active={navItem === 'home'}
         value="home"
-        onClick={() => {
-          alert("You clicked home!");
-        }}
       />
-      {/* {localStorage.getItem("user").role === "admin" ? (
+      { isAdmin ? (
         <Menu.Item
           as={Link}
           to="/users"
@@ -44,7 +41,7 @@ const Nav = (
         />
       ) : (
         ""
-      )} */}
+      )}  
       {localStorage.getItem("token") ? (
         <>
           <Menu.Item
