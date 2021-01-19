@@ -26,16 +26,21 @@ body {
 cursor: pointer;
 color: blueviolet; 
 }
+
+#editProductIcon {
+  margin-Left: 7px;
+}
+
+#editProductButton {
+  float: right;
+}
 /* ================= */
 
 
 /* THE USER CARDS/ITEMS */
-
 #trashCanUser {
   margin-left: 5px;
 }
-
-
 /* ============== */
 .header {
   /* background-color: blue; */

@@ -24,7 +24,7 @@ const Home = ({setToken, token, setRole, role, products}) => {
   return (
     <div className="app">
       <PageHeader setToken={setToken} setRole={setRole} token={token} role={role}/>
-      <DisplayAllProducts products={products} /*  setProductCount={setProductCount} productCount={productCount}  *//>
+      <DisplayAllProducts products={products} role={role} /*  setProductCount={setProductCount} productCount={productCount}  *//>
     </div>
   );
 };

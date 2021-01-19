@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Card, Icon, Button } from "semantic-ui-react";
 import theGathering from "../theGathering.jpg";
+import EditProductModal from "./EditProductModal";
 
 //returns product card
-export default function ProductCard({ products }) {
+export default function ProductCard({ products, role }) {
+
   return (
     <>
       {products.map((product) => {
@@ -19,6 +21,7 @@ export default function ProductCard({ products }) {
         } = product;
         let count = 1;
 
+        const [open, setOpen] = useState(false)
         const [showText, setShowText] = useState(true);
         let truncatedDesc = showText ? description.slice(0, 50) : description;
 
@@ -76,6 +79,7 @@ export default function ProductCard({ products }) {
                   </span>
                 </>
               )}
+              {role === 'admin' ? <EditProductModal id={id} /> : ''}
             </Card.Content>
             <Card.Content>
               <Button basic color="red">
