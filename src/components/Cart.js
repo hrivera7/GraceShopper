@@ -1,30 +1,39 @@
 import PageHeader from "../components/PageHeader";
-/* import { Menu } from "semantic-ui-react";
-import { Link } from "react-router-dom"; */
 import React, { useState, useEffect } from "react";
-import DisplayAllProducts from "./DisplayAllProducts";
-import { getProducts } from "../api";
+import DisplayCart from "./DisplayCart";
+import { getCart } from "../api";
+import OrderSummary from "./OrderSummary";
 
 const Cart = () => {
-  const [products, setProducts] = useState([]);
+  const [cart, setCart] = useState([]);
 
   useEffect(() => {
-    getProducts()
+    getCart()
       .then((response) => {
         console.log("response", response);
-        setProducts(response.allProducts);
+        setCart(response.cart.products);
       })
       .catch((error) => {
-        setProducts(error.message);
+        setCart(error.message);
       });
   }, []);
-  console.log("products", products);
+  console.log("cart", cart);
 
   return (
     <>
       <div>
         <PageHeader />
-        <DisplayAllProducts products={products} />
+        <h1>Logged in Cart</h1>
+        <div className="loggedin-cart-elements">
+
+        <div className="loggedin-cart-cards">
+          <DisplayCart products={cart} />
+        </div>
+        <div className="loggedin-card-summary">
+          <OrderSummary />
+        </div>
+        </div>
+        
       </div>
     </>
   );

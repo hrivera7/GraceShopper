@@ -4,6 +4,7 @@ import { Route } from "react-router-dom";
 import Home from "../Home";
 import DisplayAllUsers from "../DisplayAllUsers";
 import Cart from "../Cart";
+import VisitorCart from "../VisitorCart";
 /* import Register from "../Register";
 import ProductCard from "../ProductCard";   */
 
@@ -14,9 +15,16 @@ const Routes = (props) => {
       <Route exact path="/">
         <Home />
       </Route>
-      <Route path="/cart">
-        <Cart />
-      </Route>
+      {localStorage.getItem("token") ? (
+        <Route path="/cart">
+          <Cart />
+        </Route>
+      ) : (
+        <Route path="/cart">
+          <VisitorCart />
+        </Route>
+      )}
+
       {/* <Route path="/admin">
         <Admin />
       </Route> */}
