@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Input, Form } from "semantic-ui-react";
 import { createUser } from "../api";
 
-const Register = ({ setOpen, setToken, setRole }) => {
+const Register = ({ setOpen /* setToken,  */ /* setRole */ }) => {
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
@@ -20,10 +20,13 @@ const Register = ({ setOpen, setToken, setRole }) => {
       .then((response) => {
         console.log("response from createUser", response);
         localStorage.setItem("token", response.token);
-        setToken(response.token);
-        setRole(response.user.role);
+        /* setToken(response.token); */
+        /* setRole(response.user.role); */
+        localStorage.setItem("user", JSON.stringify(response.user));
         setOpen(false);
+        window.location.reload(false);
       })
+
       .catch((error) => {
         console.log(error);
       });

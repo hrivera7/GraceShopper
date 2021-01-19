@@ -1,122 +1,152 @@
 import React, { useState } from "react";
 import { Card, Icon, Button } from "semantic-ui-react";
 import theGathering from "../theGathering.jpg";
+import { addToCart } from "../api";
 
 //returns product card
 export default function ProductCard({ products }) {
+  // add products to db cart
+  const addToDbCart = (userId, productId) => {
+    console.log("adding to db");
+    addToCart(userId, [productId]);
+  };
 
+  const addToLocalCart = (product) => {
+    console.log("cart working", product);
+    console.log("product count", product.count);
+    const oldProducts = JSON.parse(localStorage.getItem("cart"));
+    console.log("old products", oldProducts);
+    const newProducts = [];
+    if (oldProducts.length > 0) {
+      for (let i = 0; i < oldProducts.length; i++) {
+        console.log("inside for loop", oldProducts[i]);
+        newProducts.push(oldProducts[i]);
+      }
+      for (let i = 0; i < product.count; i++) {
+        newProducts.push(product);
+      }
+    } else {
+      for (let i = 0; i < product.count; i++) {
+        newProducts.push(product);
+      }
+    }
+    localStorage.setItem("cart", JSON.stringify(newProducts));
+    console.log("new products", newProducts);
+  };
 
+  console.log("products", products);
 
   return (
     <>
-      {products.map((product) => {
-        const {
-          id,
-          department,
-          inStock,
-          description,
-          name,
-          photoUrl,
-          price,
-          quantity,
-        } = product;
+      {products ? (
+        products.map((product) => {
+          const {
+            id,
+            department,
+            inStock,
+            description,
+            name,
+            photoUrl,
+            price,
+            quantity,
+          } = product;
 
+          const [count, setCount] = useState(1);
+          product.count = count;
 
-        const [showText, setShowText] = useState(true);
-        let truncatedDesc = showText ? description.slice(0, 50) : description;
+          const [showText, setShowText] = useState(true);
+          let truncatedDesc = showText ? description.slice(0, 50) : description;
 
-        const [shopperQuantity, setShopperQuantity] = useState(1)
+          // let httpsImage;
+          // if(photoUrl){
+          //   if (photoUrl.includes("https")) {
+          //     httpsImage = photoUrl;
+          //   } else {
+          //     httpsImage = photoUrl.replace("http", "https");
+          //   }
+          // }
+          //Then httpsImage ? <img src={httpsImage} /> : <img src={no_image}  <--will need "no_image" saved locally maybe
 
-
-        const addQuantity = () => {
-          setShopperQuantity(shopperQuantity + 1)
-        }
-
-        const subtractQuantity = () => {
-          if (shopperQuantity === 1) {
-
-          } else {
-            setShopperQuantity(shopperQuantity - 1)
-          }
-        }
-
-        const addToCart = (e) => {
-
-          console.log("added: ", shopperQuantity, "of this product (id):", id, " to cart")
-        }
-
-
-
-        // let httpsImage;
-        // if(photoUrl){
-        //   if (photoUrl.includes("https")) {
-        //     httpsImage = photoUrl;
-        //   } else {
-        //     httpsImage = photoUrl.replace("http", "https");
-        //   }
-        // }
-        //Then httpsImage ? <img src={httpsImage} /> : <img src={no_image}  <--will need "no_image" saved locally maybe
-
-
-
-        return (
-          <Card raised style={{ width: "25rem" }} key={id}>
-            <img src={theGathering} style={{ height: "20rem" }} />
-            <Card.Content>
-              <Card.Header>{name}</Card.Header>
-              <Card.Meta>
-                <span>{department}</span>
-              </Card.Meta>
-              <Card.Description>
-                {truncatedDesc.length < 50 ? (
-                  truncatedDesc
-                ) : (
-                    <span
-                      onClick={() => {
-                        setShowText(!showText);
-                      }}
-                    >
-                      {truncatedDesc}
-                      <span id="showText">
-                        ...Show {showText ? "more" : "less"}
+          return (
+            <Card raised style={{ width: "25rem" }} key={id}>
+              <img src={theGathering} style={{ height: "20rem" }} />
+              <Card.Content>
+                <Card.Header>{name}</Card.Header>
+                <Card.Meta>
+                  <span>{department}</span>
+                </Card.Meta>
+                <Card.Description>
+                  {truncatedDesc.length < 50 ? (
+                    truncatedDesc
+                  ) : (
+                      <span
+                        onClick={() => {
+                          setShowText(!showText);
+                        }}
+                      >
+                        {truncatedDesc}
+                        <span id="showText">
+                          ...Show {showText ? "more" : "less"}
+                        </span>
                       </span>
-                    </span>
-                  )}
-              </Card.Description>
-            </Card.Content>
-            <Card.Content>
-              {inStock ? (
-                <>
-                  <Icon name="dollar sign" />
-                  <span>
-                    {price}
-                    {" | "}
-                    {quantity} left
-                  </span>
-                </>
-              ) : (
+                    )}
+                </Card.Description>
+              </Card.Content>
+              <Card.Content>
+                {inStock ? (
                   <>
-                    <Icon name="dollar sign" />
+                    <Icon name="money bill alternate outline" />
                     <span>
                       {price}
-                      {" | "}Out of Stock
-                  </span>
+                      {" | "}
+                      {quantity} left
+                    </span>
                   </>
-                )}
-            </Card.Content>
-            <Card.Content>
-              <Button onClick={subtractQuantity} style={{ backgroundColor: "white", border: "1px solid lightgrey", marginRight: "10px" }}>
-                &#8722;
-              </Button>
-              <span>{shopperQuantity}</span>{" "}
-              <Button onClick={addQuantity} style={{ backgroundColor: "white", border: "1px solid lightgrey", marginLeft: "10px" }}>
-                &#43;
-              </Button>
-              <Button value={id} onClick={addToCart} style={{ border: "1px solid grey", marginLeft: "65px" }}>Add to cart</Button>
-            </Card.Content>
-          </Card>
-        );
-      })}
+                ) : (
+                    <>
+                      <Icon name="money bill alternate outline" />
+                      <span>
+                        {price}
+                        {" | "}Out of Stock
+                    </span>
+                    </>
+                  )}
+              </Card.Content>
+              <Card.Content>
+                <Button
+                  basic
+                  color="red"
+                  onClick={count > 1 ? () => setCount(count - 1) : null}
+                >
+                  &#8722;
+                </Button>
+                <span>{count}</span>{" "}
+                <Button basic color="green" onClick={() => setCount(count + 1)}>
+                  &#43;
+                </Button>
+                {localStorage.getItem("token") ? (
+                  <Button
+                    onClick={() =>
+                      addToDbCart(
+                        JSON.parse(localStorage.getItem("user")).id,
+                        id
+                      )
+                    }
+                  >
+                    Add to Cart
+                  </Button>
+                ) : (
+                    <Button onClick={() => addToLocalCart(product)}>
+                      Add to cart
+                    </Button>
+                  )}
+              </Card.Content>
+            </Card>
+          );
+        })
+      ) : (
+          <h1>Loading</h1>
+        )}
     </>
   );
 }

@@ -1,48 +1,40 @@
 import React, { useState, useEffect } from "react";
 import DisplayAllProducts from "./DisplayAllProducts";
-import DisplayAllUsers from "./DisplayAllUsers";
 import PageHeader from "../components/PageHeader";
 
-import {
-  getProducts,
-  /* getUsers,
-  createUser,
-  getUserByUsername,
-  getUserById,
-  getProductById,
-  createProduct,
-  updateProduct,
-  deleteProduct,
-  deleteUser,
-  updateUser, 
- */
-} from "../api";
+
+import { getProducts } from "../api";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
 
-  const [token, setToken] = useState("");
-  const [role, setRole] = useState("");
-  console.log("token in app from login", token);
-  console.log("role in app from login", role);
+  // const [token, setToken] = useState("");
+  //const [role, setRole] = useState("");
+  console.log("local storage", localStorage.getItem("token"));
 
   //const [productCount, setProductCount] = useState(0) consider storing productCount in App.js so the cart can access
 
   useEffect(() => {
     getProducts()
       .then((response) => {
-       // console.log("response", response);
+        // console.log("response", response);
         setProducts(response.allProducts);
       })
       .catch((error) => {
         setProducts(error.message);
       });
+    if (!localStorage.getItem("cart")) {
+      localStorage.setItem("cart", JSON.stringify([]));
+    }
   }, []);
- // console.log("products", products);
-
+  // console.log("products", products);
+  //console.log("set role", setRole);
   return (
     <div className="app">
-      <PageHeader setToken={setToken} setRole={setRole} token={token} role={role}/>
+      <PageHeader /* setRole={setRole} */ /* role={role} */
+      /* setToken={setToken} */
+      /* token={token} */
+      />
 
       <DisplayAllProducts
         products={
@@ -51,6 +43,7 @@ const Home = () => {
       />
       {/* return only needs to display Routes 
        it contains all components with respective paths */}
+       
     </div>
   );
 };

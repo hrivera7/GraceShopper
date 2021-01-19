@@ -65,14 +65,13 @@ apiRouter.get("/", (req, res, next) => {
 // ADMIN only
 apiRouter.get("/users", verifyToken, async (req, res, next) => {
   try {
-    console.log('am i in the /users route?')
+    console.log("am i in the /users route?");
     jwt.verify(req.token, "secretkey", async (err, authData) => {
       if (err) {
         res.send({ error: err, status: 403 });
       } else if (authData.user.role === "admin") {
-
         const allUsers = await getUsers();
-        console.log('all the users: ', allUsers)
+        console.log("all the users: ", allUsers);
         console.log("authdata", authData);
         res.send({
           allUsers,
@@ -194,14 +193,20 @@ apiRouter.post("/register", async (req, res, next) => {
     if (user) {
       console.log("created user", user);
       // encrypt user
-      jwt.sign({ user }, "secretkey", { expiresIn: "1day" }, (err, token) => {
-        if (err) {
-          console.log("jwt error", err);
-          res.sendStatus(403);
-        } else {
-          res.json({ user, token });
+      jwt.sign(
+        { user },
+        "secretkey",
+        { expiresIn: "1day" },
+        async (err, token) => {
+          if (err) {
+            console.log("jwt error", err);
+            res.sendStatus(403);
+          } else {
+            res.json({ user, token });
+            await createCart({ userId: user.id, productId: [] });
+          }
         }
-      });
+      );
     } else {
       res.send({ message: "Error creating user." });
     }
@@ -434,6 +439,7 @@ apiRouter.patch(
 // updates cart
 apiRouter.patch("/cart", verifyToken, async (req, res, next) => {
   const { userId, productId } = req.body;
+  console.log("user id and product id", userId, productId);
   try {
     jwt.verify(req.token, "secretkey", async (err, authData) => {
       if (err) {

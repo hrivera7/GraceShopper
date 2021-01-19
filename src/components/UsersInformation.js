@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import ConfirmDelete from "./ConfirmDelete";
-import {Table, Checkbox} from 'semantic-ui-react'
+import { Table, Checkbox } from "semantic-ui-react";
 
-
-export default function UsersInformation({id, username, email, role, setUsers}) {
+export default function UsersInformation({
+  id,
+  username,
+  email,
+  /* role, */ setUsers,
+}) {
   const [promote, setPromote] = useState(true);
-
+  const role = localStorage.getItem("user").role;
 
   return (
     <Table.Row key={id}>
