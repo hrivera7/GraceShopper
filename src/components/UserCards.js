@@ -11,7 +11,7 @@ export default function UserCards({ users, setUsers }) {
         <Table.Row>
           <Table.HeaderCell>Username</Table.HeaderCell>
           <Table.HeaderCell>Email</Table.HeaderCell>
-          <Table.HeaderCell>Promote</Table.HeaderCell>
+          <Table.HeaderCell>Permissions</Table.HeaderCell>
           <Table.HeaderCell>Delete</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
