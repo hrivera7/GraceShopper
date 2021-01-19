@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Input, Form, Icon } from "semantic-ui-react";
 import { loginUser } from "../api";
 
-const LogIn = ({ setOpen, setToken, setRole }) => {
+const LogIn = ({ setOpen /* setToken, */ /* setRole */ }) => {
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
@@ -19,10 +19,13 @@ const LogIn = ({ setOpen, setToken, setRole }) => {
           setLoginError(true);
         } else {
           localStorage.setItem("token", response.token);
-          setToken(response.token);
-          setRole(response.user.role);
+          localStorage.setItem("user", JSON.stringify(response.user));
+          //localStorage.setItem("cart", JSON.stringify([]));
+          /* setToken(response.token); */
+          /*  setRole(response.user.role); */
           setOpen(false);
         }
+        window.location.reload(false);
       })
       .catch((error) => {
         console.log(error);

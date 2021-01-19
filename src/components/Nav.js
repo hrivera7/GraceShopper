@@ -3,12 +3,21 @@ import { Menu } from "semantic-ui-react";
 import NewModal from "./NewModal";
 import { Link } from "react-router-dom";
 
-const Nav = ({ setToken, setRole, token, role }) => {
-  const handleSignOut = () => {
-    setToken(false);
-    setRole("");
-    localStorage.removeItem("token");
+const Nav = (
+  {
+    /*  setToken,   setRole,  token,  role */
+  }
+) => {
+  const handleSignOut = async () => {
+    /* setToken(false); */
+    /* setRole(""); */
+    await localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.setItem("user", JSON.stringify({ role: "user" }));
+    window.location.reload(false);
   };
+
+  console.log("token", localStorage.getItem("token"));
 
   return (
     <Menu secondary>
@@ -22,17 +31,21 @@ const Nav = ({ setToken, setRole, token, role }) => {
           alert("You clicked home!");
         }}
       />
-    {role === 'admin' ? <Menu.Item
-        as={Link}
-        to="/users"
-        name="Display Users"
-        // active={navItem === 'cart'}
-        value={"cart"}
-        onClick={() => {
-          alert("You clicked the users!");
-        }}
-      /> : ''} 
-      {token ? (
+      {/* {localStorage.getItem("user").role === "admin" ? (
+        <Menu.Item
+          as={Link}
+          to="/users"
+          name="Display Users"
+          // active={navItem === 'cart'}
+          value={"cart"}
+          onClick={() => {
+            alert("You clicked the users!");
+          }}
+        />
+      ) : (
+        ""
+      )} */}
+      {localStorage.getItem("token") ? (
         <>
           <Menu.Item
             as={Link}
@@ -54,7 +67,7 @@ const Nav = ({ setToken, setRole, token, role }) => {
       ) : (
         <>
           <Menu.Item>
-            <NewModal setToken={setToken} setRole={setRole} />
+            <NewModal /* setToken={setToken} */ /* setRole={setRole} */ />
           </Menu.Item>
         </>
       )}
@@ -63,11 +76,8 @@ const Nav = ({ setToken, setRole, token, role }) => {
         as={Link}
         to="/cart"
         name="cart"
-        // active={navItem === 'cart'}
+        //active={navItem === "cart"}
         value={"cart"}
-        onClick={() => {
-          alert("You clicked the cart!");
-        }}
       />
     </Menu>
   );
