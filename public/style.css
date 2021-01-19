@@ -167,7 +167,6 @@ body {
   cursor: pointer;
   color: blueviolet;
 }
-<<<<<<< HEAD
 
 #editProductIcon {
   margin-Left: 7px;
@@ -175,7 +174,7 @@ body {
 
 #editProductButton {
   float: right;
-=======
+}
 /* ================= */
 
 /* THE USER CARDS/ITEMS */
@@ -191,7 +190,6 @@ body {
 .userCardContainer:hover {
   font-size: 105%;
   transition: 0.2s;
->>>>>>> master
 }
 /* ================= */
 
@@ -200,10 +198,7 @@ body {
 #trashCanUser {
   margin-left: 5px;
 }
-<<<<<<< HEAD
-=======
 
->>>>>>> master
 /* ============== */
 .header {
   /* background-color: blue; */
