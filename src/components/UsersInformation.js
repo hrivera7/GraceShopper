@@ -1,31 +1,24 @@
 import React, { useState } from "react";
 import ConfirmDelete from "./ConfirmDelete";
-import { Table, Checkbox } from "semantic-ui-react";
+import PromoteUser from './PromoteUser'
+import { Table } from "semantic-ui-react";
+
 
 export default function UsersInformation({
   id,
   username,
   email,
-  /* role, */ setUsers,
+  role,  setUsers,
 }) {
   const [promote, setPromote] = useState(true);
-  const role = localStorage.getItem("user").role;
+  //const role = JSON.parse(localStorage.getItem("user")).role;
 
   return (
     <Table.Row key={id}>
       <Table.Cell>{username}</Table.Cell>
       <Table.Cell>{email}</Table.Cell>
       <Table.Cell>
-        {role === "admin" ? (
-          <span>Administrator</span>
-        ) : (
-          <Checkbox
-            label="promote"
-            onClick={() => {
-              setPromote(!promote);
-            }}
-          />
-        )}
+        <PromoteUser id={id} role={role} setUsers={setUsers}/>
       </Table.Cell>
       <Table.Cell>
         <ConfirmDelete id={id} username={username} setUsers={setUsers} />

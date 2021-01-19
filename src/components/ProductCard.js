@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { Card, Icon, Button } from "semantic-ui-react";
 import theGathering from "../theGathering.jpg";
+import EditProductModal from "./EditProductModal";
+
+//returns product card
+
 import { addToCart } from "../api";
 
 //returns product card
@@ -35,6 +39,7 @@ export default function ProductCard({ products }) {
   };
 
   console.log("products", products);
+
 
   return (
     <>

@@ -71,6 +71,33 @@ async function updateUser({ username, email, password, userId }) {
   }
 }
 
+async function promoteUser(userId, role) {
+  
+  try {
+    role === 'user' ?
+      await client.query(`
+      UPDATE users
+      SET role='admin'
+      WHERE id=$1;
+    `, [userId])
+    :
+      await client.query(`
+      UPDATE users
+      SET role='user'
+      WHERE id=$1;
+    `, [userId])
+    
+      
+    const {rows} = await client.query(`
+      SELECT * FROM users
+    `)
+    return rows;
+  } catch (error) {
+    throw error
+  }
+ 
+}
+
 // select single user
 async function getUserById(userId) {
   try {
@@ -528,6 +555,7 @@ module.exports = {
   createProduct,
   getProductById,
   updateUser,
+  promoteUser,
   updateProduct,
   deleteUser,
   deleteProduct,
