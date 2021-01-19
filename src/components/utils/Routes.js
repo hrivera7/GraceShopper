@@ -3,10 +3,15 @@ import React, {useState, useEffect} from "react";
 import { Route } from "react-router-dom";
 import Home from "../Home";
 import DisplayAllUsers from "../DisplayAllUsers";
+<<<<<<< HEAD
 import {getProducts} from '../../api'
 /* import Register from "../Register";
+=======
+>>>>>>> master
 import Cart from "../Cart";
-import ProductCard from "../ProductCard";  */
+import VisitorCart from "../VisitorCart";
+/* import Register from "../Register";
+import ProductCard from "../ProductCard";   */
 
 const Routes = () => {
 
@@ -34,15 +39,22 @@ const Routes = () => {
       <Route exact path="/">
         <Home setToken={setToken} token={token} setRole={setRole} role={role} products={products}/>
       </Route>
-      {/* <Route path="/cart">
-        <Cart/>
-      </Route>
-      <Route path="/admin">
+      {localStorage.getItem("token") ? (
+        <Route path="/cart">
+          <Cart />
+        </Route>
+      ) : (
+        <Route path="/cart">
+          <VisitorCart />
+        </Route>
+      )}
+
+      {/* <Route path="/admin">
         <Admin />
-      </Route> 
-      <Route path="/orders">
-        <Orders />
       </Route> */}
+      {/* <Route path="/orders">
+        <Orders />
+      </Route>{" "} */}
       <Route path="/users">
         <DisplayAllUsers setToken={setToken} setRole={setRole} token={token} role={role}/>
       </Route>

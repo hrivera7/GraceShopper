@@ -4,7 +4,7 @@ import axios from "axios";
 
 const axiosWithAuth = () => {
   const token = `Bearer ${localStorage.getItem("token")}`;
-  console.log("this is the token: ", token)
+  console.log("this is the token: ", token);
   return axios.create({ headers: { Authorization: token } });
 };
 
@@ -63,9 +63,10 @@ export async function addToCart(userId, productId) {
     userId,
     productId,
   };
-
+  console.log("data send", dataToSend);
   try {
-    if (dataToSend.userId.length > 0 && dataToSend.productId.length > 0) {
+    if (dataToSend.userId && dataToSend.productId.length > 0) {
+      /* console.log(dataToSend.userId, dataToSend.productId.length); */
       const { data } = await axiosWithAuth().patch(`/api/cart`, dataToSend);
       return data;
     }
