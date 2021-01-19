@@ -106,6 +106,26 @@ export async function loginUser(username, password) {
   }
 }
 
+
+// google login
+export async function loginGoogle() {
+  // const dataForGoogle = {}
+  try {
+    const { data } = await axios.get('/api/googlelogin' /*, dataForGoogle*/)
+    return data
+  } catch (error) {
+    throw error
+  }
+}
+
+
+
+
+
+
+
+
+
 // update user
 // user object fields required
 export async function updateUser(username, email, password, userId) {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Input, Form, Icon } from "semantic-ui-react";
-import { loginUser } from "../api";
+import { loginUser, loginGoogle } from "../api";
 
 const LogIn = ({ setOpen, setToken, setRole }) => {
   const [credentials, setCredentials] = useState({
@@ -33,13 +33,29 @@ const LogIn = ({ setOpen, setToken, setRole }) => {
     setCredentials({ ...credentials, [event.target.name]: event.target.value });
   };
 
+
+  const handleGoogleLogin = async () => {
+    event.preventDefault();
+    await loginGoogle()
+      .then((response) => {
+        console.log(response);
+
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+
+
+
   return (
     <>
       <Form className="signIn">
         <h2>Log in</h2>
 
-        <Button color="facebook">
-          <Icon name="facebook" /> Continue with Facebook
+        <Button onClick={handleGoogleLogin} color="orange">
+          <Icon name="google" /> Continue with Google
         </Button>
         <p>Or</p>
         <Input
@@ -67,8 +83,8 @@ const LogIn = ({ setOpen, setToken, setRole }) => {
             Login failed: Incorrect username or password. Please try again.{" "}
           </div>
         ) : (
-          ""
-        )}
+            ""
+          )}
         {/* </Form> */}
         <Button
           style={{ width: "50%" }}

@@ -5,6 +5,9 @@ const apiRouter = require("express").Router();
 
 const jwt = require("jsonwebtoken");
 
+// google oauth 
+const passport = require('passport')
+
 const {
   getUsers,
   createUser,
@@ -67,7 +70,7 @@ apiRouter.get("/users", verifyToken, async (req, res, next) => {
       if (err) {
         res.send({ error: err, status: 403 });
       } else if (authData.user.role === "admin") {
-        
+
         const allUsers = await getUsers();
         console.log('all the users: ', allUsers)
         console.log("authdata", authData);
@@ -206,6 +209,43 @@ apiRouter.post("/register", async (req, res, next) => {
     next(error);
   }
 });
+
+
+
+/////////////// OAUTH //////////////////
+
+// auth Logout with Google 
+apiRouter.get("/googlelogout", (req, res, next) => {
+  // handle with passport
+  res.send("logging out")
+  // console.log("logging out of Google")
+})
+
+
+// auth Login with Google
+apiRouter.get("/googlelogin", passport.authenticate('google', {
+  // scope: 
+}))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // creates product and adds to db
 // ADMIN only

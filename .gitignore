@@ -4,3 +4,4 @@ build
 .env.test
 .eslintcache
 debug.log
+keys
