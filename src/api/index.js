@@ -179,7 +179,7 @@ export async function createProduct(
 }
 // update product
 // fields product object
-export async function updateProduct(
+/* export async function updateProduct(
   name,
   description,
   photoUrl,
@@ -199,7 +199,7 @@ export async function updateProduct(
     inStock,
     productId,
   };
-
+  console.log('need to possibly remove the && operators below')
   try {
     if (
       dataToSend.name.length > 0 &&
@@ -211,12 +211,34 @@ export async function updateProduct(
       dataToSend.inStock.length > 0 &&
       dataToSend.productId.length > 0
     ) {
+    
       const { data } = await axios.patch(
         `/api/products/${productId}/update`,
         dataToSend
       );
       return data;
     }
+  
+  } catch (error) {
+    throw error;
+  }
+} */
+
+export async function updateProduct(
+  name,
+  description,
+  price,
+  productId
+) {
+  const fieldsObj = { name, description, price };
+
+  try {
+    const { data } = await axios.patch(
+      `/api/products/${productId}/update`,
+      fieldsObj
+    );
+    return data;
+  
   } catch (error) {
     throw error;
   }

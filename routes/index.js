@@ -366,7 +366,7 @@ apiRouter.patch(
 
 // update product
 // ADMIN only
-apiRouter.patch(
+/* apiRouter.patch(
   "/products/:productId/update",
   verifyToken,
   async (req, res, next) => {
@@ -403,6 +403,36 @@ apiRouter.patch(
           res.send({ message: "User does not have admin privileges!" });
         }
       });
+    } catch (error) {
+      next(error);
+    }
+  }
+); */
+
+apiRouter.patch(
+  "/products/:productId/update",
+  async (req, res, next) => {
+
+    const updateFields = {}
+    const {name, description, price} = req.body;
+
+    if(name){
+      updateFields.name = name
+    }
+    if(description){
+      updateFields.description = description
+    }
+    if(price){
+      updateFields.price = price
+    }
+
+    const { productId } = req.params;
+
+    console.log("patch params", req.params.productId);
+    try {
+      console.log("patch params", req.params.productId);
+      const product = await updateProduct( productId, updateFields );
+      res.send(product)
     } catch (error) {
       next(error);
     }

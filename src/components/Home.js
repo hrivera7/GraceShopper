@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import DisplayAllProducts from "./DisplayAllProducts";
 import PageHeader from "../components/PageHeader";
 
-const Home = ({products, isAdmin}) => {
+const Home = ({products, isAdmin, setProducts}) => {
  
   // console.log("products", products);
   //console.log("set role", setRole);
@@ -13,9 +13,7 @@ const Home = ({products, isAdmin}) => {
       /* token={token} */
       />
       <DisplayAllProducts
-        products={
-          products
-        } /*  setProductCount={setProductCount} productCount={productCount}  */
+        products={ products}  isAdmin={isAdmin} setProducts={setProducts}/*  setProductCount={setProductCount} productCount={productCount}  */
       />
       {/* return only needs to display Routes 
        it contains all components with respective paths */}

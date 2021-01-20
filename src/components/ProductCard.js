@@ -7,8 +7,9 @@ import EditProductModal from "./EditProductModal";
 
 import { addToCart } from "../api";
 
+
 //returns product card
-export default function ProductCard({ products }) {
+export default function ProductCard({ products, isAdmin, setProducts }) {
   // add products to db cart
   const addToDbCart = (userId, productId) => {
     console.log("adding to db");
@@ -145,6 +146,7 @@ export default function ProductCard({ products }) {
                     Add to cart
                   </Button>
                 )}
+                {isAdmin ? <EditProductModal id={id} name={name} products={products} setProducts={setProducts}/> : ''}
               </Card.Content>
             </Card>
           );

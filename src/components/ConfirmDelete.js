@@ -12,7 +12,7 @@ export default function ConfirmDelete({id, username, setUsers}) {
 
   return (
     <div>
-      <Button onClick={show} color='red' ><Icon name='trash' id='trashCanUser' /></Button>
+      <Button onClick={show} color='red'>Delete</Button>
       <Confirm
         open={open}
         content={`Are you sure you want to delete ${username}?`}
