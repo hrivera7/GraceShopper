@@ -428,9 +428,7 @@ apiRouter.patch(
 
     const { productId } = req.params;
 
-    console.log("patch params", req.params.productId);
     try {
-      console.log("patch params", req.params.productId);
       const product = await updateProduct( productId, updateFields );
       res.send(product)
     } catch (error) {

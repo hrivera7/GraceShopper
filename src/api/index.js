@@ -237,8 +237,7 @@ export async function updateProduct(
       `/api/products/${productId}/update`,
       fieldsObj
     );
-    return data;
-  
+    return data;  
   } catch (error) {
     throw error;
   }

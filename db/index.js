@@ -255,8 +255,6 @@ async function createProduct({
 
 async function updateProduct( productId, fields = {} ) {
 
-
-
     const setString = Object.keys(fields).map(
       (key, index) => `"${ key }"=$${ index + 1 }`
     ).join(', ');
@@ -272,9 +270,9 @@ async function updateProduct( productId, fields = {} ) {
           WHERE id=${ productId }
           RETURNING *;
         `, Object.values(fields));
-        
+
         const {rows} = await client.query(`
-        SELECT * FROM products
+        SELECT * FROM products;
         `)
         return rows;
       }
