@@ -1,5 +1,4 @@
 import React from "react";
-import { getUsers } from "../api";
 import UserCards from './UserCards'
 import PageHeader from './PageHeader'
 

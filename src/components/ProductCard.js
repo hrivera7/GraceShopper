@@ -1,7 +1,10 @@
+
+
 import React, { useState } from "react";
 import { Card, Icon, Button } from "semantic-ui-react";
 import theGathering from "../theGathering.jpg";
 import EditProductModal from "./EditProductModal";
+import ConfirmDeleteProduct from "./ConfirmDeleteProduct"
 
 //returns product card
 
@@ -41,6 +44,9 @@ export default function ProductCard({ products, isAdmin, setProducts }) {
 
   console.log("products", products);
 
+ 
+
+
 
   return (
     <>
@@ -59,9 +65,11 @@ export default function ProductCard({ products, isAdmin, setProducts }) {
 
           const [count, setCount] = useState(1);
           product.count = count;
-
           const [showText, setShowText] = useState(true);
           let truncatedDesc = showText ? description.slice(0, 50) : description;
+
+          // const [showText, setShowText] = useState(true);
+          // let truncatedDesc = showText ? description.slice(0, 50) : description;
 
           // let httpsImage;
           // if(photoUrl){
@@ -146,7 +154,8 @@ export default function ProductCard({ products, isAdmin, setProducts }) {
                     Add to cart
                   </Button>
                 )}
-                {isAdmin ? <EditProductModal id={id} name={name} products={products} setProducts={setProducts}/> : ''}
+                {isAdmin ?  <><EditProductModal id={id} name={name} products={products} setProducts={setProducts}/><ConfirmDeleteProduct  id={id} name={name} setProducts={setProducts}/></> : ''}
+
               </Card.Content>
             </Card>
           );

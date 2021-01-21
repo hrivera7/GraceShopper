@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Button, Confirm, Icon} from 'semantic-ui-react'
+import {Button, Confirm} from 'semantic-ui-react'
 import {deleteUser, getUsers} from '../api'
 
 export default function ConfirmDelete({id, username, setUsers}) {
