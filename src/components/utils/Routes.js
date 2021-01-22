@@ -1,13 +1,16 @@
 // import all components here
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Route } from "react-router-dom";
 import Home from "../Home";
 import DisplayAllUsers from "../DisplayAllUsers";
 import Cart from "../Cart";
 import VisitorCart from "../VisitorCart";
-import {getProducts} from "../../api";
+import UserPage from '../UserPage'
+import { getProducts } from "../../api";
 /* import Register from "../Register";
 import ProductCard from "../ProductCard";   */
+
+
 
 const Routes = (props) => {
   console.log("router props", props);
@@ -26,27 +29,28 @@ const Routes = (props) => {
       .catch((error) => {
         setProducts(error.message);
       });
+    // localStorage.setItem("user", JSON.stringify({ role: "user" }));
     if (!localStorage.getItem("cart")) {
       localStorage.setItem("cart", JSON.stringify([]));
     }
-    if(JSON.parse(localStorage.getItem('user')).id) {
+    if (JSON.parse(localStorage.getItem('user')).id) {
       JSON.parse(localStorage.getItem('user')).role === 'admin' ? setIsAdmin(true) : setIsAdmin(false)
     }
   }, []);
   return (
     <>
       <Route exact path="/">
-        <Home products={products} isAdmin={isAdmin}/>
+        <Home products={products} isAdmin={isAdmin} />
       </Route>
       {localStorage.getItem("token") ? (
         <Route path="/cart">
           <Cart />
         </Route>
       ) : (
-        <Route path="/cart">
-          <VisitorCart />
-        </Route>
-      )}
+          <Route path="/cart">
+            <VisitorCart />
+          </Route>
+        )}
 
       {/* <Route path="/admin">
         <Admin />
@@ -56,6 +60,9 @@ const Routes = (props) => {
       </Route>{" "} */}
       <Route path="/users">
         <DisplayAllUsers />
+      </Route>
+      <Route path="/userinfo">
+        <UserPage />
       </Route>
       {/* <Route
         path="/products/:productId"

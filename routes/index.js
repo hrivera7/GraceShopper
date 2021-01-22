@@ -8,6 +8,7 @@ const jwt = require("jsonwebtoken");
 // google oauth 
 const passport = require('passport')
 
+
 const {
   getUsers,
   createUser,
@@ -230,24 +231,20 @@ apiRouter.get("/googlelogout", (req, res, next) => {
 
 
 // auth Login with Google
-apiRouter.get("/googlelogin", passport.authenticate('google', {
-  // scope: 
+// 'google' routes to the google login screen - which passport object to use from passport-setup.js
+apiRouter.get('/googlelogin', passport.authenticate('google', {
+
+  // scope is telling passport what we want to retrieve from the users' profile
+  scope: ['profile']
+
 }))
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// apiRouter.get("/google", (req, res, next) => {
+//   // handle with passport
+//   res.send("logging in with google")
+//   // console.log("logging out of Google")
+// })
+apiRouter.get('google/redirect', (req, res) => { res.send('you reached teh callback URI') })
 
 
 
@@ -365,13 +362,13 @@ apiRouter.delete(
 
 // PATCH
 apiRouter.patch("/users/:userId/role", async (req, res, next) => {
-  const {userId} = req.params
-  const {role} = req.body
+  const { userId } = req.params
+  const { role } = req.body
 
   try {
     const updatedUserList = await promoteUser(userId, role)
-    res.send(updatedUserList) 
-  } catch (error){
+    res.send(updatedUserList)
+  } catch (error) {
     next(error)
   }
 })

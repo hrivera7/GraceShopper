@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Input, Form, Icon } from "semantic-ui-react";
 import { loginUser, loginGoogle } from "../api";
 
+
 const LogIn = ({ setOpen /* setToken, */ /* setRole */ }) => {
   const [credentials, setCredentials] = useState({
     username: "",
@@ -13,7 +14,7 @@ const LogIn = ({ setOpen /* setToken, */ /* setRole */ }) => {
     event.preventDefault();
     await loginUser(credentials.username, credentials.password)
       .then((response) => {
-        console.log(response);
+
         if (response.message) {
           console.log("username or pw BADD");
           setLoginError(true);
@@ -23,9 +24,10 @@ const LogIn = ({ setOpen /* setToken, */ /* setRole */ }) => {
           //localStorage.setItem("cart", JSON.stringify([]));
           /* setToken(response.token); */
           /*  setRole(response.user.role); */
+          console.log("userObject upon login:", response);
           setOpen(false);
         }
-        window.location.reload(false);
+        // window.location.reload(false);
       })
       .catch((error) => {
         console.log(error);
@@ -37,17 +39,17 @@ const LogIn = ({ setOpen /* setToken, */ /* setRole */ }) => {
   };
 
 
-  const handleGoogleLogin = async () => {
-    event.preventDefault();
-    await loginGoogle()
-      .then((response) => {
-        console.log(response);
+  // const handleGoogleLogin = async () => {
+  //   event.preventDefault();
+  //   await loginGoogle()
+  //     .then((response) => {
+  //       console.log(response);
 
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }
 
 
 
@@ -57,9 +59,11 @@ const LogIn = ({ setOpen /* setToken, */ /* setRole */ }) => {
       <Form className="signIn">
         <h2>Log in</h2>
 
-        <Button onClick={handleGoogleLogin} color="orange">
+
+        {/* <Button onClick={handleGoogleLogin} color="orange">
           <Icon name="google" /> Continue with Google
-        </Button>
+        </Button> */}
+        {/* <a href="/api/googlelogin">Click Me</a> */}
         <p>Or</p>
         <Input
           style={{ width: "50%" }}

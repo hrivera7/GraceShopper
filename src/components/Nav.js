@@ -3,6 +3,9 @@ import { Menu } from "semantic-ui-react";
 import NewModal from "./NewModal";
 import { Link } from "react-router-dom";
 
+
+
+
 const Nav = (
   { isAdmin
     /*  setToken,   setRole,  token,  role */
@@ -17,6 +20,8 @@ const Nav = (
     window.location.reload(false);
   };
 
+
+
   console.log("token", localStorage.getItem("token"));
 
   return (
@@ -28,7 +33,7 @@ const Nav = (
         // active={navItem === 'home'}
         value="home"
       />
-      { isAdmin ? (
+      {isAdmin ? (
         <Menu.Item
           as={Link}
           to="/users"
@@ -40,8 +45,8 @@ const Nav = (
           }}
         />
       ) : (
-        ""
-      )}  
+          ""
+        )}
       {localStorage.getItem("token") ? (
         <>
           <Menu.Item
@@ -62,12 +67,12 @@ const Nav = (
           />{" "}
         </>
       ) : (
-        <>
-          <Menu.Item>
-            <NewModal /* setToken={setToken} */ /* setRole={setRole} */ />
-          </Menu.Item>
-        </>
-      )}
+          <>
+            <Menu.Item>
+              <NewModal /* setToken={setToken} */ /* setRole={setRole} */ />
+            </Menu.Item>
+          </>
+        )}
 
       <Menu.Item
         as={Link}
@@ -76,6 +81,8 @@ const Nav = (
         //active={navItem === "cart"}
         value={"cart"}
       />
+
+
     </Menu>
   );
 };

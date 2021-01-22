@@ -164,7 +164,7 @@ async function createInitialProducts() {
       description:
         "Compatible with select electronic devices; AAA size; DURALOCK Power Preserve technology; 4-pack",
       photoUrl:
-        "http://img.bbystatic.com/BestBuy_US/images/products/4390/43900_sa.jpg",
+        "https://photos.google.com/share/AF1QipPwvp1KbOmjBEaIKA2FyRUCWB1Jr31GIb2l7GdkqUhnWpk_KQw87W4EG0NNx42y3Q/photo/AF1QipOENG50nEJPqNgaPyjFneiINSBmLjzXHUNw5UYN?key=S1gwMWlFNk1WaVFFbk14Uk5WQ0k5WXBrU19qQ09R",
       quantity: 5,
       price: 5.49,
       department: "Connected Home & Housewares",

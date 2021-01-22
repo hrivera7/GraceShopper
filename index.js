@@ -9,6 +9,8 @@ const server = express();
 const morgan = require("morgan");
 server.use(morgan("dev"));
 
+const passportSetup = require('./oauth-config/passport-setup')
+
 // handle application/json requests
 const bodyParser = require("body-parser");
 server.use(bodyParser.json());

@@ -2,6 +2,7 @@
 // doesn't need .then chaining
 import axios from "axios";
 
+
 const axiosWithAuth = () => {
   const token = `Bearer ${localStorage.getItem("token")}`;
   console.log("this is the token: ", token);
@@ -111,8 +112,10 @@ export async function loginUser(username, password) {
 // google login
 export async function loginGoogle() {
   // const dataForGoogle = {}
+  console.log("in loginGoogle()")
   try {
-    const { data } = await axios.get('/api/googlelogin' /*, dataForGoogle*/)
+    const { data } = await axios.get('api/googlelogin' /*, dataForGoogle*/)
+    console.log("in loginGoogle() api/index", data)
     return data
   } catch (error) {
     throw error
@@ -152,9 +155,9 @@ export async function updateUser(username, email, password, userId) {
 export async function updateRole(userId, role) {
 
   try {
-    const {data} = await axios.patch(`/api/users/${userId}/role`, {role: role})
+    const { data } = await axios.patch(`/api/users/${userId}/role`, { role: role })
     return data
-  } catch (error){
+  } catch (error) {
     throw error
   }
 }
