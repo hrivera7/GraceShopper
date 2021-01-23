@@ -1,7 +1,8 @@
 import PageHeader from "../components/PageHeader";
 import React, { useEffect } from "react";
-import DisplayCart from "./DisplayCart";
-import OrderSummary from "./OrderSummary";
+import DisplayVisitorCart from "./DisplayVisitorCart";
+import VisitorSummary from "./VisitorSummary";
+import { ElementsConsumer } from "@stripe/react-stripe-js";
 
 const VisitorCart = () => {
   const cart = JSON.parse(localStorage.getItem("cart"));
@@ -11,13 +12,16 @@ const VisitorCart = () => {
     <>
       <div>
         <PageHeader />
-        <h1>VisitorCart</h1>
         <div className="visitor-cart-elements">
           <div className="visitor-cart-cards">
-            <DisplayCart products={cart} />
+            <DisplayVisitorCart products={cart} />
           </div>
           <div className="visitor-card-summary">
-            <OrderSummary />
+            <ElementsConsumer>
+              {({ stripe, elements }) => (
+                <VisitorSummary stripe={stripe} elements={elements} />
+              )}
+            </ElementsConsumer>
           </div>
         </div>
       </div>
