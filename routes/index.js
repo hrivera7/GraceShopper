@@ -4,6 +4,8 @@
 const apiRouter = require("express").Router();
 
 const jwt = require("jsonwebtoken");
+const stripe = require("stripe")(process.env.STRIPEKEY);
+console.log("env", process.env.STRIPEKEY);
 
 const {
   getUsers,
@@ -24,8 +26,9 @@ const {
   checkout,
   getOrder,
   removeFromCart,
+  addCount,
+  subtractCount,
 } = require("../db");
-
 
 // verify headers in token
 // middleware for token verification
@@ -268,6 +271,26 @@ apiRouter.post("/checkout", async (req, res, next) => {
   }
 });
 
+apiRouter.post("/stripe", async (req, res, next) => {
+  // required fields from table
+  const { token, total } = req.body;
+  try {
+    console.log("total", parseFloat(total), Math.ceil(parseFloat(total)) * 100);
+    const charge = await stripe.charges.create({
+      amount: parseFloat(total) * 100,
+      currency: "USD",
+      source: token.id,
+      description: "payment for Kid Art 4 U",
+      metadata: {
+        productId: token.id,
+      },
+    });
+    res.json({ message: "payment was succesful", charge });
+  } catch (error) {
+    next(error);
+  }
+});
+
 // DELETE users
 // ADMIN only
 apiRouter.delete("/users/:userId", verifyToken, async (req, res, next) => {
@@ -325,16 +348,16 @@ apiRouter.delete(
 
 // PATCH
 apiRouter.patch("/users/:userId/role", async (req, res, next) => {
-  const {userId} = req.params
-  const {role} = req.body
+  const { userId } = req.params;
+  const { role } = req.body;
 
   try {
-    const updatedUserList = await promoteUser(userId, role)
-    res.send(updatedUserList) 
-  } catch (error){
-    next(error)
+    const updatedUserList = await promoteUser(userId, role);
+    res.send(updatedUserList);
+  } catch (error) {
+    next(error);
   }
-})
+});
 
 // update user
 // update role status > admin???
@@ -440,6 +463,42 @@ apiRouter.patch("/cart/remove", verifyToken, async (req, res, next) => {
         const updatedCart = await removeFromCart({ userId, productId });
         console.log("updated cart", updatedCart);
         res.send({ updatedCart });
+      }
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+apiRouter.patch("/count", verifyToken, async (req, res, next) => {
+  const { id } = req.body;
+  console.log("product id", id);
+  try {
+    jwt.verify(req.token, "secretkey", async (err, authData) => {
+      if (err) {
+        res.send({ error: err, status: 403 });
+      } else {
+        const updatedCount = await addCount(id);
+        console.log("updated cart", updatedCount);
+        res.send({ updatedCount });
+      }
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+apiRouter.patch("/count/subtract", verifyToken, async (req, res, next) => {
+  const { id } = req.body;
+  console.log("product id", id);
+  try {
+    jwt.verify(req.token, "secretkey", async (err, authData) => {
+      if (err) {
+        res.send({ error: err, status: 403 });
+      } else {
+        const updatedCount = await subtractCount(id);
+        console.log("updated cart", updatedCount);
+        res.send({ updatedCount });
       }
     });
   } catch (error) {

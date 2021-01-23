@@ -14,6 +14,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@stripe/react-stripe-js": "^1.2.0",
+    "@stripe/stripe-js": "^1.11.0",
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "create-react-app": "^4.0.1",
@@ -28,7 +30,8 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.1",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^2.0.1"
+    "semantic-ui-react": "^2.0.1",
+    "stripe": "^8.131.1"
   },
   "proxy": "http://localhost:5000",
   "browserslist": {
