@@ -2,9 +2,11 @@ import React from "react";
 import { Menu } from "semantic-ui-react";
 import NewModal from "./NewModal";
 import { Link } from "react-router-dom";
+import AddProductModal from "./AddProductModal";
+
 
 const Nav = (
-  { isAdmin
+  { isAdmin, setProducts, products
     /*  setToken,   setRole,  token,  role */
   }
 ) => {
@@ -28,18 +30,16 @@ const Nav = (
         // active={navItem === 'home'}
         value="home"
       />
-      { isAdmin ? (
+      { isAdmin ? <>
         <Menu.Item
           as={Link}
           to="/users"
           name="Display Users"
-          // active={navItem === 'cart'}
-          value={"cart"}
-          onClick={() => {
-            alert("You clicked the users!");
-          }}
+          
         />
-      ) : (
+       <Menu.Item>
+        <AddProductModal setProducts={setProducts} products={products}/>
+       </Menu.Item> </>: (
         ""
       )}  
       {localStorage.getItem("token") ? (

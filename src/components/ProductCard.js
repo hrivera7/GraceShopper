@@ -1,7 +1,7 @@
 
 
-import React, { useState } from "react";
-import { Card, Icon, Button } from "semantic-ui-react";
+import React from "react";
+import { Card, Icon, Button, Popup } from "semantic-ui-react";
 import theGathering from "../theGathering.jpg";
 import EditProductModal from "./EditProductModal";
 import ConfirmDeleteProduct from "./ConfirmDeleteProduct"
@@ -63,13 +63,11 @@ export default function ProductCard({ products, isAdmin, setProducts }) {
             quantity,
           } = product;
 
-          const [count, setCount] = useState(1);
-          product.count = count;
-          const [showText, setShowText] = useState(true);
-          let truncatedDesc = showText ? description.slice(0, 50) : description;
-
+          // const [count, setCount] = useState(1);
+          // product.count = count;
           // const [showText, setShowText] = useState(true);
           // let truncatedDesc = showText ? description.slice(0, 50) : description;
+
 
           // let httpsImage;
           // if(photoUrl){
@@ -82,15 +80,15 @@ export default function ProductCard({ products, isAdmin, setProducts }) {
           //Then httpsImage ? <img src={httpsImage} /> : <img src={no_image}  <--will need "no_image" saved locally maybe
 
           return (
-            <Card raised style={{ width: "25rem" }} key={id}>
-              <img src={theGathering} style={{ height: "20rem" }} />
+            <Card raised style={{ width: "25rem" }} key={id} >
+              <Popup inverted content={description} trigger={<img src={theGathering} style={{ height: "20rem" }} />} />
               <Card.Content>
                 <Card.Header>{name}</Card.Header>
                 <Card.Meta>
                   <span>{department}</span>
                 </Card.Meta>
                 <Card.Description>
-                  {truncatedDesc.length < 50 ? (
+                  {/* {truncatedDesc.length < 50 ? (
                     truncatedDesc
                   ) : (
                     <span
@@ -103,41 +101,14 @@ export default function ProductCard({ products, isAdmin, setProducts }) {
                         ...Show {showText ? "more" : "less"}
                       </span>
                     </span>
-                  )}
+                  )} */}
                 </Card.Description>
               </Card.Content>
-              <Card.Content>
-                {inStock ? (
-                  <>
-                    <Icon name="money bill alternate outline" />
-                    <span>
-                      {price}
-                      {" | "}
-                      {quantity} left
-                    </span>
-                  </>
-                ) : (
-                  <>
-                    <Icon name="money bill alternate outline" />
-                    <span>
-                      {price}
-                      {" | "}Out of Stock
-                    </span>
-                  </>
-                )}
-              </Card.Content>
-              <Card.Content>
-                <Button
-                  basic
-                  color="red"
-                  onClick={count > 1 ? () => setCount(count - 1) : null}
-                >
-                  &#8722;
-                </Button>
-                <span>{count}</span>{" "}
-                <Button basic color="green" onClick={() => setCount(count + 1)}>
-                  &#43;
-                </Button>
+                                          
+              {isAdmin ?  <div className='admin-edit-delete'> <EditProductModal id={id} name={name} products={products} setProducts={setProducts} inStock={inStock}/><ConfirmDeleteProduct  id={id} name={name} setProducts={setProducts}/> </div>: ''}
+             
+              <Card.Content className='product-price-cart'>
+              <Icon name="dollar" >{price}</Icon>
                 {localStorage.getItem("token") ? (
                   <Button
                     onClick={() =>
@@ -149,12 +120,13 @@ export default function ProductCard({ products, isAdmin, setProducts }) {
                   >
                     Add to Cart
                   </Button>
+                  
                 ) : (
                   <Button onClick={() => addToLocalCart(product)}>
                     Add to cart
                   </Button>
                 )}
-                {isAdmin ?  <><EditProductModal id={id} name={name} products={products} setProducts={setProducts}/><ConfirmDeleteProduct  id={id} name={name} setProducts={setProducts}/></> : ''}
+              
 
               </Card.Content>
             </Card>

@@ -8,7 +8,7 @@ const Home = ({products, isAdmin, setProducts}) => {
   //console.log("set role", setRole);
   return (
     <div className="app">
-      <PageHeader isAdmin={isAdmin}/* setRole={setRole} */ /* role={role} */
+      <PageHeader isAdmin={isAdmin} products={products} setProducts={setProducts}/* setRole={setRole} */ /* role={role} */
       /* setToken={setToken} */
       /* token={token} */
       />

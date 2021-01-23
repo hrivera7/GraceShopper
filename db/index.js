@@ -184,24 +184,25 @@ async function createProduct({
   name,
   description,
   photoUrl,
-  quantity,
-  price,
   department,
-  inStock,
+  price,
+  inStock
 }) {
   try {
-    const {
-      rows: [product],
-    } = await client.query(
+    await client.query(
       `
-      INSERT INTO products(name, description, "photoUrl", quantity, price, department, "inStock")
+      INSERT INTO products(name, description, "photoUrl", quantity, department, price, "inStock")
       VALUES ($1, $2, $3, $4, $5, $6, $7)
       RETURNING *;
     `,
-      [name, description, photoUrl, quantity, price, department, inStock]
+      [name, description, photoUrl, 1, department, price, inStock]
     );
 
-    return product;
+    const {rows} = await client.query(`
+      SELECT * FROM products;
+    `)
+
+    return rows;
   } catch (error) {
     throw error;
   }
@@ -258,7 +259,6 @@ async function updateProduct( productId, fields = {} ) {
     const setString = Object.keys(fields).map(
       (key, index) => `"${ key }"=$${ index + 1 }`
     ).join(', ');
-    console.log('this is the setString: ', setString)
   
     // update products table
     try {
@@ -267,8 +267,7 @@ async function updateProduct( productId, fields = {} ) {
          await client.query(`
           UPDATE products
           SET ${ setString }
-          WHERE id=${ productId }
-          RETURNING *;
+          WHERE id=${ productId };
         `, Object.values(fields));
 
         const {rows} = await client.query(`

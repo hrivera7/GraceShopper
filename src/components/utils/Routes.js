@@ -10,8 +10,7 @@ import {getProducts, getUsers} from "../../api";
 /* import Register from "../Register";
 import ProductCard from "../ProductCard";   */
 
-const Routes = (props) => {
-  console.log("router props", props);
+const Routes = () => {
   const [products, setProducts] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false)
   const [users, setUsers] = useState([]);

@@ -222,25 +222,23 @@ apiRouter.post("/products", async (req, res, next) => {
     name,
     description,
     photoUrl,
-    quantity,
-    price,
     department,
+    price,
     inStock,
   } = req.body;
+  console.log('what does the req.body look like: ',  req.body)
   try {
     // from index.js db
-    const product = await createProduct({
+    const products = await createProduct({
       name,
       description,
       photoUrl,
-      quantity,
-      price,
       department,
-      inStock,
+      price,
+      inStock
     });
-    if (product) {
-      console.log("created product", product);
-      res.json({ product });
+    if (products) {
+      res.json( products );
       // encrypt user
     }
   } catch (error) {
@@ -414,7 +412,7 @@ apiRouter.patch(
   async (req, res, next) => {
 
     const updateFields = {}
-    const {name, description, price} = req.body;
+    const {name, description, photoUrl, price, inStock} = req.body;
 
     if(name){
       updateFields.name = name
@@ -422,9 +420,15 @@ apiRouter.patch(
     if(description){
       updateFields.description = description
     }
+    if(photoUrl){
+      updateFields.photoUrl = photoUrl
+    }
     if(price){
       updateFields.price = price
     }
+  
+    updateFields.inStock = inStock
+ 
 
     const { productId } = req.params;
 

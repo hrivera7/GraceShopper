@@ -132,7 +132,7 @@ export async function updateUser(username, email, password, userId) {
 export async function updateRole(userId, role) {
 
   try {
-    const {data} = await axios.patch(`/api/users/${userId}/role`, {role: role})
+    const {data} = await axios.patch(`/api/users/${userId}/role`, {role})
     return data
   } catch (error){
     throw error
@@ -145,34 +145,32 @@ export async function createProduct(
   name,
   description,
   photoUrl,
-  quantity,
-  price,
   department,
+  price,
   inStock
 ) {
   const dataToSend = {
     name,
     description,
     photoUrl,
-    quantity,
-    price,
     department,
-    inStock,
+    price,
+    inStock
   };
-
+console.log('dataToSend in api is: ', dataToSend)
   try {
     if (
       dataToSend.name.length > 0 &&
       dataToSend.description.length > 0 &&
       dataToSend.photoUrl.length > 0 &&
-      dataToSend.quantity.length > 0 &&
-      dataToSend.price.length > 0 &&
       dataToSend.department.length > 0 &&
-      dataToSend.inStock.length > 0
+      dataToSend.price.length > 0 
     ) {
+
       const { data } = await axios.post(`/api/products`, dataToSend);
       return data;
     }
+
   } catch (error) {
     throw error;
   }
@@ -227,11 +225,13 @@ export async function createProduct(
 export async function updateProduct(
   name,
   description,
+  photoUrl,
   price,
+  inStock,
   productId
 ) {
-  const fieldsObj = { name, description, price };
-
+  const fieldsObj = { name, description, photoUrl, price, inStock };
+console.log('the fields object: ', fieldsObj)
   try {
     const { data } = await axios.patch(
       `/api/products/${productId}/update`,

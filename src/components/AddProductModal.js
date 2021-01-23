@@ -1,20 +1,17 @@
 import React, { useState } from "react";
-import { Button, Input, Modal, Dropdown, Menu, Checkbox } from "semantic-ui-react";
-import { updateProduct } from "../api";
-import EditInStock from "./EditInStock";
+import { Modal, Button, Input } from "semantic-ui-react";
+import {createProduct} from "../api"
 
-//import EditProductCard from './EditProductCard'
-
-export default function EditProductModal({ id, name, inStock, setProducts }) {
+export default function AddProductModal({setProducts, products}) {
+    console.log('what is products here: ', products)
   const [open, setOpen] = useState(false);
-  const [itemInStock, setItemInStock] = useState('')
-
   const [productDetails, setProductDetails] = useState({
     name: "",
     description: "",
     photoUrl: "",
+    department: "",
     price: "",
-    inStock: itemInStock,
+    inStock: true
   });
 
   return (
@@ -24,10 +21,10 @@ export default function EditProductModal({ id, name, inStock, setProducts }) {
         setOpen(true);
       }}
       open={open}
-      trigger={<Button icon="edit" color="orange" />}
+      trigger={<Button color="orange">Add new Product</Button>}
       size="tiny"
     >
-      <Modal.Header>{name}</Modal.Header>
+      <Modal.Header>Add a new Product!</Modal.Header>
       <Modal.Content>
         <Modal.Description>
           <p style={{ margin: 0 }}>Name: </p>
@@ -43,7 +40,7 @@ export default function EditProductModal({ id, name, inStock, setProducts }) {
                 [event.target.name]: event.target.value,
               });
             }}
-            placeholder="Edit the product title..."
+            placeholder="Add the name of the product..."
           />
           <p style={{ margin: 0 }}>Description: </p>
           <Input
@@ -51,6 +48,7 @@ export default function EditProductModal({ id, name, inStock, setProducts }) {
             autoComplete="off"
             style={{ marginBottom: "1rem" }}
             name="description"
+            type="textarea"
             value={productDetails.description}
             onChange={(event) => {
               setProductDetails({
@@ -58,7 +56,7 @@ export default function EditProductModal({ id, name, inStock, setProducts }) {
                 [event.target.name]: event.target.value,
               });
             }}
-            placeholder="Edit the product description..."
+            placeholder="Add the product description..."
           />
           <p style={{ margin: 0 }}>Photo Link: </p>
           <Input
@@ -76,13 +74,12 @@ export default function EditProductModal({ id, name, inStock, setProducts }) {
             }}
             placeholder="Add a link to the Photo..."
           />
-          <p style={{ margin: 0 }}>Price: </p>
+            <p style={{ margin: 0 }}>Price: </p>
           <Input
             fluid
             autoComplete="off"
             style={{ marginBottom: "1rem" }}
             name="price"
-            type="number"
             value={productDetails.price}
             onChange={(event) => {
               setProductDetails({
@@ -90,12 +87,24 @@ export default function EditProductModal({ id, name, inStock, setProducts }) {
                 [event.target.name]: event.target.value,
               });
             }}
-            placeholder="Edit the product price..."
+            placeholder="Add the product price..."
           />
-
-          <Checkbox label='is this item in Stock?' checked={inStock}/>
-          
- 
+          <p style={{ margin: 0 }}>Department: </p>
+          <Input
+            fluid
+            autoComplete="off"
+            style={{ marginBottom: "1rem" }}
+            name="department"
+            value={productDetails.department}
+            onChange={(event) => {
+              setProductDetails({
+                ...productDetails,
+                [event.target.name]: event.target.value,
+              });
+            }}
+            placeholder="Which department does this belong in?"
+          />
+        
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions>
@@ -104,28 +113,16 @@ export default function EditProductModal({ id, name, inStock, setProducts }) {
         <Button
           icon="checkmark"
           onClick={async () => {
-            const updatedProducts = await updateProduct(
+            const newProducts = await createProduct(
               productDetails.name,
               productDetails.description,
               productDetails.photoUrl,
+              productDetails.department,
               productDetails.price,
-              productDetails.inStock,
-              id
+              productDetails.inStock
             );
-            if (Array.isArray(updatedProducts)) {
-              updatedProducts.sort((a, b) => a.id - b.id);
-              setProducts(updatedProducts);
-              setProductDetails({
-                name: "",
-                description: "",
-                photoUrl: "",
-                price: "",
-                inStock: '',
-              });
-              setOpen(false);
-            } else {
-              setOpen(false);
-            }
+            setProducts(newProducts);
+            setOpen(false);
           }}
         />
       </Modal.Actions>

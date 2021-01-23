@@ -6,9 +6,8 @@ export default function ConfirmDeleteProduct({id, name, setProducts}) {
    const [open, setOpen] = useState(false)
 
     const  show = () => setOpen( true )
-   //const handleConfirm = () => setOpen(false )
+   const handleConfirm = () => setOpen(false )
     const handleCancel = () => setOpen(false )
-
 
   return (
     <div>
@@ -22,9 +21,8 @@ export default function ConfirmDeleteProduct({id, name, setProducts}) {
         onConfirm={async () => {
           await deleteProduct(id) 
           const {allProducts} = await getProducts()
-          console.log('this is allProducts: ', allProducts)
           setProducts(allProducts)
-          setOpen(false)
+          handleConfirm()
         }}
       />
     </div>
