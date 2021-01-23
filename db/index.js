@@ -46,25 +46,28 @@ async function createUser({ username, email, role, password }) {
   }
 }
 
-async function updateUser({ username, email, password, userId }) {
-  console.log("parameters", username, email, password, userId);
+async function updateUser(fieldsObject, userId) {
+  console.log("parameters", fieldsObject, userId);
   try {
     const retrievedUser = await getUserById(userId);
     console.log("retrieved user", retrievedUser);
     if (retrievedUser === null) {
       throw new Error("User with that id does not exist.");
     }
+    const setString = Object.keys(fieldsObject).map(
+      (key, index) => `"${key}"=$${index + 1}`
+    ).join(', ');
+    console.log("setString in DB", setString)
     const {
       rows: [user],
     } = await client.query(
       `
         UPDATE users
-        SET username = $1, email = $2, password = $3
-        WHERE id = $4
+        SET ${setString}
+        WHERE id = ${userId}
         RETURNING *
     `,
-      [username, email, password, userId]
-    );
+      Object.values(fieldsObject))
     return user;
   } catch (error) {
     throw error;

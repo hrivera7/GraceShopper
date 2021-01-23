@@ -135,17 +135,19 @@ export async function loginGoogle() {
 export async function updateUser(username, email, password, userId) {
   const dataToSend = { username, email, password, userId };
   try {
-    if (
-      dataToSend.username.length > 0 &&
-      dataToSend.email.length > 0 &&
-      dataToSend.password.length > 0
-    ) {
-      const { data } = await axiosWithAuth().patch(
-        `/api/users/${userId}/update`,
-        dataToSend
-      );
-      return data;
-    }
+    // if (
+    //   dataToSend.username.length > 0 &&
+    //   dataToSend.email.length > 0 &&
+    //   dataToSend.password.length > 0
+    // ) 
+    // {}
+
+    const { data } = await axiosWithAuth().patch(
+      `/api/users/${userId}/update`,
+      dataToSend
+    );
+    return data;
+
   } catch (error) {
     throw error;
   }

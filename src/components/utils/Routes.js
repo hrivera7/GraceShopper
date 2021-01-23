@@ -5,6 +5,7 @@ import Home from "../Home";
 import DisplayAllUsers from "../DisplayAllUsers";
 import Cart from "../Cart";
 import VisitorCart from "../VisitorCart";
+import UserPage from '../UserPage'
 import { getProducts } from "../../api";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
@@ -15,7 +16,8 @@ const Routes = (props) => {
   console.log("router props", props);
   const [products, setProducts] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false)
-  const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem("user")))
+  // const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem("user")))
+  const userInfo = JSON.parse(localStorage.getItem("user"))
   // const [token, setToken] = useState("");
   //const [role, setRole] = useState("");
   console.log("local storage", localStorage.getItem("token"));

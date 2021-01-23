@@ -404,10 +404,20 @@ apiRouter.patch(
   async (req, res, next) => {
     const { username, email, password } = req.body;
     const { userId } = req.params;
+    const fieldsObject = {}
+    if (username) {
+      fieldsObject.username = username
+    }
+    if (email) {
+      fieldsObject.email = email
+    }
+    if (password) {
+      fieldsObject.password = password
+    }
     console.log("patch params", req.params.userId);
     try {
       console.log("patch params", req.params.userId);
-      const user = await updateUser({ username, email, password, userId });
+      const user = await updateUser(fieldsObject, userId);
       jwt.verify(req.token, "secretkey", async (err, authData) => {
         if (err) {
           res.send({ error: err, status: 403 });
