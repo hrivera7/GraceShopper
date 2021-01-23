@@ -156,12 +156,10 @@ export async function updateUser(username, email, password, userId) {
 //Update Role
 export async function updateRole(userId, role) {
   try {
-    const { data } = await axios.patch(`/api/users/${userId}/role`, {
-      role: role,
-    });
-    return data;
-  } catch (error) {
-    throw error;
+    const {data} = await axios.patch(`/api/users/${userId}/role`, {role})
+    return data
+  } catch (error){
+    throw error
   }
 }
 
@@ -171,41 +169,44 @@ export async function createProduct(
   name,
   description,
   photoUrl,
-  quantity,
-  price,
   department,
-  inStock
+  price,
+  count,
+  quantity
 ) {
   const dataToSend = {
     name,
     description,
     photoUrl,
-    quantity,
-    price,
     department,
-    inStock,
+    price,
+    count
   };
-
+console.log('dataToSend in api is: ', dataToSend)
   try {
     if (
       dataToSend.name.length > 0 &&
       dataToSend.description.length > 0 &&
       dataToSend.photoUrl.length > 0 &&
-      dataToSend.quantity.length > 0 &&
-      dataToSend.price.length > 0 &&
       dataToSend.department.length > 0 &&
-      dataToSend.inStock.length > 0
+      dataToSend.price.length > 0 
+      
     ) {
+      dataToSend.count = 1
+      console.log("this is dataToSend.count: ", dataToSend.count)
+      dataToSend.quantity = 1
+      console.log('dataToSend in api is: ', dataToSend)
       const { data } = await axios.post(`/api/products`, dataToSend);
       return data;
     }
+
   } catch (error) {
     throw error;
   }
 }
 // update product
 // fields product object
-export async function updateProduct(
+/* export async function updateProduct(
   name,
   description,
   photoUrl,
@@ -225,7 +226,7 @@ export async function updateProduct(
     inStock,
     productId,
   };
-
+  console.log('need to possibly remove the && operators below')
   try {
     if (
       dataToSend.name.length > 0 &&
@@ -237,12 +238,35 @@ export async function updateProduct(
       dataToSend.inStock.length > 0 &&
       dataToSend.productId.length > 0
     ) {
+    
       const { data } = await axios.patch(
         `/api/products/${productId}/update`,
         dataToSend
       );
       return data;
     }
+  
+  } catch (error) {
+    throw error;
+  }
+} */
+
+export async function updateProduct(
+  name,
+  description,
+  photoUrl,
+  price,
+  productId
+) {
+  const fieldsObj = { name, description, photoUrl, price };
+console.log('the fields object: ', fieldsObj)
+console.log('the productID', productId)
+  try {
+    const { data } = await axios.patch(
+      `/api/products/${productId}/update`,
+      fieldsObj
+    );
+    return data;  
   } catch (error) {
     throw error;
   }

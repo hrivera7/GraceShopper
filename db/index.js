@@ -189,32 +189,34 @@ async function createProduct({
   name,
   description,
   photoUrl,
-  quantity,
-  price,
   department,
+  price,
   inStock,
+  quantity,
   count,
 }) {
   try {
-    const {
-      rows: [product],
-    } = await client.query(
+    await client.query(
       `
-      INSERT INTO products(name, description, "photoUrl", quantity, price, department, "inStock", count)
+      INSERT INTO products(name, description, "photoUrl", quantity, price, department, "inStock",  count)
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
       RETURNING *;
     `,
       [name, description, photoUrl, quantity, price, department, inStock, count]
     );
 
-    return product;
+    const {rows} = await client.query(`
+      SELECT * FROM products;
+    `)
+
+    return rows;
   } catch (error) {
     throw error;
   }
 }
 
 // Shane modified updateProduct to make it work with admin page...
-async function updateProduct({
+/* async function updateProduct({
   name,
   description,
   photoUrl,
@@ -258,7 +260,34 @@ async function updateProduct({
   } catch (error) {
     throw error;
   }
-}
+}  */
+
+async function updateProduct( productId, fields = {} ) {
+
+    const setString = Object.keys(fields).map(
+      (key, index) => `"${ key }"=$${ index + 1 }`
+    ).join(', ');
+  console.log('this is the setString: ', setString)
+    // update products table
+    try {
+      // update any fields that need to be updated
+      if (setString.length > 0) {
+         await client.query(`
+          UPDATE products
+          SET ${ setString }
+          WHERE id=${ productId };
+        `, Object.values(fields));
+
+        const {rows} = await client.query(`
+        SELECT * FROM products;
+        `)
+        return rows;
+      }
+   
+  } catch (error) {
+    throw error;
+  }
+  }
 
 // cart created, products added = processing and checkout = completed
 // cart for specific user

@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import ProductCard from "./ProductCard";
 import { getCart } from "../api";
 
-export default function DisplayAllProducts({ products, role }) {
+
+export default function DisplayAllProducts({ products, role, isAdmin, setProducts }) {
   const [cart, setCart] = useState([]);
 
   useEffect(() => {
     getCart()
       .then((response) => {
-        console.log("response", response);
+        console.log("this is the cart:", response);
         setCart(response.cart.products);
       })
       .catch((error) => {
@@ -18,7 +19,8 @@ export default function DisplayAllProducts({ products, role }) {
 
   return (
     <div className="productSection">
-      <ProductCard products={products} role={role} cart={cart} />
+      <ProductCard products={products} role={role} cart={cart} isAdmin={isAdmin} setProducts={setProducts}/>
+
     </div>
   );
 }

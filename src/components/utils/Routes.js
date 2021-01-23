@@ -6,7 +6,7 @@ import DisplayAllUsers from "../DisplayAllUsers";
 import Cart from "../Cart";
 import VisitorCart from "../VisitorCart";
 import UserPage from '../UserPage'
-import { getProducts } from "../../api";
+import { getProducts, getUsers } from "../../api";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 
@@ -16,6 +16,7 @@ const Routes = (props) => {
   console.log("router props", props);
   const [products, setProducts] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false)
+  const [users, setUsers] = useState([]);
   // const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem("user")))
   const userInfo = JSON.parse(localStorage.getItem("user"))
   // const [token, setToken] = useState("");
@@ -35,20 +36,38 @@ const Routes = (props) => {
       .catch((error) => {
         setProducts(error.message);
       });
-    // localStorage.setItem("user", JSON.stringify({ role: "user" }));
+    getUsers()
+      .then((response) => {
+        console.log("the useEffect: ", response)
+        setUsers(response.allUsers)
+      })
+      .catch((error) => {
+        setUsers(error.message)
+      })
     if (!localStorage.getItem("cart")) {
       localStorage.setItem("cart", JSON.stringify([]));
     }
+
+    // if(!JSON.parse(localStorage.getItem('user'))) {
+    //   localStorage.setItem('user', JSON.stringify({role: "user"}))
+    // } else {
+    //   JSON.parse(localStorage.getItem('user')).role === 'admin' ? setIsAdmin(true) : setIsAdmin(false)     
     if (JSON.parse(localStorage.getItem("user")).id) {
       JSON.parse(localStorage.getItem("user")).role === "admin"
         ? setIsAdmin(true)
         : setIsAdmin(false);
     }
+
+    /*   if(JSON.parse(localStorage.getItem('user')).id) {
+        JSON.parse(localStorage.getItem('user')).role === 'admin' ? setIsAdmin(true) : setIsAdmin(false)
+      } else {
+        localStorage.setItem('role', JSON.stringify({role: "user"}))
+      } */
   }, []);
   return (
     <>
       <Route exact path="/">
-        <Home products={products} isAdmin={isAdmin} />
+        <Home products={products} isAdmin={isAdmin} setProducts={setProducts} />
       </Route>
       {localStorage.getItem("token") ? (
         <Route path="/cart">
@@ -71,7 +90,7 @@ const Routes = (props) => {
         <Orders />
       </Route>{" "} */}
       <Route path="/users">
-        <DisplayAllUsers />
+        <DisplayAllUsers users={users} setUsers={setUsers} />
       </Route>
       <Route path="/userinfo">
         <UserPage userInfo={userInfo} />

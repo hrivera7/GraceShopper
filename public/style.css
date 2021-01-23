@@ -205,12 +205,17 @@ element.style {
   color: blueviolet;
 }
 
-#editProductIcon {
-  margin-left: 7px;
+.admin-edit-delete {
+ display: flex;
+ align-items: center;
+ justify-content: space-around;
+ margin-bottom: 1rem;
 }
 
-#editProductButton {
-  float: right;
+.product-price-cart {
+  display: flex; 
+  justify-content: space-between;
+  align-items: center;
 }
 
 .product-card-text{
@@ -240,12 +245,6 @@ element.style {
 }
 /* ================= */
 
-/* THE USER CARDS/ITEMS */
-#trashCanUser {
-  margin-left: 5px;
-}
-
-/* ============== */
 .header {
   /* background-color: blue; */
   /* display: flex;

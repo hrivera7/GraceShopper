@@ -1,10 +1,19 @@
 import React from "react";
 import { Menu } from "semantic-ui-react";
 import NewModal from "./NewModal";
-import { Link, useHistory } from "react-router-dom";
 
-const Nav = ({ isAdmin/*  navItem */ }) => {
+import { Link, useHistory } from "react-router-dom";
+import AddProductModal from "./AddProductModal";
+
+
+const Nav = (
+  { isAdmin, setProducts, products
+    /*  setToken,   setRole,  token,  role */
+  }
+) => {
   const history = useHistory();
+
+
   const handleSignOut = async () => {
     await localStorage.removeItem("token");
     localStorage.removeItem("user");
@@ -26,18 +35,16 @@ const Nav = ({ isAdmin/*  navItem */ }) => {
         // active={navItem === 'home'}
         value="home"
       />
-      {isAdmin ? (
+      {isAdmin ? <>
         <Menu.Item
           as={Link}
           to="/users"
           name="Display Users"
-          // active={navItem === 'cart'}
-          value={"cart"}
-          onClick={() => {
-            alert("You clicked the users!");
-          }}
+
         />
-      ) : (
+        <Menu.Item>
+          <AddProductModal setProducts={setProducts} products={products} />
+        </Menu.Item> </> : (
           ""
         )}
       {localStorage.getItem("token") ? (

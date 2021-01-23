@@ -1,9 +1,11 @@
+
+
 import React, { useState, useEffect } from "react";
 import { getUsers } from "../api";
 import UserCards from "./UserCards";
 import PageHeader from "./PageHeader";
 
-export default function DisplayAllUsers(/* { setToken, setRole, token, role } */) {
+export default function DisplayAllUsers({setToken, setRole, token, role}) {
   const [users, setUsers] = useState([]);
 
   // do not need local storage here
@@ -18,6 +20,7 @@ export default function DisplayAllUsers(/* { setToken, setRole, token, role } */
         setUsers(error.message);
       });
   }, []);
+
 
   return (
     <div className="userCardSection">

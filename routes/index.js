@@ -262,25 +262,25 @@ apiRouter.post("/products", async (req, res, next) => {
     name,
     description,
     photoUrl,
-    quantity,
-    price,
     department,
-    inStock,
+    price,
+    count,
+    quantity
   } = req.body;
+  console.log('what does the req.body look like: ',  req.body)
   try {
     // from index.js db
-    const product = await createProduct({
+    const products = await createProduct({
       name,
       description,
       photoUrl,
-      quantity,
-      price,
       department,
-      inStock,
+      price,
+      count,
+      quantity
     });
-    if (product) {
-      console.log("created product", product);
-      res.json({ product });
+    if (products) {
+      res.json( products );
       // encrypt user
     }
   } catch (error) {
@@ -436,7 +436,7 @@ apiRouter.patch(
 
 // update product
 // ADMIN only
-apiRouter.patch(
+/* apiRouter.patch(
   "/products/:productId/update",
   verifyToken,
   async (req, res, next) => {
@@ -473,6 +473,39 @@ apiRouter.patch(
           res.send({ message: "User does not have admin privileges!" });
         }
       });
+    } catch (error) {
+      next(error);
+    }
+  }
+); */
+
+apiRouter.patch(
+  "/products/:productId/update",
+  async (req, res, next) => {
+
+    const updateFields = {}
+    const {name, description, photoUrl, price} = req.body;
+
+    if(name){
+      updateFields.name = name
+    }
+    if(description){
+      updateFields.description = description
+    }
+    if(photoUrl){
+      updateFields.photoUrl = photoUrl
+    }
+    if(price){
+      updateFields.price = price
+    }
+  
+ 
+
+    const { productId } = req.params;
+console.log('in the routes updateFields: ', updateFields)
+    try {
+      const product = await updateProduct( productId, updateFields );
+      res.send(product)
     } catch (error) {
       next(error);
     }

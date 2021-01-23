@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import ConfirmDelete from "./ConfirmDelete";
+import React from "react";
+import ConfirmDeleteUser from "./ConfirmDeleteUser";
 import PromoteUser from './PromoteUser'
 import { Table } from "semantic-ui-react";
 
@@ -10,7 +10,7 @@ export default function UsersInformation({
   email,
   role,  setUsers,
 }) {
-  const [promote, setPromote] = useState(true);
+
   //const role = JSON.parse(localStorage.getItem("user")).role;
 
   return (
@@ -21,7 +21,7 @@ export default function UsersInformation({
         <PromoteUser id={id} role={role} setUsers={setUsers}/>
       </Table.Cell>
       <Table.Cell>
-        <ConfirmDelete id={id} username={username} setUsers={setUsers} />
+        <ConfirmDeleteUser id={id} username={username} setUsers={setUsers} />
       </Table.Cell>
     </Table.Row>
   );
