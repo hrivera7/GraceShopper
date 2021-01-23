@@ -59,7 +59,7 @@ async function buildTables() {
         quantity INTEGER NOT NULL,
         price DECIMAL NOT NULL,
         department TEXT NOT NULL,
-        "inStock" BOOLEAN NOT NULL,
+       "inStock" BOOLEAN, 
         count INTEGER NOT NULL
       );
 

@@ -1,10 +1,20 @@
+
+
+
 import React, { useState } from "react";
-import { Card, Icon, Button } from "semantic-ui-react";
+import { Card, Icon, Button, Popup } from "semantic-ui-react";
+import theGathering from "../theGathering.jpg";
 import EditProductModal from "./EditProductModal";
-import { addToCart } from "../api";
+import ConfirmDeleteProduct from "./ConfirmDeleteProduct"
 
 //returns product card
-export default function ProductCard({ products, cart }) {
+
+
+import { addToCart } from "../api";
+
+
+//returns product card
+export default function ProductCard({ products, isAdmin, setProducts, cart }) {
   // add products to db cart
   const addToDbCart = (userId, productId) => {
     console.log("adding to db");
@@ -57,8 +67,8 @@ export default function ProductCard({ products, cart }) {
             quantity,
           } = product;
 
-          const [showText, setShowText] = useState(true);
-          let truncatedDesc = showText ? description.slice(0, 50) : description;
+          // const [showText, setShowText] = useState(true);
+          // let truncatedDesc = showText ? description.slice(0, 50) : description;
 
           let httpsImage;
           if (photoUrl) {
@@ -70,15 +80,20 @@ export default function ProductCard({ products, cart }) {
           }
 
           return (
-            <Card raised style={{ width: "25rem" }} className="product-card-text" key={id}>
-              <img src={photoUrl} style={{ height: "20rem" }} />
+
+            <Card raised style={{ width: "25rem" }} className="product-card-text" key={id} >
+              <Popup inverted content={description} trigger={<img src={httpsImage} style={{ height: "20rem" }} />} />
+
+         {/*    <Card raised style={{ width: "25rem" }}  key={id}>
+              <img src={photoUrl} style={{ height: "20rem" }} /> */}
+
               <Card.Content>
                 <Card.Header>{name}</Card.Header>
                 <Card.Meta>
                   <span>{department}</span>
                 </Card.Meta>
                 <Card.Description>
-                  {truncatedDesc.length < 50 ? (
+                  {/* {truncatedDesc.length < 50 ? (
                     truncatedDesc
                   ) : (
                     <span
@@ -91,17 +106,24 @@ export default function ProductCard({ products, cart }) {
                         ...Show {showText ? "more" : "less"}
                       </span>
                     </span>
-                  )}
+                  )} */}
                 </Card.Description>
               </Card.Content>
-              <Card.Content>
+
+                                          
+              {isAdmin ?  <div className='admin-edit-delete'> <EditProductModal id={id} name={name} products={products} setProducts={setProducts} inStock={inStock}/><ConfirmDeleteProduct  id={id} name={name} setProducts={setProducts}/> </div>: ''}
+             
+             <Card.Content className='product-price-cart'>
+              <Icon name="dollar" >{price}</Icon>
+
+            {/*   <Card.Content>
                 {inStock ? (
                   <>
                     <Icon name="dollar" className="price-text"/>
                     <span className="product-card-amount" >
                       {price}
-                      {/* {" | "}
-                      {quantity} left */}
+                      { {" | "}
+                      {quantity} left }
                     </span>
                   </>
                 ) : (
@@ -109,12 +131,13 @@ export default function ProductCard({ products, cart }) {
                     <Icon name="dollar" className="price-text" />
                     <span className="product-card-amount">
                       {price }
-                     {/*  {" | "}Out of Stock */}
+                     {  {" | "}Out of Stock }
                     </span>
                   </>
                 )}
               </Card.Content>
-              <Card.Content>
+              <Card.Content> */}
+
                 {localStorage.getItem("token") ? (
                   <Button
                     onClick={() =>
@@ -131,6 +154,7 @@ export default function ProductCard({ products, cart }) {
                   >
                     Add to Cart
                   </Button>
+                  
                 ) : (
                   <Button
                     onClick={() => addToLocalCart(product)}
@@ -145,6 +169,8 @@ export default function ProductCard({ products, cart }) {
                     Add to cart
                   </Button>
                 )}
+              
+
               </Card.Content>
             </Card>
           );
