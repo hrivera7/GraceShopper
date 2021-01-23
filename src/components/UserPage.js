@@ -1,13 +1,23 @@
 import React, { useState } from 'react'
 import { Button, Input, Form } from "semantic-ui-react";
+import { updateUser } from '../api'
+import { validate } from 'react-email-validator'
 
 
-const UserPage = (/* need UserId */) => {
-    const dummyUser = { username: "fake username", email: 'www.testme.test' }
-    const [newUsername, setNewusername] = useState("")
-    const [newEmail, setNewEmail] = useState("")
+const UserPage = ({ userInfo }) => {
+    const {
+        id,
+        username,
+        email
+    } = userInfo
+
+    const [newUsername, setNewusername] = useState(username)
+    const [newEmail, setNewEmail] = useState(email)
     const [newPassword, setNewPassword] = useState("")
-    const [newPasswordConfirm, setNewPasswordConfirm] = useState("")
+    // const [newPasswordConfirm, setNewPasswordConfirm] = useState("")
+    // const [passwordErrorMsg, setPasswordErrorMsg] = useState(false)
+    // const [emailErrorMsg, setEmailErrorMsg] = useState(false)
+
 
     const newUserInfo = {
         username: newUsername,
@@ -18,33 +28,47 @@ const UserPage = (/* need UserId */) => {
 
 
 
-    const handleUserUpdate = () => {
+    const handleUserUpdate = async () => {
 
-        if (newPassword && newPassword === newPasswordConfirm) {
-            setNewusername(newUsername)
-            setNewEmail(newEmail)
-            setNewPassword(newPassword)
-            setNewPasswordConfirm(newPasswordConfirm)
 
-        }
-        else if (!newPassword) {
-            console.log("no password update")
+        // if (validate(newEmail)) {
+        //     console.log("email is good")
+        //     setEmailErrorMsg(false)
+        // } else {
+        //     console.log("email is bad")
+        //     setEmailErrorMsg(true)
+        // }
 
-            setNewusername(newUsername)
-            setNewEmail(newEmail)
 
-        } else {
-            console.log("please check to ensure your passwords match")
-        }
+        // if (newPassword === newPasswordConfirm) {
+        //     console.log("passwords match")
+        // all good, send to db
 
-        // console.log("new username:", newUsername)
-        // console.log("new email:", newEmail)
-        // console.log("new password:", newPassword)
-        // console.log("new password confirm:", newPasswordConfirm)
+        await updateUser(newUsername, newEmail, newPassword, id)
+            .then((response) => {
+                console.log("updated user info from database", response)
+                // update local storage user info
+            }).catch((error) => {
+                console.log("error in update user workflow:", error);
+            });
+
+        // reset forms & UI
+        setNewPassword("")
+        // setNewPasswordConfirm("")
+
+
+        // setPasswordErrorMsg(false)
+
         console.log("New user object:", newUserInfo)
 
-
     }
+    // else {
+    //     console.log("please check to ensure your passwords match")
+    //     setPasswordErrorMsg(true)
+    // }
+
+
+    // }
 
     return (
         <>
@@ -52,20 +76,29 @@ const UserPage = (/* need UserId */) => {
             <Form>
                 <Input
                     style={{ width: "50%" }}
-                    name="email"
+                    name="username"
                     value={newUsername}
                     onChange={(event) => { setNewusername(event.target.value) }}
-                    placeholder={dummyUser.username}
+                    placeholder={newUsername}
                 >
                 </Input>
-                <Input
+                <Input error
+
                     style={{ width: "50%" }}
+                    type="email"
                     name="email"
                     value={newEmail}
                     onChange={(event) => { setNewEmail(event.target.value) }}
-                    placeholder={dummyUser.email}
+                    placeholder={newEmail}
+
                 >
+
+
                 </Input>
+                {/* {emailErrorMsg ?
+                    <div>Please enter a valid email address</div>
+                    : ""} */}
+
                 <Input
                     style={{ width: "50%" }}
                     name="new password"
@@ -75,7 +108,7 @@ const UserPage = (/* need UserId */) => {
                     placeholder="new password">
 
                 </Input>
-                <Input
+                {/* <Input
                     style={{ width: "50%" }}
                     name="confirm new password"
                     type="password"
@@ -84,8 +117,10 @@ const UserPage = (/* need UserId */) => {
                     placeholder="confirm new password">
 
                 </Input>
+                {passwordErrorMsg ? <div>Please double-check your password entry to ensure they match</div> : ""} */}
             </Form>
             <Button onClick={handleUserUpdate}>Submit</Button>
+
 
         </>
     )

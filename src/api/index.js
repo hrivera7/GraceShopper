@@ -140,7 +140,7 @@ export async function updateUser(username, email, password, userId) {
       dataToSend.email.length > 0 &&
       dataToSend.password.length > 0
     ) {
-      const { data } = await axios.patch(
+      const { data } = await axiosWithAuth().patch(
         `/api/users/${userId}/update`,
         dataToSend
       );

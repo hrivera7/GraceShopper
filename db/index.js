@@ -72,7 +72,7 @@ async function updateUser({ username, email, password, userId }) {
 }
 
 async function promoteUser(userId, role) {
-  
+
   try {
     role === 'user' ?
       await client.query(`
@@ -80,22 +80,22 @@ async function promoteUser(userId, role) {
       SET role='admin'
       WHERE id=$1;
     `, [userId])
-    :
+      :
       await client.query(`
       UPDATE users
       SET role='user'
       WHERE id=$1;
     `, [userId])
-    
-      
-    const {rows} = await client.query(`
+
+
+    const { rows } = await client.query(`
       SELECT * FROM users
     `)
     return rows;
   } catch (error) {
     throw error
   }
- 
+
 }
 
 // select single user
