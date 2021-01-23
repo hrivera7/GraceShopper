@@ -72,30 +72,32 @@ async function updateUser({ username, email, password, userId }) {
 }
 
 async function promoteUser(userId, role) {
-  
   try {
-    role === 'user' ?
-      await client.query(`
+    role === "user"
+      ? await client.query(
+          `
       UPDATE users
       SET role='admin'
       WHERE id=$1;
-    `, [userId])
-    :
-      await client.query(`
+    `,
+          [userId]
+        )
+      : await client.query(
+          `
       UPDATE users
       SET role='user'
       WHERE id=$1;
-    `, [userId])
-    
-      
-    const {rows} = await client.query(`
+    `,
+          [userId]
+        );
+
+    const { rows } = await client.query(`
       SELECT * FROM users
-    `)
+    `);
     return rows;
   } catch (error) {
-    throw error
+    throw error;
   }
- 
 }
 
 // select single user
@@ -186,16 +188,18 @@ async function createProduct({
   photoUrl,
   department,
   price,
-  inStock
+  inStock,
+  quantity,
+  count,
 }) {
   try {
     await client.query(
       `
-      INSERT INTO products(name, description, "photoUrl", quantity, department, price, "inStock")
-      VALUES ($1, $2, $3, $4, $5, $6, $7)
+      INSERT INTO products(name, description, "photoUrl", quantity, price, department, "inStock",  count)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
       RETURNING *;
     `,
-      [name, description, photoUrl, 1, department, price, inStock]
+      [name, description, photoUrl, quantity, price, department, inStock, count]
     );
 
     const {rows} = await client.query(`
@@ -208,6 +212,7 @@ async function createProduct({
   }
 }
 
+// Shane modified updateProduct to make it work with admin page...
 /* async function updateProduct({
   name,
   description,
@@ -252,14 +257,14 @@ async function createProduct({
   } catch (error) {
     throw error;
   }
-} */
+}  */
 
 async function updateProduct( productId, fields = {} ) {
 
     const setString = Object.keys(fields).map(
       (key, index) => `"${ key }"=$${ index + 1 }`
     ).join(', ');
-  
+  console.log('this is the setString: ', setString)
     // update products table
     try {
       // update any fields that need to be updated
@@ -311,12 +316,33 @@ async function getCart({ userId }) {
     const { rows } = await client.query(
       `
       SELECT * FROM cart
-      WHERE id = $1 AND status = 'created' OR status = 'processing'
+      WHERE "userId" = $1 AND NOT status = 'completed'
     `,
       [userId]
     );
     console.log("rows", rows);
+    const cart = [];
+    for (let i = 0; i < rows.length; i++) {
+      rows[i].status === "processing" ? cart.push(rows[i]) : null;
+    }
     if (rows.length > 0) {
+      if (cart.length > 0) {
+        console.log("inside processing cart", cart);
+        const products = cart[0].productId;
+        const productArr = [];
+        for (i = 0; i < products.length; i++) {
+          console.log("product Id", products[i]);
+          const {
+            rows: [product],
+          } = await client.query(`
+            SELECT * FROM products
+            WHERE id = ${products[i]}
+          `);
+          productArr.push(product);
+        }
+        console.log("list of products", productArr);
+        return { id: cart[0].id, products: productArr, status: cart[0].status };
+      }
       console.log("inside cart", rows);
       const products = rows[0].productId;
       const productArr = [];
@@ -424,7 +450,7 @@ async function addToCart({ userId, productId }) {
       `
       UPDATE cart
       SET "productId" = $1, status = $2
-      WHERE id = $3
+      WHERE "userId" = $3
       RETURNING *;
     `,
       [newProducts, "processing", userId]
@@ -464,7 +490,7 @@ async function removeFromCart({ userId, productId }) {
         `
         UPDATE cart 
         SET "productId" = $1, status = $2 
-        WHERE id = ${userId} 
+        WHERE "userId" = ${userId} 
         RETURNING *;
         `,
         [idArr, "processing"]
@@ -488,7 +514,7 @@ async function checkout({ userId, cartId }) {
       `
       UPDATE cart
       SET status = $1
-      WHERE id = $2
+      WHERE "userId" = $2
     `,
       ["completed", userId]
     );
@@ -571,6 +597,44 @@ async function deleteProduct(productId) {
   }
 }
 
+async function addCount(id) {
+  const product = await getProductById(id);
+  console.log("product count", product);
+  try {
+    const { rows } = await client.query(
+      `
+    UPDATE products
+    SET count = $1
+    WHERE id = $2
+    RETURNING *
+    `,
+      [product.count + 1, id]
+    );
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function subtractCount(id) {
+  const product = await getProductById(id);
+  console.log("product count", product);
+  try {
+    const { rows } = await client.query(
+      `
+    UPDATE products
+    SET count = $1
+    WHERE id = $2
+    RETURNING *
+    `,
+      [product.count - 1, id]
+    );
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+}
+
 // export db functions
 module.exports = {
   client,
@@ -592,5 +656,7 @@ module.exports = {
   addToCart,
   checkout,
   getOrder,
-  removeFromCart
+  removeFromCart,
+  addCount,
+  subtractCount,
 };

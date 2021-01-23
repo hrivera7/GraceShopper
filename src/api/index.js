@@ -130,7 +130,6 @@ export async function updateUser(username, email, password, userId) {
 
 //Update Role
 export async function updateRole(userId, role) {
-
   try {
     const {data} = await axios.patch(`/api/users/${userId}/role`, {role})
     return data
@@ -147,7 +146,8 @@ export async function createProduct(
   photoUrl,
   department,
   price,
-  inStock
+  count,
+  quantity
 ) {
   const dataToSend = {
     name,
@@ -155,7 +155,7 @@ export async function createProduct(
     photoUrl,
     department,
     price,
-    inStock
+    count
   };
 console.log('dataToSend in api is: ', dataToSend)
   try {
@@ -165,8 +165,12 @@ console.log('dataToSend in api is: ', dataToSend)
       dataToSend.photoUrl.length > 0 &&
       dataToSend.department.length > 0 &&
       dataToSend.price.length > 0 
+      
     ) {
-
+      dataToSend.count = 1
+      console.log("this is dataToSend.count: ", dataToSend.count)
+      dataToSend.quantity = 1
+      console.log('dataToSend in api is: ', dataToSend)
       const { data } = await axios.post(`/api/products`, dataToSend);
       return data;
     }
@@ -227,11 +231,11 @@ export async function updateProduct(
   description,
   photoUrl,
   price,
-  inStock,
   productId
 ) {
-  const fieldsObj = { name, description, photoUrl, price, inStock };
+  const fieldsObj = { name, description, photoUrl, price };
 console.log('the fields object: ', fieldsObj)
+console.log('the productID', productId)
   try {
     const { data } = await axios.patch(
       `/api/products/${productId}/update`,
@@ -264,6 +268,91 @@ export async function deleteProduct(productId) {
       dataToSend
     );
     return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function removeFromCart(userId, productId) {
+  const dataToSend = {
+    userId,
+    productId,
+  };
+  console.log("data send", dataToSend);
+  try {
+    if (dataToSend.userId && dataToSend.productId) {
+      /* console.log(dataToSend.userId, dataToSend.productId.length); */
+      const { data } = await axiosWithAuth().patch(
+        `/api/cart/remove`,
+        dataToSend
+      );
+      return data;
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function addCount(id) {
+  const dataToSend = {
+    id,
+  };
+  console.log("data send", dataToSend);
+  try {
+    if (dataToSend.id) {
+      const { data } = await axiosWithAuth().patch(`/api/count`, dataToSend);
+      return data;
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function subtractCount(id) {
+  const dataToSend = {
+    id,
+  };
+  console.log("data send", dataToSend);
+  try {
+    if (dataToSend.id) {
+      const { data } = await axiosWithAuth().patch(
+        `/api/count/subtract`,
+        dataToSend
+      );
+      return data;
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function sendToken(total, token) {
+  const dataToSend = {
+    total,
+    token,
+  };
+
+  console.log("data send", dataToSend);
+  try {
+    if (dataToSend.total && dataToSend.token) {
+      const { data } = await axiosWithAuth().post(`/api/stripe`, dataToSend);
+      console.log("data1", data);
+      return data;
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function checkout(userId, cartId) {
+  const dataToSend = { userId, cartId };
+  console.log("data send", dataToSend);
+  try {
+    if (dataToSend.userId && dataToSend.cartId) {
+      const { data } = await axios.post(`/api/checkout`, dataToSend);
+      console.log("data2", data);
+      return data;
+    }
   } catch (error) {
     throw error;
   }

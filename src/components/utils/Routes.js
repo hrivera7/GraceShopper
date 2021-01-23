@@ -1,14 +1,13 @@
 // import all components here
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Route } from "react-router-dom";
 import Home from "../Home";
 import DisplayAllUsers from "../DisplayAllUsers";
 import Cart from "../Cart";
 import VisitorCart from "../VisitorCart";
-import {getProducts, getUsers} from "../../api";
-
-/* import Register from "../Register";
-import ProductCard from "../ProductCard";   */
+import { getProducts, getUsers } from "../../api";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
 
 const Routes = () => {
   const [products, setProducts] = useState([]);
@@ -18,6 +17,10 @@ const Routes = () => {
   //const [role, setRole] = useState("");
   console.log("local storage", localStorage.getItem("token"));
   //const [productCount, setProductCount] = useState(0) consider storing productCount in App.js so the cart can access
+
+  const StripePromise = loadStripe(process.env.REACT_APP_STRIPEKEY);
+  console.log("key", process.env.REACT_APP_STRIPEKEY);
+
   useEffect(() => {
     getProducts()
       .then((response) => {
@@ -39,10 +42,14 @@ const Routes = () => {
       localStorage.setItem("cart", JSON.stringify([]));
     }
     
-    if(!JSON.parse(localStorage.getItem('user'))) {
-      localStorage.setItem('user', JSON.stringify({role: "user"}))
-    } else {
-      JSON.parse(localStorage.getItem('user')).role === 'admin' ? setIsAdmin(true) : setIsAdmin(false)     
+    // if(!JSON.parse(localStorage.getItem('user'))) {
+    //   localStorage.setItem('user', JSON.stringify({role: "user"}))
+    // } else {
+    //   JSON.parse(localStorage.getItem('user')).role === 'admin' ? setIsAdmin(true) : setIsAdmin(false)     
+    if (JSON.parse(localStorage.getItem("user")).id) {
+      JSON.parse(localStorage.getItem("user")).role === "admin"
+        ? setIsAdmin(true)
+        : setIsAdmin(false);
     }
     
   /*   if(JSON.parse(localStorage.getItem('user')).id) {
@@ -58,11 +65,15 @@ const Routes = () => {
       </Route>
       {localStorage.getItem("token") ? (
         <Route path="/cart">
-          <Cart />
+          <Elements stripe={StripePromise}>
+            <Cart />
+          </Elements>
         </Route>
       ) : (
         <Route path="/cart">
-          <VisitorCart />
+          <Elements stripe={StripePromise}>
+            <VisitorCart />
+          </Elements>
         </Route>
       )}
 
@@ -84,4 +95,3 @@ const Routes = () => {
 };
 
 export default Routes;
-

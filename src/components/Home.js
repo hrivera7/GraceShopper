@@ -5,7 +5,6 @@ import PageHeader from "../components/PageHeader";
 const Home = ({products, isAdmin, setProducts}) => {
  
   // console.log("products", products);
-  //console.log("set role", setRole);
   return (
     <div className="app">
       <PageHeader isAdmin={isAdmin} products={products} setProducts={setProducts}/* setRole={setRole} */ /* role={role} */

@@ -4,6 +4,8 @@ import DisplayCart from "./DisplayCart";
 import { getCart } from "../api";
 import OrderSummary from "./OrderSummary";
 
+import { ElementsConsumer } from "@stripe/react-stripe-js";
+
 const Cart = () => {
   const [cart, setCart] = useState([]);
 
@@ -17,23 +19,25 @@ const Cart = () => {
         setCart(error.message);
       });
   }, []);
+
   console.log("cart", cart);
 
   return (
     <>
       <div>
         <PageHeader />
-        <h1>Logged in Cart</h1>
         <div className="loggedin-cart-elements">
-
-        <div className="loggedin-cart-cards">
-          <DisplayCart products={cart} />
+          <div className="loggedin-cart-cards">
+            <DisplayCart products={cart} />
+          </div>
+          <div className="loggedin-card-summary">
+            <ElementsConsumer>
+              {({ stripe, elements }) => (
+                <OrderSummary stripe={stripe} elements={elements} />
+              )}
+            </ElementsConsumer>
+          </div>
         </div>
-        <div className="loggedin-card-summary">
-          <OrderSummary />
-        </div>
-        </div>
-        
       </div>
     </>
   );

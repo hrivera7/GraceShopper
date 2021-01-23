@@ -1,20 +1,19 @@
 import React, { useState } from "react";
 import { Button, Input, Modal, Dropdown, Menu, Checkbox } from "semantic-ui-react";
 import { updateProduct } from "../api";
-import EditInStock from "./EditInStock";
+//import EditInStock from "./EditInStock";
 
 //import EditProductCard from './EditProductCard'
 
-export default function EditProductModal({ id, name, inStock, setProducts }) {
+export default function EditProductModal({ id, name,  setProducts }) {
   const [open, setOpen] = useState(false);
-  const [itemInStock, setItemInStock] = useState('')
+  //const [itemInStock, setItemInStock] = useState('')
 
   const [productDetails, setProductDetails] = useState({
     name: "",
     description: "",
     photoUrl: "",
     price: "",
-    inStock: itemInStock,
   });
 
   return (
@@ -92,10 +91,6 @@ export default function EditProductModal({ id, name, inStock, setProducts }) {
             }}
             placeholder="Edit the product price..."
           />
-
-          <Checkbox label='is this item in Stock?' checked={inStock}/>
-          
- 
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions>
@@ -109,18 +104,17 @@ export default function EditProductModal({ id, name, inStock, setProducts }) {
               productDetails.description,
               productDetails.photoUrl,
               productDetails.price,
-              productDetails.inStock,
               id
             );
             if (Array.isArray(updatedProducts)) {
               updatedProducts.sort((a, b) => a.id - b.id);
+              console.log("this is the return after update: ", updatedProducts)
               setProducts(updatedProducts);
               setProductDetails({
                 name: "",
                 description: "",
                 photoUrl: "",
                 price: "",
-                inStock: '',
               });
               setOpen(false);
             } else {

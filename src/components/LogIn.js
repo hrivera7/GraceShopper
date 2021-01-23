@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Input, Form, Icon } from "semantic-ui-react";
 import { loginUser } from "../api";
 
-const LogIn = ({ setOpen /* setToken, */ /* setRole */ }) => {
+const LogIn = ({ setOpen }) => {
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
@@ -20,9 +20,6 @@ const LogIn = ({ setOpen /* setToken, */ /* setRole */ }) => {
         } else {
           localStorage.setItem("token", response.token);
           localStorage.setItem("user", JSON.stringify(response.user));
-          //localStorage.setItem("cart", JSON.stringify([]));
-          /* setToken(response.token); */
-          /*  setRole(response.user.role); */
           setOpen(false);
         }
         window.location.reload(false);
@@ -53,8 +50,6 @@ const LogIn = ({ setOpen /* setToken, */ /* setRole */ }) => {
           placeholder="username"
         />
         <br></br>
-        {/* </Form> */}
-        {/* <Form> */}
         <Input
           style={{ width: "50%" }}
           autoComplete="current-password"
@@ -72,7 +67,6 @@ const LogIn = ({ setOpen /* setToken, */ /* setRole */ }) => {
         ) : (
           ""
         )}
-        {/* </Form> */}
         <Button
           style={{ width: "50%" }}
           content="Submit"
