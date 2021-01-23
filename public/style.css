@@ -66,7 +66,7 @@ body {
 }
 
 .cart-card-amount {
-  padding-right: 15px;
+  padding-left: 15px;
 }
 
 .cart-card-plus-button {
@@ -121,6 +121,7 @@ body {
 }
 
 .order-summary-card {
+  width: 350px !important;
   margin-top: 50px !important;
 }
 
@@ -153,6 +154,42 @@ body {
   padding-top: 25px;
 }
 
+.order-summary-button{
+  margin: 30px 0 !important;
+}
+
+.stripe-image {
+  width: 80px;
+  height: auto;
+}
+
+.checkout-stripe{
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.expiration{
+  padding-left: 120px;
+  font-weight: bold;
+}
+
+.card-number{
+  padding-right: 15px;
+  font-weight: bold;
+}
+
+.success-modal{
+  text-align: center !important;
+}
+
+.success-modal{
+  width: auto !important;
+}
+
+element.style {
+  padding-right: 100px !important;
+}
+
 /* END OF ORDER SUMMARY / VISITOR & LOGGED-IN USER CART */
 
 /* THE PRODUCT CARDS */
@@ -169,12 +206,22 @@ body {
 }
 
 #editProductIcon {
-  margin-Left: 7px;
+  margin-left: 7px;
 }
 
 #editProductButton {
   float: right;
 }
+
+.product-card-text{
+  text-align: center;
+}
+
+.price-text, .product-card-amount{
+  font-size: 17px !important;
+}
+
+
 /* ================= */
 
 /* THE USER CARDS/ITEMS */
@@ -192,7 +239,6 @@ body {
   transition: 0.2s;
 }
 /* ================= */
-
 
 /* THE USER CARDS/ITEMS */
 #trashCanUser {

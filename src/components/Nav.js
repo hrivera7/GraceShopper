@@ -1,22 +1,15 @@
 import React from "react";
 import { Menu } from "semantic-ui-react";
 import NewModal from "./NewModal";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
-
-
-
-const Nav = (
-  { isAdmin
-    /*  setToken,   setRole,  token,  role */
-  }
-) => {
+const Nav = ({ isAdmin/*  navItem */ }) => {
+  const history = useHistory();
   const handleSignOut = async () => {
-    /* setToken(false); */
-    /* setRole(""); */
     await localStorage.removeItem("token");
     localStorage.removeItem("user");
     localStorage.setItem("user", JSON.stringify({ role: "user" }));
+    history.push("/");
     window.location.reload(false);
   };
 
@@ -53,7 +46,7 @@ const Nav = (
             as={Link}
             to="/orders"
             name="orders"
-            // active={navItem === 'orders'}
+            //active={navItem === 'orders'}
             value={"orders"}
             onClick={() => {
               alert("You clicked orders!");
@@ -61,7 +54,7 @@ const Nav = (
           />{" "}
           <Menu.Item
             name="sign out"
-            // active={navItem === 'sign out'}
+            //active={navItem === 'sign out'}
             value={"sign out"}
             onClick={handleSignOut}
           />{" "}
@@ -69,7 +62,7 @@ const Nav = (
       ) : (
           <>
             <Menu.Item>
-              <NewModal /* setToken={setToken} */ /* setRole={setRole} */ />
+              <NewModal />
             </Menu.Item>
           </>
         )}
@@ -78,7 +71,7 @@ const Nav = (
         as={Link}
         to="/cart"
         name="cart"
-        //active={navItem === "cart"}
+        // active={navItem === "cart"}
         value={"cart"}
       />
 

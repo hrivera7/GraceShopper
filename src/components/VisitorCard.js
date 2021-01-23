@@ -1,24 +1,12 @@
 import React, { useState } from "react";
 import { Card, Icon, Button } from "semantic-ui-react";
 //import theGathering from "../theGathering.jpg";
-import { removeFromCart, addCount, subtractCount } from "../api";
 
 //returns product card
-export default function CartCard({ products }) {
+export default function VisitorCard({ products }) {
   const uniqueArr = [...new Set(products.map(JSON.stringify))].map(JSON.parse);
 
   console.log("products", products, uniqueArr);
-
-  function increment(id) {
-    addCount(id);
-    window.location.reload(false);
-  }
-
-  function decrement(id) {
-    subtractCount(id);
-    window.location.reload(false);
-  }
-
   return (
     <>
       {uniqueArr.map((product) => {
@@ -30,22 +18,66 @@ export default function CartCard({ products }) {
           name,
           photoUrl,
           price,
-          count,
           quantity,
+          count,
         } = product;
 
+        console.log("count", count);
         const [showText, setShowText] = useState(true);
         let truncatedDesc = showText ? description.slice(0, 50) : description;
 
         const removeProduct = (productId) => {
-          removeFromCart(
-            JSON.parse(localStorage.getItem("user")).id,
-            productId
-          ).then((response) => {
-            console.log(response);
-          });
+          const index = products.findIndex(
+            (product) => product.id === productId
+          );
+          console.log("index", index, products, productId);
+          const newProducts = [];
+          if (index !== -1) {
+            products.splice(index, 1);
+          }
+          for (let i = 0; i < product.length; i++) {
+            newProducts.push(oldProducts[i]);
+          }
+          console.log("cart card new", products);
+          localStorage.setItem("cart", JSON.stringify(products));
           window.location.reload(false);
         };
+
+        function increment(id) {
+          //console.log("id", id);
+          const product = uniqueArr.find((product) => {
+            //console.log("product.id", product.id);
+            return product.id === id;
+          });
+          product.count++;
+          console.log("increment", product);
+          const remove = uniqueArr.filter((product) => {
+            return product.id !== id;
+          });
+          const newCart = [product, ...remove];
+          console.log("new cart", newCart);
+          localStorage.setItem("cart", JSON.stringify(newCart));
+          window.location.reload(false);
+          // console.log("uniqueArr", product);
+        }
+
+        function decrement(id) {
+          //console.log("id", id);
+          const product = uniqueArr.find((product) => {
+            //console.log("product.id", product.id);
+            return product.id === id;
+          });
+          product.count--;
+          console.log("decrement", product);
+          const remove = uniqueArr.filter((product) => {
+            return product.id !== id;
+          });
+          const newCart = [product, ...remove];
+          console.log("new cart", newCart);
+          localStorage.setItem("cart", JSON.stringify(newCart));
+          window.location.reload(false);
+          // console.log("uniqueArr", product);
+        }
 
         return (
           <Card className="cart-card" style={{ width: "45rem" }} key={id}>
@@ -80,7 +112,7 @@ export default function CartCard({ products }) {
                 <Card.Content className="cart-card-price">
                   {inStock ? (
                     <>
-                      <Icon name="dollar" />
+                      <Icon name="dollar" className="visitor-card-dollar"/>
                       <span className="cart-card-amount">{price}</span>
                       {" | "}
                       <span className="cart-card-quantity">
@@ -106,13 +138,8 @@ export default function CartCard({ products }) {
                   >
                     &#8722;
                   </Button>
-                  <span className="cart-card-count">{count}</span>{" "}
-                  <Button
-                    basic
-                    color="green"
-                    className="cart-card-plus-button"
-                    onClick={() => increment(id)}
-                  >
+                  <span >{count}</span>{" "}
+                  <Button basic color="green" className="cart-card-plus-button" onClick={() => increment(id)}>
                     &#43;
                   </Button>
                   <Icon

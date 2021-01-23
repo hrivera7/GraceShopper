@@ -3,7 +3,7 @@ import { Button, Input, Form, Icon } from "semantic-ui-react";
 import { loginUser, loginGoogle } from "../api";
 
 
-const LogIn = ({ setOpen /* setToken, */ /* setRole */ }) => {
+const LogIn = ({ setOpen }) => {
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
@@ -73,8 +73,6 @@ const LogIn = ({ setOpen /* setToken, */ /* setRole */ }) => {
           placeholder="username"
         />
         <br></br>
-        {/* </Form> */}
-        {/* <Form> */}
         <Input
           style={{ width: "50%" }}
           autoComplete="current-password"
@@ -92,7 +90,6 @@ const LogIn = ({ setOpen /* setToken, */ /* setRole */ }) => {
         ) : (
             ""
           )}
-        {/* </Form> */}
         <Button
           style={{ width: "50%" }}
           content="Submit"

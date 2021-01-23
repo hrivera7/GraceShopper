@@ -153,12 +153,13 @@ export async function updateUser(username, email, password, userId) {
 
 //Update Role
 export async function updateRole(userId, role) {
-
   try {
-    const { data } = await axios.patch(`/api/users/${userId}/role`, { role: role })
-    return data
+    const { data } = await axios.patch(`/api/users/${userId}/role`, {
+      role: role,
+    });
+    return data;
   } catch (error) {
-    throw error
+    throw error;
   }
 }
 
@@ -266,6 +267,91 @@ export async function deleteProduct(productId) {
       dataToSend
     );
     return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function removeFromCart(userId, productId) {
+  const dataToSend = {
+    userId,
+    productId,
+  };
+  console.log("data send", dataToSend);
+  try {
+    if (dataToSend.userId && dataToSend.productId) {
+      /* console.log(dataToSend.userId, dataToSend.productId.length); */
+      const { data } = await axiosWithAuth().patch(
+        `/api/cart/remove`,
+        dataToSend
+      );
+      return data;
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function addCount(id) {
+  const dataToSend = {
+    id,
+  };
+  console.log("data send", dataToSend);
+  try {
+    if (dataToSend.id) {
+      const { data } = await axiosWithAuth().patch(`/api/count`, dataToSend);
+      return data;
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function subtractCount(id) {
+  const dataToSend = {
+    id,
+  };
+  console.log("data send", dataToSend);
+  try {
+    if (dataToSend.id) {
+      const { data } = await axiosWithAuth().patch(
+        `/api/count/subtract`,
+        dataToSend
+      );
+      return data;
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function sendToken(total, token) {
+  const dataToSend = {
+    total,
+    token,
+  };
+
+  console.log("data send", dataToSend);
+  try {
+    if (dataToSend.total && dataToSend.token) {
+      const { data } = await axiosWithAuth().post(`/api/stripe`, dataToSend);
+      console.log("data1", data);
+      return data;
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function checkout(userId, cartId) {
+  const dataToSend = { userId, cartId };
+  console.log("data send", dataToSend);
+  try {
+    if (dataToSend.userId && dataToSend.cartId) {
+      const { data } = await axios.post(`/api/checkout`, dataToSend);
+      console.log("data2", data);
+      return data;
+    }
   } catch (error) {
     throw error;
   }

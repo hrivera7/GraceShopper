@@ -1,29 +1,30 @@
 import React, { useState } from "react";
 import { Card, Icon, Button } from "semantic-ui-react";
-import theGathering from "../theGathering.jpg";
 import EditProductModal from "./EditProductModal";
-
-//returns product card
-
 import { addToCart } from "../api";
 
 //returns product card
-export default function ProductCard({ products }) {
+export default function ProductCard({ products, cart }) {
   // add products to db cart
   const addToDbCart = (userId, productId) => {
     console.log("adding to db");
+
     addToCart(userId, [productId]);
+    window.location.reload(false);
   };
 
+  //console.log("token", localStorage.getItem("token"));
+  //console.log("storage user", localStorage.getItem("user"));
+
   const addToLocalCart = (product) => {
-    console.log("cart working", product);
-    console.log("product count", product.count);
+    //console.log("cart working", product);
+    //console.log("product count", product.count);
     const oldProducts = JSON.parse(localStorage.getItem("cart"));
-    console.log("old products", oldProducts);
+    //console.log("old products", oldProducts);
     const newProducts = [];
     if (oldProducts.length > 0) {
       for (let i = 0; i < oldProducts.length; i++) {
-        console.log("inside for loop", oldProducts[i]);
+        //console.log("inside for loop", oldProducts[i]);
         newProducts.push(oldProducts[i]);
       }
       for (let i = 0; i < product.count; i++) {
@@ -35,11 +36,11 @@ export default function ProductCard({ products }) {
       }
     }
     localStorage.setItem("cart", JSON.stringify(newProducts));
-    console.log("new products", newProducts);
+    //console.log("new products", newProducts);
+    window.location.reload(false);
   };
 
-  console.log("products", products);
-
+  //console.log("products", products);
 
   return (
     <>
@@ -56,25 +57,21 @@ export default function ProductCard({ products }) {
             quantity,
           } = product;
 
-          const [count, setCount] = useState(1);
-          product.count = count;
-
           const [showText, setShowText] = useState(true);
           let truncatedDesc = showText ? description.slice(0, 50) : description;
 
-          // let httpsImage;
-          // if(photoUrl){
-          //   if (photoUrl.includes("https")) {
-          //     httpsImage = photoUrl;
-          //   } else {
-          //     httpsImage = photoUrl.replace("http", "https");
-          //   }
-          // }
-          //Then httpsImage ? <img src={httpsImage} /> : <img src={no_image}  <--will need "no_image" saved locally maybe
+          let httpsImage;
+          if (photoUrl) {
+            if (photoUrl.includes("https")) {
+              httpsImage = photoUrl;
+            } else {
+              httpsImage = photoUrl.replace("http", "https");
+            }
+          }
 
           return (
-            <Card raised style={{ width: "25rem" }} key={id}>
-              <img src={theGathering} style={{ height: "20rem" }} />
+            <Card raised style={{ width: "25rem" }} className="product-card-text" key={id}>
+              <img src={photoUrl} style={{ height: "20rem" }} />
               <Card.Content>
                 <Card.Header>{name}</Card.Header>
                 <Card.Meta>
@@ -100,35 +97,24 @@ export default function ProductCard({ products }) {
               <Card.Content>
                 {inStock ? (
                   <>
-                    <Icon name="money bill alternate outline" />
-                    <span>
+                    <Icon name="dollar" className="price-text" />
+                    <span className="product-card-amount" >
                       {price}
-                      {" | "}
-                      {quantity} left
+                      {/* {" | "}
+                      {quantity} left */}
                     </span>
                   </>
                 ) : (
                     <>
-                      <Icon name="money bill alternate outline" />
-                      <span>
+                      <Icon name="dollar" className="price-text" />
+                      <span className="product-card-amount">
                         {price}
-                        {" | "}Out of Stock
-                    </span>
+                        {/*  {" | "}Out of Stock */}
+                      </span>
                     </>
                   )}
               </Card.Content>
               <Card.Content>
-                <Button
-                  basic
-                  color="red"
-                  onClick={count > 1 ? () => setCount(count - 1) : null}
-                >
-                  &#8722;
-                </Button>
-                <span>{count}</span>{" "}
-                <Button basic color="green" onClick={() => setCount(count + 1)}>
-                  &#43;
-                </Button>
                 {localStorage.getItem("token") ? (
                   <Button
                     onClick={() =>
@@ -137,11 +123,25 @@ export default function ProductCard({ products }) {
                         id
                       )
                     }
+                    disabled={
+                      cart.filter((product) => {
+                        return product.name == name;
+                      }).length > 0
+                    }
                   >
                     Add to Cart
                   </Button>
                 ) : (
-                    <Button onClick={() => addToLocalCart(product)}>
+                    <Button
+                      onClick={() => addToLocalCart(product)}
+                      disabled={
+                        JSON.parse(localStorage.getItem("cart")).filter(
+                          (product) => {
+                            return product.name === name;
+                          }
+                        ).length > 0
+                      }
+                    >
                       Add to cart
                     </Button>
                   )}
