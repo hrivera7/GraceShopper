@@ -22,7 +22,6 @@ const Nav = (
     window.location.reload(false);
   };
 
-  console.log("token", localStorage.getItem("token"));
 
   return (
     <Menu secondary>

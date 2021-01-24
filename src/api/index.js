@@ -4,7 +4,6 @@ import axios from "axios";
 
 const axiosWithAuth = () => {
   const token = `Bearer ${localStorage.getItem("token")}`;
-  console.log("this is the token: ", token);
   return axios.create({ headers: { Authorization: token } });
 };
 
@@ -355,5 +354,15 @@ export async function checkout(userId, cartId) {
     }
   } catch (error) {
     throw error;
+  }
+}
+
+export async function checkOrdersAndCart(userId){
+  try {
+    console.log('the id in the api: ', userId)
+    const {data} = await axiosWithAuth().get(`/api/orders/${userId}`)
+    console.log('this is the data in api returned from the server: ', data)
+  } catch (error) {
+    throw error
   }
 }

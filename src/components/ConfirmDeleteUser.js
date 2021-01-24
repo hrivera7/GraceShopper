@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {Button, Confirm} from 'semantic-ui-react'
-import {deleteUser, getUsers} from '../api'
+import {checkOrdersAndCart, deleteUser, getUsers} from '../api'
 
 export default function ConfirmDelete({id, username, setUsers}) {
    const [open, setOpen] = useState(false)
@@ -20,9 +20,9 @@ export default function ConfirmDelete({id, username, setUsers}) {
         confirmButton="Let's do it"
         onCancel={handleCancel}
         onConfirm={async () => {
+          checkOrdersAndCart(id)
           await deleteUser(id) 
           const {allUsers} = await getUsers()
-          console.log('this is the newUserList: ', allUsers)
           setUsers(allUsers)
           setOpen(false)
         }}
