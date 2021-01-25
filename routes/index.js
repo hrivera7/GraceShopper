@@ -269,7 +269,7 @@ apiRouter.post("/products", async (req, res, next) => {
     count,
     quantity
   } = req.body;
-  console.log('what does the req.body look like: ',  req.body)
+  console.log('what does the req.body look like: ', req.body)
   try {
     // from index.js db
     const products = await createProduct({
@@ -282,7 +282,7 @@ apiRouter.post("/products", async (req, res, next) => {
       quantity
     });
     if (products) {
-      res.json( products );
+      res.json(products);
       // encrypt user
     }
   } catch (error) {
@@ -486,27 +486,27 @@ apiRouter.patch(
   async (req, res, next) => {
 
     const updateFields = {}
-    const {name, description, photoUrl, price} = req.body;
+    const { name, description, photoUrl, price } = req.body;
 
-    if(name){
+    if (name) {
       updateFields.name = name
     }
-    if(description){
+    if (description) {
       updateFields.description = description
     }
-    if(photoUrl){
+    if (photoUrl) {
       updateFields.photoUrl = photoUrl
     }
-    if(price){
+    if (price) {
       updateFields.price = price
     }
-  
- 
+
+
 
     const { productId } = req.params;
-console.log('in the routes updateFields: ', updateFields)
+    console.log('in the routes updateFields: ', updateFields)
     try {
-      const product = await updateProduct( productId, updateFields );
+      const product = await updateProduct(productId, updateFields);
       res.send(product)
     } catch (error) {
       next(error);
@@ -589,7 +589,7 @@ apiRouter.patch("/count/subtract", verifyToken, async (req, res, next) => {
 });
 
 apiRouter.get('/orders/:userId', verifyToken, async (req, res, next) => {
-  const {userId} = req.params
+  const { userId } = req.params
   console.log('the userid in the routes: ', userId)
   try {
     jwt.verify(req.token, "secretkey", async (err, authData) => {
@@ -598,7 +598,7 @@ apiRouter.get('/orders/:userId', verifyToken, async (req, res, next) => {
       } else {
         const orders = await deleteOrdersAndCart(userId);
         console.log("deleted orders", orders);
-        res.send( orders );
+        res.send(orders);
       }
     });
   } catch (error) {

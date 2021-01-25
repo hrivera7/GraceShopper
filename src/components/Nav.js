@@ -1,5 +1,5 @@
 import React from "react";
-import { Menu } from "semantic-ui-react";
+import { Menu, Button } from "semantic-ui-react";
 import NewModal from "./NewModal";
 
 import { Link, useHistory } from "react-router-dom";
@@ -12,6 +12,7 @@ const Nav = (
   }
 ) => {
   const history = useHistory();
+
 
 
   const handleSignOut = async () => {
@@ -29,8 +30,7 @@ const Nav = (
         as={Link}
         to="/"
         name="home"
-        // active={navItem === 'home'}
-        value="home"
+
       />
       {isAdmin ? <>
         <Menu.Item
@@ -50,17 +50,10 @@ const Nav = (
             as={Link}
             to="/userinfo"
             name="my account"
-            //active={navItem === 'orders'}
-            value={"userinfo"}
-          // onClick={() => {
-          //   alert("You clicked orders!");
-          // }}
           />
           <Menu.Item
-            name="sign out"
-            //active={navItem === 'sign out'}
-            value={"sign out"}
             onClick={handleSignOut}
+            name="sign out"
           />
         </>
       ) : (
@@ -75,8 +68,6 @@ const Nav = (
         as={Link}
         to="/cart"
         name="cart"
-        // active={navItem === "cart"}
-        value={"cart"}
       />
 
 

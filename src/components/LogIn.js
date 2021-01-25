@@ -16,7 +16,7 @@ const LogIn = ({ setOpen }) => {
       .then((response) => {
 
         if (response.message) {
-          console.log("username or pw BADD");
+
           setLoginError(true);
         } else {
           localStorage.setItem("token", response.token);
@@ -65,7 +65,7 @@ const LogIn = ({ setOpen }) => {
           <Icon name="google" /> Continue with Google
         </Button> */}
         {/* <a href="/api/googlelogin">Click Me</a> */}
-        <p>Or</p>
+
         <Input
           style={{ width: "50%" }}
           name="username"
@@ -85,6 +85,7 @@ const LogIn = ({ setOpen }) => {
         />
         <br></br>
 
+
         <Button
           style={{ width: "50%" }}
           content="Submit"
@@ -98,7 +99,7 @@ const LogIn = ({ setOpen }) => {
         ) : (
             ""
           )}
-        <p>Or</p>
+
       </Form>
     </>
   );

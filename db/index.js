@@ -205,7 +205,7 @@ async function createProduct({
       [name, description, photoUrl, quantity, price, department, inStock, count]
     );
 
-    const {rows} = await client.query(`
+    const { rows } = await client.query(`
       SELECT * FROM products;
     `)
 
@@ -262,32 +262,32 @@ async function createProduct({
   }
 }  */
 
-async function updateProduct( productId, fields = {} ) {
+async function updateProduct(productId, fields = {}) {
 
-    const setString = Object.keys(fields).map(
-      (key, index) => `"${ key }"=$${ index + 1 }`
-    ).join(', ');
+  const setString = Object.keys(fields).map(
+    (key, index) => `"${key}"=$${index + 1}`
+  ).join(', ');
   console.log('this is the setString: ', setString)
-    // update products table
-    try {
-      // update any fields that need to be updated
-      if (setString.length > 0) {
-         await client.query(`
+  // update products table
+  try {
+    // update any fields that need to be updated
+    if (setString.length > 0) {
+      await client.query(`
           UPDATE products
-          SET ${ setString }
-          WHERE id=${ productId };
+          SET ${ setString}
+          WHERE id=${ productId};
         `, Object.values(fields));
 
-        const {rows} = await client.query(`
+      const { rows } = await client.query(`
         SELECT * FROM products;
         `)
-        return rows;
-      }
-   
+      return rows;
+    }
+
   } catch (error) {
     throw error;
   }
-  }
+}
 
 // cart created, products added = processing and checkout = completed
 // cart for specific user
@@ -638,15 +638,15 @@ async function subtractCount(id) {
   }
 }
 
-async function deleteOrdersAndCart(userId){
-  try{
+async function deleteOrdersAndCart(userId) {
+  try {
 
     await client.query(`
     DELETE FROM orders
     WHERE "userId"=$1;
     `, [userId])
 
-    const {rows} = await client.query(`
+    const { rows } = await client.query(`
     DELETE FROM cart
     WHERE "userId"=$1
     RETURNING *;
@@ -683,5 +683,5 @@ module.exports = {
   removeFromCart,
   addCount,
   subtractCount,
- 
+
 };
