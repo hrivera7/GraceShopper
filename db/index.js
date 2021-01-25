@@ -638,6 +638,26 @@ async function subtractCount(id) {
   }
 }
 
+async function deleteOrdersAndCart(userId){
+  try{
+
+    await client.query(`
+    DELETE FROM orders
+    WHERE "userId"=$1;
+    `, [userId])
+
+    const {rows} = await client.query(`
+    DELETE FROM cart
+    WHERE "userId"=$1
+    RETURNING *;
+    `, [userId])
+
+    return rows
+  } catch (error) {
+    throw error
+  }
+}
+
 // export db functions
 module.exports = {
   client,
@@ -654,6 +674,7 @@ module.exports = {
   updateProduct,
   deleteUser,
   deleteProduct,
+  deleteOrdersAndCart,
   getCart,
   createCart,
   addToCart,
@@ -662,4 +683,5 @@ module.exports = {
   removeFromCart,
   addCount,
   subtractCount,
+ 
 };

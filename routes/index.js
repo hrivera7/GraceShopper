@@ -3,6 +3,7 @@
 // create new instance of Router
 const apiRouter = require("express").Router();
 
+const { default: axios } = require("axios");
 const jwt = require("jsonwebtoken");
 const stripe = require("stripe")(process.env.STRIPEKEY);
 console.log("env", process.env.STRIPEKEY);
@@ -23,6 +24,7 @@ const {
   updateProduct,
   deleteProduct,
   deleteUser,
+  deleteOrdersAndCart,
   updateUser,
   getCart,
   createCart,
@@ -585,6 +587,25 @@ apiRouter.patch("/count/subtract", verifyToken, async (req, res, next) => {
     next(error);
   }
 });
+
+apiRouter.get('/orders/:userId', verifyToken, async (req, res, next) => {
+  const {userId} = req.params
+  console.log('the userid in the routes: ', userId)
+  try {
+    jwt.verify(req.token, "secretkey", async (err, authData) => {
+      if (err) {
+        res.send({ error: err, status: 403 });
+      } else {
+        const orders = await deleteOrdersAndCart(userId);
+        console.log("deleted orders", orders);
+        res.send( orders );
+      }
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 
 //export router
 module.exports = apiRouter;

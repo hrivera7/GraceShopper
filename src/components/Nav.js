@@ -23,9 +23,6 @@ const Nav = (
   };
 
 
-
-  console.log("token", localStorage.getItem("token"));
-
   return (
     <Menu secondary>
       <Menu.Item
