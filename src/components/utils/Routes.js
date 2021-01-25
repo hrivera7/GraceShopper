@@ -6,6 +6,7 @@ import DisplayAllUsers from "../DisplayAllUsers";
 import Cart from "../Cart";
 import VisitorCart from "../VisitorCart";
 import UserPage from '../UserPage'
+
 import { getProducts, getUsers } from "../../api";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";

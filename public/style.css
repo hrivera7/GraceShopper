@@ -277,3 +277,19 @@ element.style {
   align-items: center;
   justify-content: space-between;
 }
+
+.myAccount {
+  margin: 45px 200px 45px 200px !important;
+}
+
+.myUserInfo {
+  width: 300px;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  justify-content: space-between !important;
+  /* justify-items: center !important; */
+  /* align-items: center !important; */
+  margin-bottom: 25px !important;
+  /* background-color: blue;   */
+}

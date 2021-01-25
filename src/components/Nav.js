@@ -51,20 +51,20 @@ const Nav = (
         <>
           <Menu.Item
             as={Link}
-            to="/orders"
-            name="orders"
+            to="/userinfo"
+            name="my account"
             //active={navItem === 'orders'}
-            value={"orders"}
-            onClick={() => {
-              alert("You clicked orders!");
-            }}
-          />{" "}
+            value={"userinfo"}
+          // onClick={() => {
+          //   alert("You clicked orders!");
+          // }}
+          />
           <Menu.Item
             name="sign out"
             //active={navItem === 'sign out'}
             value={"sign out"}
             onClick={handleSignOut}
-          />{" "}
+          />
         </>
       ) : (
           <>

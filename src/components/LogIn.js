@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Input, Form, Icon } from "semantic-ui-react";
+import { Button, Input, Form, Icon, Message } from "semantic-ui-react";
 import { loginUser, loginGoogle } from "../api";
 
 
@@ -26,6 +26,7 @@ const LogIn = ({ setOpen }) => {
           /*  setRole(response.user.role); */
           console.log("userObject upon login:", response);
           setOpen(false);
+          window.location.reload(false);
         }
         // window.location.reload(false);
       })
@@ -83,18 +84,20 @@ const LogIn = ({ setOpen }) => {
           placeholder="password"
         />
         <br></br>
-        {loginError ? (
-          <div>
-            Login failed: Incorrect username or password. Please try again.{" "}
-          </div>
-        ) : (
-            ""
-          )}
+
         <Button
           style={{ width: "50%" }}
           content="Submit"
           onClick={login}
         ></Button>
+        {loginError ? (
+          <Message negative size="mini" style={{ marginTop: "6px" }}>
+
+            <p>Login failed: Incorrect username or password. Please try again.</p>
+          </Message>
+        ) : (
+            ""
+          )}
         <p>Or</p>
       </Form>
     </>
