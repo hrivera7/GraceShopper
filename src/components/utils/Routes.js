@@ -15,16 +15,14 @@ const Routes = () => {
   const [users, setUsers] = useState([]);
   // const [token, setToken] = useState("");
   //const [role, setRole] = useState("");
-  console.log("local storage", localStorage.getItem("token"));
-  //const [productCount, setProductCount] = useState(0) consider storing productCount in App.js so the cart can access
+
 
   const StripePromise = loadStripe(process.env.REACT_APP_STRIPEKEY);
-  console.log("key", process.env.REACT_APP_STRIPEKEY);
 
   useEffect(() => {
     getProducts()
       .then((response) => {
-        // console.log("response", response);
+
         setProducts(response.allProducts);
       })
       .catch((error) => {
@@ -32,7 +30,6 @@ const Routes = () => {
       });
       getUsers()
       .then((response) => {
-        console.log("the useEffect: ", response)
         setUsers(response.allUsers)
       })
       .catch((error) => {
