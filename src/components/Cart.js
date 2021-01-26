@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import DisplayCart from "./DisplayCart";
 import { getCart } from "../api";
 import OrderSummary from "./OrderSummary";
+import PageFooter from "../components/PageFooter";
 
 import { ElementsConsumer } from "@stripe/react-stripe-js";
 
@@ -38,6 +39,7 @@ const Cart = () => {
             </ElementsConsumer>
           </div>
         </div>
+        <PageFooter />
       </div>
     </>
   );

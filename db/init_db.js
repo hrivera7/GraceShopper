@@ -178,7 +178,7 @@ async function createInitialProducts() {
       description:
         "Long-lasting energy; DURALOCK Power Preserve technology; for toys, clocks, radios, games, remotes, PDAs and more",
       photoUrl:
-      "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
       quantity: 19,
       price: 5.49,
       department: "Connected Home & Housewares",
@@ -191,7 +191,7 @@ async function createInitialProducts() {
       description:
         "Compatible with select electronic devices; AA size; DURALOCK Power Preserve technology; 8-pack",
       photoUrl:
-      "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
       quantity: 7,
       price: 7.49,
       department: "Connected Home & Housewares",
@@ -203,7 +203,7 @@ async function createInitialProducts() {
       name: "Energizer - MAX Batteries AA (4-Pack)",
       description: "4-pack AA alkaline batteries; battery tester included",
       photoUrl:
-      "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
       quantity: 12,
       price: 4.99,
       department: "Connected Home & Housewares",
@@ -213,10 +213,9 @@ async function createInitialProducts() {
 
     const productFive = await createProduct({
       name: "Duracell - C Batteries (4-Pack)",
-      description:
-      "Invaluable renaissance artwork",
+      description: "Invaluable renaissance artwork",
       photoUrl:
-      "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
       quantity: 10,
       price: 8.99,
       department: "Connected Home & Housewares",
@@ -229,7 +228,7 @@ async function createInitialProducts() {
       description:
         "Compatible with select electronic devices; D size; DURALOCK Power Preserve technology; 4-pack",
       photoUrl:
-      "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
       quantity: 8,
       price: 9.99,
       department: "Connected Home & Housewares",
@@ -242,7 +241,7 @@ async function createInitialProducts() {
       description:
         "Compatible with select electronic devices; alkaline chemistry; 9V size; DURALOCK Power Preserve technology; 2-pack",
       photoUrl:
-      "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
       quantity: 2,
       price: 7.99,
       department: "Connected Home & Housewares",
@@ -255,7 +254,7 @@ async function createInitialProducts() {
       description:
         "From our expanded online assortment; compatible with Directed Electronics alarm systems; microphone and microprocessor detect and analyze intrusions; detects quiet glass breaks",
       photoUrl:
-      "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
       quantity: 1,
       price: 39.99,
       department: "Carfi Instore Only",
@@ -267,7 +266,7 @@ async function createInitialProducts() {
       name: "Energizer - N Cell E90 Batteries (2-Pack)",
       description: "Alkaline batteries; 1.5V",
       photoUrl:
-      "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
       quantity: 6,
       price: 5.99,
       department: "Connected Home & Housewares",
@@ -281,7 +280,7 @@ async function createInitialProducts() {
       description:
         "From our expanded online assortment; compatible with most 1989-2000 Ford, Lincoln and Mercury vehicles; snap-in TurboKit offers fast installation; spacer/trim ring; rear support bracket",
       photoUrl:
-      "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
       quantity: 4,
       price: 16.99,
       department: "Car Electronics & GPS",
@@ -294,7 +293,7 @@ async function createInitialProducts() {
       description:
         "From our expanded online assortment; compatible with select GM vehicles; plastic material",
       photoUrl:
-      "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
       quantity: 9,
       price: 16.99,
       department: "Car Electronics & GPS",
@@ -308,7 +307,7 @@ async function createInitialProducts() {
       description:
         "From our expanded online assortment; compatible with most 1989-2000 Ford, Lincoln and Mercury vehicles; snap-in TurboKit offers fast installation; spacer/trim ring; rear support bracket",
       photoUrl:
-      "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
       quantity: 0,
       price: 16.99,
       department: "Car Electronics & GPS",
@@ -320,7 +319,7 @@ async function createInitialProducts() {
       name: "INSTALL - PORTABLE RADAR DETECTOR INST",
       description: "PORTABLE RADAR DETECTOR INST",
       photoUrl:
-      "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
       quantity: 0,
       price: 29.99,
       department: "In-Store Only",
@@ -333,7 +332,7 @@ async function createInitialProducts() {
       description:
         "Rechargeable 3.6V 300 mAh NiCad battery for GE 2-9614 model cordless phones",
       photoUrl:
-      "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
       quantity: 11,
       price: 19.99,
       department: "Connected Home & Housewares",
@@ -347,7 +346,7 @@ async function createInitialProducts() {
       description:
         "Compatible with Honda and Acura vehicles; connects an aftermarket radio to your car's harness",
       photoUrl:
-      "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
       quantity: 8,
       price: 16.99,
       department: "Car Electronics & GPS",
@@ -395,7 +394,7 @@ async function populateInitialData() {
     const user2 = await getUserByUsername("TestUser2");
     const product1 = await getProductById(1);
 
-    await addToCart({ userId: 1, productId: [2] });
+    //await addToCart({ userId: 1, productId: [2] });
     //await checkout({ userId: 1, cartId: 1 });
     const orders = await getOrder(1);
     const cart1 = await getCart({ userId: 2 });

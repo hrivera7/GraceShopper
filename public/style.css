@@ -154,7 +154,7 @@ body {
   padding-top: 25px;
 }
 
-.order-summary-button{
+.order-summary-button {
   margin: 30px 0 !important;
 }
 
@@ -163,26 +163,26 @@ body {
   height: auto;
 }
 
-.checkout-stripe{
+.checkout-stripe {
   font-size: 20px;
   font-weight: bold;
 }
 
-.expiration{
+.expiration {
   padding-left: 120px;
   font-weight: bold;
 }
 
-.card-number{
+.card-number {
   padding-right: 15px;
   font-weight: bold;
 }
 
-.success-modal{
+.success-modal {
   text-align: center !important;
 }
 
-.success-modal{
+.success-modal {
   width: auto !important;
 }
 
@@ -206,26 +206,26 @@ element.style {
 }
 
 .admin-edit-delete {
- display: flex;
- align-items: center;
- justify-content: space-around;
- margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 1rem;
 }
 
 .product-price-cart {
-  display: flex; 
+  display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.product-card-text{
+.product-card-text {
   text-align: center;
 }
 
-.price-text, .product-card-amount{
+.price-text,
+.product-card-amount {
   font-size: 17px !important;
 }
-
 
 /* ================= */
 
@@ -276,4 +276,25 @@ element.style {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+  text-align: center;
+  background-color: rgba(245,245,245, .7)
+}
+
+.footer-links {
+  display: flex;
+  height: 100%;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.footer-links a {
+  font-size: 20px;
+  color: red;
 }

@@ -138,6 +138,27 @@ export async function updateRole(userId, role) {
   }
 }
 
+// get orders for admin
+export async function getOrders() {
+  try {
+    const { data } = await axiosWithAuth().get("/api/orders/admin");
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// get orders for logged in user
+export async function getOrderById() {
+  try {
+    const { data } = await axiosWithAuth().get(`/api/orders`);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+
 // create product
 // fields product object - no id
 export async function createProduct(

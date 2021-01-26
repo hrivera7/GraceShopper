@@ -153,17 +153,34 @@ async function getProducts() {
 
 // get all orders
 // ADMIN only
-/* async function getOrders() {
+async function getOrders() {
   try {
     const { rows } = await client.query(`
       SELECT * FROM orders
     `);
 
-    return rows;
+    const cartArr = [];
+    for (let i = 0; i < rows.length; i++) {
+      console.log("user id", rows[i].userId);
+      const cart = await getCompletedCart({ userId: rows[i].userId });
+      console.log("cart", cart, cart.length);
+      const totalArr = [];
+
+      if (cart !== []) {
+        cart.products.map((product) => {
+          totalArr.push(parseFloat(product.price));
+        });
+        const total = totalArr.reduce((a, b) => a + b, 0).toFixed(2);
+        console.log("total", totalArr);
+        cartArr.push({ rows: rows[i], cart, total });
+      }
+    }
+    console.log("cart array get orders", cartArr);
+    return { cartArr };
   } catch (error) {
     throw error;
   }
-} */
+}
 
 async function getProductById(productId) {
   try {
@@ -202,9 +219,9 @@ async function createProduct({
       [name, description, photoUrl, quantity, price, department, inStock, count]
     );
 
-    const {rows} = await client.query(`
+    const { rows } = await client.query(`
       SELECT * FROM products;
-    `)
+    `);
 
     return rows;
   } catch (error) {
@@ -259,32 +276,33 @@ async function createProduct({
   }
 }  */
 
-async function updateProduct( productId, fields = {} ) {
-
-    const setString = Object.keys(fields).map(
-      (key, index) => `"${ key }"=$${ index + 1 }`
-    ).join(', ');
-  console.log('this is the setString: ', setString)
-    // update products table
-    try {
-      // update any fields that need to be updated
-      if (setString.length > 0) {
-         await client.query(`
+async function updateProduct(productId, fields = {}) {
+  const setString = Object.keys(fields)
+    .map((key, index) => `"${key}"=$${index + 1}`)
+    .join(", ");
+  console.log("this is the setString: ", setString);
+  // update products table
+  try {
+    // update any fields that need to be updated
+    if (setString.length > 0) {
+      await client.query(
+        `
           UPDATE products
-          SET ${ setString }
-          WHERE id=${ productId };
-        `, Object.values(fields));
+          SET ${setString}
+          WHERE id=${productId};
+        `,
+        Object.values(fields)
+      );
 
-        const {rows} = await client.query(`
+      const { rows } = await client.query(`
         SELECT * FROM products;
-        `)
-        return rows;
-      }
-   
+        `);
+      return rows;
+    }
   } catch (error) {
     throw error;
   }
-  }
+}
 
 // cart created, products added = processing and checkout = completed
 // cart for specific user
@@ -656,6 +674,7 @@ module.exports = {
   addToCart,
   checkout,
   getOrder,
+  getOrders,
   removeFromCart,
   addCount,
   subtractCount,

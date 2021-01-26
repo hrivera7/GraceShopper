@@ -25,6 +25,7 @@ const {
   addToCart,
   checkout,
   getOrder,
+  getOrders,
   removeFromCart,
   addCount,
   subtractCount,
@@ -148,6 +149,30 @@ apiRouter.get("/orders", verifyToken, async (req, res, next) => {
     next(error);
   }
 });
+
+// get all Orders > admin
+apiRouter.get("/orders/admin", verifyToken, async (req, res, next) => {
+  try {
+    console.log("am i in the /orders route?");
+    jwt.verify(req.token, "secretkey", async (err, authData) => {
+      if (err) {
+        res.send({ error: err, status: 403 });
+      } else if (authData.user.role === "admin") {
+        const allOrders = await getOrders();
+        console.log("all orders: ", allOrders);
+        console.log("authdata", authData);
+        res.send({
+          allOrders,
+        });
+      } else {
+        res.send({ message: "User does not have admin privileges!" });
+      }
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 
 // POST
 // send username and password

@@ -49,7 +49,7 @@ const Nav = (
         <>
           <Menu.Item
             as={Link}
-            to="/orders"
+            to="/user/orders"
             name="orders"
             //active={navItem === 'orders'}
             value={"orders"}

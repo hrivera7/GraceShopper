@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import DisplayVisitorCart from "./DisplayVisitorCart";
 import VisitorSummary from "./VisitorSummary";
 import { ElementsConsumer } from "@stripe/react-stripe-js";
+import PageFooter from "../components/PageFooter";
 
 const VisitorCart = () => {
   const cart = JSON.parse(localStorage.getItem("cart"));
@@ -24,6 +25,7 @@ const VisitorCart = () => {
             </ElementsConsumer>
           </div>
         </div>
+        <PageFooter/>
       </div>
     </>
   );
