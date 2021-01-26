@@ -46,25 +46,28 @@ async function createUser({ username, email, role, password }) {
   }
 }
 
-async function updateUser({ username, email, password, userId }) {
-  console.log("parameters", username, email, password, userId);
+async function updateUser(fieldsObject, userId) {
+  console.log("parameters", fieldsObject, userId);
   try {
     const retrievedUser = await getUserById(userId);
     console.log("retrieved user", retrievedUser);
     if (retrievedUser === null) {
       throw new Error("User with that id does not exist.");
     }
+    const setString = Object.keys(fieldsObject).map(
+      (key, index) => `"${key}"=$${index + 1}`
+    ).join(', ');
+    console.log("setString in DB", setString)
     const {
       rows: [user],
     } = await client.query(
       `
         UPDATE users
-        SET username = $1, email = $2, password = $3
-        WHERE id = $4
+        SET ${setString}
+        WHERE id = ${userId}
         RETURNING *
     `,
-      [username, email, password, userId]
-    );
+      Object.values(fieldsObject))
     return user;
   } catch (error) {
     throw error;
@@ -75,21 +78,21 @@ async function promoteUser(userId, role) {
   try {
     role === "user"
       ? await client.query(
-          `
+        `
       UPDATE users
       SET role='admin'
       WHERE id=$1;
     `,
-          [userId]
-        )
+        [userId]
+      )
       : await client.query(
-          `
+        `
       UPDATE users
       SET role='user'
       WHERE id=$1;
     `,
-          [userId]
-        );
+        [userId]
+      );
 
     const { rows } = await client.query(`
       SELECT * FROM users
@@ -202,7 +205,7 @@ async function createProduct({
       [name, description, photoUrl, quantity, price, department, inStock, count]
     );
 
-    const {rows} = await client.query(`
+    const { rows } = await client.query(`
       SELECT * FROM products;
     `)
 
@@ -259,32 +262,32 @@ async function createProduct({
   }
 }  */
 
-async function updateProduct( productId, fields = {} ) {
+async function updateProduct(productId, fields = {}) {
 
-    const setString = Object.keys(fields).map(
-      (key, index) => `"${ key }"=$${ index + 1 }`
-    ).join(', ');
+  const setString = Object.keys(fields).map(
+    (key, index) => `"${key}"=$${index + 1}`
+  ).join(', ');
   console.log('this is the setString: ', setString)
-    // update products table
-    try {
-      // update any fields that need to be updated
-      if (setString.length > 0) {
-         await client.query(`
+  // update products table
+  try {
+    // update any fields that need to be updated
+    if (setString.length > 0) {
+      await client.query(`
           UPDATE products
-          SET ${ setString }
-          WHERE id=${ productId };
+          SET ${ setString}
+          WHERE id=${ productId};
         `, Object.values(fields));
 
-        const {rows} = await client.query(`
+      const { rows } = await client.query(`
         SELECT * FROM products;
         `)
-        return rows;
-      }
-   
+      return rows;
+    }
+
   } catch (error) {
     throw error;
   }
-  }
+}
 
 // cart created, products added = processing and checkout = completed
 // cart for specific user
@@ -635,15 +638,15 @@ async function subtractCount(id) {
   }
 }
 
-async function deleteOrdersAndCart(userId){
-  try{
+async function deleteOrdersAndCart(userId) {
+  try {
 
     await client.query(`
     DELETE FROM orders
     WHERE "userId"=$1;
     `, [userId])
 
-    const {rows} = await client.query(`
+    const { rows } = await client.query(`
     DELETE FROM cart
     WHERE "userId"=$1
     RETURNING *;
@@ -680,5 +683,5 @@ module.exports = {
   removeFromCart,
   addCount,
   subtractCount,
- 
+
 };

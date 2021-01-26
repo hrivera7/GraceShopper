@@ -84,7 +84,7 @@ export default function ProductCard({ products, isAdmin, setProducts, cart }) {
             <Card raised style={{ width: "25rem" }} className="product-card-text" key={id} >
               <Popup inverted content={description} trigger={<img src={httpsImage} style={{ height: "20rem" }} />} />
 
-         {/*    <Card raised style={{ width: "25rem" }}  key={id}>
+              {/*    <Card raised style={{ width: "25rem" }}  key={id}>
               <img src={photoUrl} style={{ height: "20rem" }} /> */}
 
               <Card.Content>
@@ -96,30 +96,31 @@ export default function ProductCard({ products, isAdmin, setProducts, cart }) {
                   {/* {truncatedDesc.length < 50 ? (
                     truncatedDesc
                   ) : (
-                    <span
-                      onClick={() => {
-                        setShowText(!showText);
-                      }}
-                    >
-                      {truncatedDesc}
-                      <span id="showText">
-                        ...Show {showText ? "more" : "less"}
+                      <span
+                        onClick={() => {
+                          setShowText(!showText);
+                        }}
+                      >
+                        {truncatedDesc}
+                        <span id="showText">
+                          ...Show {showText ? "more" : "less"}
+                        </span>
                       </span>
                     </span>
                   )} */}
                 </Card.Description>
               </Card.Content>
 
-                                          
-              {isAdmin ?  <div className='admin-edit-delete'> <EditProductModal id={id} name={name} products={products} setProducts={setProducts} inStock={inStock}/><ConfirmDeleteProduct  id={id} name={name} setProducts={setProducts}/> </div>: ''}
-             
-             <Card.Content className='product-price-cart'>
-              <Icon name="dollar" >{price}</Icon>
 
-            {/*   <Card.Content>
+              {isAdmin ? <div className='admin-edit-delete'> <EditProductModal id={id} name={name} products={products} setProducts={setProducts} inStock={inStock} /><ConfirmDeleteProduct id={id} name={name} setProducts={setProducts} /> </div> : ''}
+
+              <Card.Content className='product-price-cart'>
+                <Icon name="dollar" >{price}</Icon>
+
+                {/*   <Card.Content>
                 {inStock ? (
                   <>
-                    <Icon name="dollar" className="price-text"/>
+                    <Icon name="dollar" className="price-text" />
                     <span className="product-card-amount" >
                       {price}
                       { {" | "}
@@ -154,30 +155,30 @@ export default function ProductCard({ products, isAdmin, setProducts, cart }) {
                   >
                     Add to Cart
                   </Button>
-                  
+
                 ) : (
-                  <Button
-                    onClick={() => addToLocalCart(product)}
-                    disabled={
-                      JSON.parse(localStorage.getItem("cart")).filter(
-                        (product) => {
-                          return product.name === name;
-                        }
-                      ).length > 0
-                    }
-                  >
-                    Add to cart
-                  </Button>
-                )}
-              
+                    <Button
+                      onClick={() => addToLocalCart(product)}
+                      disabled={
+                        JSON.parse(localStorage.getItem("cart")).filter(
+                          (product) => {
+                            return product.name === name;
+                          }
+                        ).length > 0
+                      }
+                    >
+                      Add to cart
+                    </Button>
+                  )}
+
 
               </Card.Content>
             </Card>
           );
         })
       ) : (
-        <h1>Loading</h1>
-      )}
+          <h1>Loading</h1>
+        )}
     </>
   );
 }

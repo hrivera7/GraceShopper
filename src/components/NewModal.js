@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, /*Image,*/ Modal } from "semantic-ui-react";
+import { Button, /*Image,*/ Modal, Divider, Menu } from "semantic-ui-react";
 import LogIn from "./LogIn";
 import Register from "./Register";
 
@@ -17,7 +17,8 @@ function NewModal(
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
-      trigger={<Button>Sign In</Button>}
+      // trigger={<Button>Sign In</Button>}
+      trigger={<Menu.Item>Sign </Menu.Item>}
     >
       <Modal.Header>Please sign in or register</Modal.Header>
       <Modal.Content /*image*/>
@@ -25,12 +26,12 @@ function NewModal(
         <Modal.Description className="signInModal">
           <LogIn
             setOpen={setOpen} /* setRole={setRole} */
-            /* setToken={setToken} */
+          /* setToken={setToken} */
           />
-
+          <Divider horizontal>Or</Divider>
           <Register
             setOpen={setOpen} /* setRole={setRole} */
-            /* setToken={setToken} */
+          /* setToken={setToken} */
           />
         </Modal.Description>
       </Modal.Content>
