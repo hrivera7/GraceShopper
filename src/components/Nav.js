@@ -1,7 +1,7 @@
 import React from "react";
 import { Menu } from "semantic-ui-react";
 import NewModal from "./NewModal";
-
+import FilterProducts from './FilterProducts'
 import { Link, useHistory  } from "react-router-dom";
 import AddProductModal from "./AddProductModal";
 
@@ -78,6 +78,7 @@ const Nav = (
        // active={navItem === "cart"}
         value={"cart"}
       />
+      <FilterProducts products={products}/>
     </Menu>
   );
 };
