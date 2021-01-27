@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Modal, Button, Input } from "semantic-ui-react";
-import {createProduct} from "../api"
+import { Modal, Button, Input, Menu } from "semantic-ui-react";
+import { createProduct } from "../api"
 
-export default function AddProductModal({setProducts, products}) {
-    console.log('what is products here: ', products)
+export default function AddProductModal({ setProducts, products }) {
+  console.log('what is products here: ', products)
   const [open, setOpen] = useState(false);
   const [productDetails, setProductDetails] = useState({
     name: "",
@@ -21,7 +21,7 @@ export default function AddProductModal({setProducts, products}) {
         setOpen(true);
       }}
       open={open}
-      trigger={<Button color="orange">Add new Product</Button>}
+      trigger={<Menu.Item>Add new Product</Menu.Item>}
       size="tiny"
     >
       <Modal.Header>Add a new Product!</Modal.Header>
@@ -74,7 +74,7 @@ export default function AddProductModal({setProducts, products}) {
             }}
             placeholder="Add a link to the Photo..."
           />
-            <p style={{ margin: 0 }}>Price: </p>
+          <p style={{ margin: 0 }}>Price: </p>
           <Input
             fluid
             autoComplete="off"
@@ -117,11 +117,11 @@ export default function AddProductModal({setProducts, products}) {
                 ...productDetails,
                 [event.target.name]: Number(event.target.value),
               });
-              console.log(typeof(productDetails.count))
+              console.log(typeof (productDetails.count))
             }}
             placeholder="Count of the item?"
           />
-        
+
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions>
@@ -141,13 +141,13 @@ export default function AddProductModal({setProducts, products}) {
             newProducts.sort((a, b) => a.id - b.id);
             setProducts(newProducts);
             setProductDetails({
-                name: "",
-                description: "",
-                photoUrl: "",
-                department: "",
-                price: "",
-                count: 1
-              })
+              name: "",
+              description: "",
+              photoUrl: "",
+              department: "",
+              price: "",
+              count: 1
+            })
             setOpen(false);
           }}
         />
