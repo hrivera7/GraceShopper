@@ -13,8 +13,7 @@ import { Elements } from "@stripe/react-stripe-js";
 
 
 
-const Routes = (props) => {
-  console.log("router props", props);
+const Routes = () => {;
   const [products, setProducts] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false)
   const [users, setUsers] = useState([]);
@@ -29,7 +28,7 @@ const Routes = (props) => {
   useEffect(() => {
     getProducts()
       .then((response) => {
-
+        console.log('Routes products: ', products)
         setProducts(response.allProducts);
       })
       .catch((error) => {
@@ -62,6 +61,8 @@ const Routes = (props) => {
         localStorage.setItem('role', JSON.stringify({role: "user"}))
       } */
   }, []);
+
+
   return (
     <>
       <Route exact path="/">
@@ -88,7 +89,7 @@ const Routes = (props) => {
         <Orders />
       </Route>{" "} */}
       <Route path="/users">
-        <DisplayAllUsers users={users} setUsers={setUsers} />
+        <DisplayAllUsers users={users} setUsers={setUsers} products={products} isAdmin={isAdmin} setProducts={setProducts} />
       </Route>
       <Route path="/userinfo">
         <UserPage userInfo={userInfo} />

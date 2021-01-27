@@ -1,5 +1,5 @@
-import React from "react";
-import { Menu, Button } from "semantic-ui-react";
+import React, {useState} from "react";
+import { Menu } from "semantic-ui-react";
 import NewModal from "./NewModal";
 import FilterProducts from './FilterProducts'
 import { Link, useHistory  } from "react-router-dom";
@@ -7,13 +7,20 @@ import AddProductModal from "./AddProductModal";
 
 
 const Nav = (
-  { isAdmin, setProducts, products
+  { isAdmin, setProducts, products, filteredList, setFilteredList
     /*  setToken,   setRole,  token,  role */
   }
 ) => {
   const history = useHistory();
 
+//++++++++++++++
 
+
+/* let categoryList
+{filteredList.length ? categoryList = filteredList.map(product => product.department) :  categoryList = products.map(product => product.department); */
+let categoryList = products.map(product => product.department);
+let departmentList = Array.from(new Set(categoryList))
+//++++++++++++++
 
   const handleSignOut = async () => {
     await localStorage.removeItem("token");
@@ -23,7 +30,7 @@ const Nav = (
     window.location.reload(false);
   };
 
-
+console.log('Nav products: ', products)
   return (
     <Menu secondary>
       <Menu.Item
@@ -69,7 +76,7 @@ const Nav = (
         to="/cart"
         name="cart"
       />
-      <FilterProducts products={products}/>
+      <FilterProducts products={products} list={departmentList} setFilteredList={setFilteredList} setProducts={setProducts}/> 
     </Menu>
   );
 };
