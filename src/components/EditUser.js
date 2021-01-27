@@ -42,6 +42,7 @@ const EditUser = ({ userInfo }) => {
                     console.log("updated user info from database", response)
 
                     localStorage.setItem("user", JSON.stringify(response.user));
+                    // update userInfo information so that fields update when you 
                 }).catch((error) => {
                     console.log("error in update user workflow:", error);
                 });

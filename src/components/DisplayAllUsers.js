@@ -5,7 +5,11 @@ import { getUsers } from "../api";
 import UserCards from "./UserCards";
 import PageHeader from "./PageHeader";
 
+<<<<<<< HEAD
 export default function DisplayAllUsers({products, isAdmin, setProducts}) {
+=======
+export default function DisplayAllUsers({ setToken, setRole, token, role }) {
+>>>>>>> master
   const [users, setUsers] = useState([]);
 
   // do not need local storage here
@@ -23,10 +27,18 @@ export default function DisplayAllUsers({products, isAdmin, setProducts}) {
 
 
   return (
+<<<<<<< HEAD
     <div className="userCardSection">
       <PageHeader isAdmin={isAdmin} products={products} setProducts={setProducts}/* setToken={setToken} setRole={setRole} token={token} role={role} */
       />
       <UserCards users={users} setUsers={setUsers} />
     </div>
+=======
+    <>
+      <div className="userCardSection">
+        <UserCards users={users} setUsers={setUsers} />
+      </div>
+    </>
+>>>>>>> master
   );
 }

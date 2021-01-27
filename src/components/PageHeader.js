@@ -1,11 +1,9 @@
 import React from "react";
-import { Header, Image } from "semantic-ui-react";
+import { Header } from "semantic-ui-react";
 import Nav from "./Nav";
 
 const PageHeader = (
   { isAdmin, setProducts, products, filteredList, setFilteredList
-    /* setSignIn,  setToken,  setRole,
-   token,  role, */
   }
 ) => (
   <div>
@@ -18,11 +16,6 @@ const PageHeader = (
       products={products}
       filteredList={filteredList} 
       setFilteredList={setFilteredList}
-      /* setSignIn={setSignIn}
-        setToken={setToken} */
-      /* setRole={setRole}
-        role={role} */
-      /*  token={token} */
       />
     </Header>
   </div>

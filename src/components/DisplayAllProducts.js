@@ -19,8 +19,7 @@ export default function DisplayAllProducts({ products, role, isAdmin, setProduct
 
   return (
     <div className="productSection">
-      <ProductCard products={products} role={role} cart={cart} isAdmin={isAdmin} setProducts={setProducts}/>
-
+      <ProductCard products={products} role={role} cart={cart} isAdmin={isAdmin} setProducts={setProducts} />
     </div>
   );
 }

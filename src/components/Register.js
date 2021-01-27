@@ -18,15 +18,17 @@ const Register = ({ setOpen }) => {
       credentials.password
     )
       .then((response) => {
-        console.log("response from createUser", response);
+        console.log(response);
         localStorage.setItem("token", response.token);
         localStorage.setItem("user", JSON.stringify(response.user));
+
         setOpen(false);
         window.location.reload(false);
       })
 
       .catch((error) => {
         console.log(error);
+
       });
   };
 
