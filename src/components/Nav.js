@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Menu, Button } from "semantic-ui-react";
 import NewModal from "./NewModal";
 
@@ -7,11 +7,10 @@ import AddProductModal from "./AddProductModal";
 
 
 const Nav = (
-  { isAdmin, setProducts, products
-    /*  setToken,   setRole,  token,  role */
-  }
+  { isAdmin, setProducts, products }
 ) => {
   const history = useHistory();
+  const [activeItem, setActiveItem] = useState("home")
 
 
 
@@ -25,23 +24,27 @@ const Nav = (
 
 
   return (
-    <Menu secondary>
+    <Menu secondary /*className="headerNav"*/>
       <Menu.Item
         as={Link}
         to="/"
         name="home"
-
+        active={activeItem === 'home'}
+        onClick={() => { setActiveItem("home") }}
       />
-      {isAdmin ? <>
-        <Menu.Item
-          as={Link}
-          to="/users"
-          name="Display Users"
-
-        />
-        <Menu.Item>
-          <AddProductModal setProducts={setProducts} products={products} />
-        </Menu.Item> </> : (
+      {isAdmin ?
+        <>
+          <Menu.Item
+            as={Link}
+            to="/users"
+            name="Display Users"
+            active={activeItem === 'Display Users'}
+            onClick={() => { setActiveItem("Display Users") }}
+          />
+          <Menu.Item>
+            <AddProductModal setProducts={setProducts} products={products} />
+          </Menu.Item>
+        </> : (
           ""
         )}
       {localStorage.getItem("token") ? (
@@ -50,6 +53,8 @@ const Nav = (
             as={Link}
             to="/userinfo"
             name="my account"
+            active={activeItem === 'my account'}
+            onClick={() => { setActiveItem("my account") }}
           />
           <Menu.Item
             onClick={handleSignOut}
@@ -63,13 +68,15 @@ const Nav = (
             </Menu.Item>
           </>
         )}
-
-      <Menu.Item
-        as={Link}
-        to="/cart"
-        name="cart"
-      />
-
+      <>
+        <Menu.Item
+          as={Link}
+          to="/cart"
+          name="cart"
+          active={activeItem === 'cart'}
+          onClick={() => { setActiveItem("cart") }}
+        />
+      </>
 
     </Menu>
   );

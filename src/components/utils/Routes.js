@@ -6,6 +6,7 @@ import DisplayAllUsers from "../DisplayAllUsers";
 import Cart from "../Cart";
 import VisitorCart from "../VisitorCart";
 import UserPage from '../UserPage'
+import PageHeader from '../PageHeader'
 
 import { getProducts, getUsers } from "../../api";
 import { loadStripe } from "@stripe/stripe-js";
@@ -64,6 +65,7 @@ const Routes = (props) => {
   }, []);
   return (
     <>
+      <PageHeader isAdmin={isAdmin} />
       <Route exact path="/">
         <Home products={products} isAdmin={isAdmin} setProducts={setProducts} />
       </Route>
