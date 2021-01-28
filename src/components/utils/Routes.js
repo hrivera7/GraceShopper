@@ -18,6 +18,7 @@ const Routes = () => {;
   const [products, setProducts] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false)
   const [users, setUsers] = useState([]);
+  const [filteredList, setFilteredList] = useState([])
   // const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem("user")))
   const userInfo = JSON.parse(localStorage.getItem("user"))
   // const [token, setToken] = useState("");
@@ -66,9 +67,9 @@ const Routes = () => {;
 
   return (
     <>
-      <PageHeader isAdmin={isAdmin} />
+      <PageHeader isAdmin={isAdmin} filteredList={filteredList} setFilteredList={setFilteredList} products={products}/>
       <Route exact path="/">
-        <Home products={products} isAdmin={isAdmin} setProducts={setProducts} />
+        <Home products={products} isAdmin={isAdmin} setProducts={setProducts} filteredList={filteredList} setFilteredList={setFilteredList}/>
       </Route>
       {localStorage.getItem("token") ? (
         <Route path="/cart">

@@ -1,15 +1,12 @@
-import React, {useState} from "react";
+import React from "react";
 import DisplayAllProducts from "./DisplayAllProducts";
 // import PageHeader from "../components/PageHeader";
 
-const Home = ({products, isAdmin, setProducts}) => {
-  const [filteredList, setFilteredList] = useState([])
+const Home = ({products, isAdmin, setProducts, filteredList}) => {
+ 
   console.log("Home products", products);
   return (
     <>
-     {/*  <PageHeader filteredList={filteredList} setFilteredList={setFilteredList} isAdmin={isAdmin} products={products} setProducts={setProducts}/* setRole={setRole} */ /* role={role} */ />  */}
-    
-     
       {filteredList.length ?   
       <DisplayAllProducts
       products={filteredList}  isAdmin={isAdmin} setProducts={setProducts}/*  setProductCount={setProductCount} productCount={productCount}  */
