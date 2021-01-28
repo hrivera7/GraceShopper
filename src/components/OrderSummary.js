@@ -31,6 +31,7 @@ const OrderSummary = ({ stripe, elements }) => {
         setCart(error.message);
       });
   }, []);
+  console.log("cart id", cartId);
 
   // parsing string from local storage
   cart.map((product) => {
@@ -44,7 +45,6 @@ const OrderSummary = ({ stripe, elements }) => {
   const total = totalArr.reduce((a, b) => a + b, 0).toFixed(2);
 
   const Checkout = async (event) => {
-    
     event.preventDefault(event);
     if (!stripe || !elements) {
       return;
@@ -56,12 +56,10 @@ const OrderSummary = ({ stripe, elements }) => {
       console.log(result.error.message);
     } else {
       console.log(result.token);
-      await sendToken(total, result.token).then(
-        res => {
-          console.log("res", res)
-          setCharge(res.charge)
-        }
-      );
+      await sendToken(total, result.token).then((res) => {
+        console.log("res", res);
+        setCharge(res.charge);
+      });
       console.log("cartId", cartId);
       checkout(JSON.parse(localStorage.getItem("user")).id, cartId);
       setOpen(true);
@@ -70,7 +68,7 @@ const OrderSummary = ({ stripe, elements }) => {
   console.log("modal", open);
   return (
     <>
-      {open && <OrderSuccess charge={charge}/>}
+      {open && <OrderSuccess charge={charge} />}
       <Card className="order-summary-card">
         <Card.Content className="order-summary-header-container">
           <p className="order-summary-header">Order Summary</p>{" "}
@@ -87,15 +85,14 @@ const OrderSummary = ({ stripe, elements }) => {
           </p>
         </Card.Content>
         <Card.Content className="order-summary-button-container">
-        <p className="checkout-stripe">
+          <p className="checkout-stripe">
             Checkout with <img src={stripepng} className="stripe-image" />
           </p>
-          
-    <div className="flex">
-    <p className="card-number">Card number</p>
-    <p className="expiration">Exp date & CVC</p>
 
-    </div>
+          <div className="flex">
+            <p className="card-number">Card number</p>
+            <p className="expiration">Exp date & CVC</p>
+          </div>
           <form onSubmit={Checkout} className="order-summary-form">
             <CardDetails className="card-details" />
             <Button color="red" className="order-summary-button">

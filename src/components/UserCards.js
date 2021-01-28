@@ -3,7 +3,6 @@ import {  Table } from "semantic-ui-react";
 import UserInformation from './UsersInformation'
 
 export default function UserCards({ users, setUsers }) {
- console.log('what is users in the userCards :', users)
 
   return (
     <Table celled>

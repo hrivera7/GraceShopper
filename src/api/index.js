@@ -4,7 +4,6 @@ import axios from "axios";
 
 const axiosWithAuth = () => {
   const token = `Bearer ${localStorage.getItem("token")}`;
-  console.log("this is the token: ", token);
   return axios.create({ headers: { Authorization: token } });
 };
 
@@ -87,10 +86,11 @@ export async function createUser(username, email, role, password) {
       dataToSend.password.length > 0
     ) {
       const { data } = await axios.post(`/api/register`, dataToSend);
+
       return data;
     }
   } catch (error) {
-    throw error;
+    throw error.message;
   }
 }
 
@@ -107,22 +107,36 @@ export async function loginUser(username, password) {
   }
 }
 
+// google login
+export async function loginGoogle() {
+  // const dataForGoogle = {}
+  console.log("in loginGoogle()");
+  try {
+    const { data } = await axios.get("api/googlelogin" /*, dataForGoogle*/);
+    console.log("in loginGoogle() api/index", data);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
 // update user
 // user object fields required
 export async function updateUser(username, email, password, userId) {
   const dataToSend = { username, email, password, userId };
   try {
-    if (
-      dataToSend.username.length > 0 &&
-      dataToSend.email.length > 0 &&
-      dataToSend.password.length > 0
-    ) {
-      const { data } = await axios.patch(
-        `/api/users/${userId}/update`,
-        dataToSend
-      );
-      return data;
-    }
+    // if (
+    //   dataToSend.username.length > 0 &&
+    //   dataToSend.email.length > 0 &&
+    //   dataToSend.password.length > 0
+    // )
+    // {}
+
+    const { data } = await axiosWithAuth().patch(
+      `/api/users/${userId}/update`,
+      dataToSend
+    );
+    return data;
   } catch (error) {
     throw error;
   }
@@ -131,10 +145,10 @@ export async function updateUser(username, email, password, userId) {
 //Update Role
 export async function updateRole(userId, role) {
   try {
-    const {data} = await axios.patch(`/api/users/${userId}/role`, {role})
-    return data
-  } catch (error){
-    throw error
+    const { data } = await axios.patch(`/api/users/${userId}/role`, { role });
+    return data;
+  } catch (error) {
+    throw error;
   }
 }
 
@@ -142,6 +156,15 @@ export async function updateRole(userId, role) {
 export async function getOrders() {
   try {
     const { data } = await axiosWithAuth().get("/api/orders/admin");
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getOrder() {
+  try {
+    const { data } = await axiosWithAuth().get("/api/orders");
     return data;
   } catch (error) {
     throw error;
@@ -157,7 +180,6 @@ export async function getOrderById() {
     throw error;
   }
 }
-
 
 // create product
 // fields product object - no id
@@ -176,26 +198,24 @@ export async function createProduct(
     photoUrl,
     department,
     price,
-    count
+    count,
   };
-console.log('dataToSend in api is: ', dataToSend)
+  console.log("dataToSend in api is: ", dataToSend);
   try {
     if (
       dataToSend.name.length > 0 &&
       dataToSend.description.length > 0 &&
       dataToSend.photoUrl.length > 0 &&
       dataToSend.department.length > 0 &&
-      dataToSend.price.length > 0 
-      
+      dataToSend.price.length > 0
     ) {
-      dataToSend.count = 1
-      console.log("this is dataToSend.count: ", dataToSend.count)
-      dataToSend.quantity = 1
-      console.log('dataToSend in api is: ', dataToSend)
+      dataToSend.count = 1;
+      console.log("this is dataToSend.count: ", dataToSend.count);
+      dataToSend.quantity = 1;
+      console.log("dataToSend in api is: ", dataToSend);
       const { data } = await axios.post(`/api/products`, dataToSend);
       return data;
     }
-
   } catch (error) {
     throw error;
   }
@@ -255,14 +275,14 @@ export async function updateProduct(
   productId
 ) {
   const fieldsObj = { name, description, photoUrl, price };
-console.log('the fields object: ', fieldsObj)
-console.log('the productID', productId)
+  console.log("the fields object: ", fieldsObj);
+  console.log("the productID", productId);
   try {
     const { data } = await axios.patch(
       `/api/products/${productId}/update`,
       fieldsObj
     );
-    return data;  
+    return data;
   } catch (error) {
     throw error;
   }
@@ -374,6 +394,16 @@ export async function checkout(userId, cartId) {
       console.log("data2", data);
       return data;
     }
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function checkOrdersAndCart(userId) {
+  try {
+    console.log("the id in the api: ", userId);
+    const { data } = await axiosWithAuth().get(`/api/orders/${userId}`);
+    console.log("this is the data in api returned from the server: ", data);
   } catch (error) {
     throw error;
   }

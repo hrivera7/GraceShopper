@@ -46,24 +46,28 @@ async function createUser({ username, email, role, password }) {
   }
 }
 
-async function updateUser({ username, email, password, userId }) {
-  console.log("parameters", username, email, password, userId);
+async function updateUser(fieldsObject, userId) {
+  console.log("parameters", fieldsObject, userId);
   try {
     const retrievedUser = await getUserById(userId);
     console.log("retrieved user", retrievedUser);
     if (retrievedUser === null) {
       throw new Error("User with that id does not exist.");
     }
+    const setString = Object.keys(fieldsObject)
+      .map((key, index) => `"${key}"=$${index + 1}`)
+      .join(", ");
+    console.log("setString in DB", setString);
     const {
       rows: [user],
     } = await client.query(
       `
         UPDATE users
-        SET username = $1, email = $2, password = $3
-        WHERE id = $4
+        SET ${setString}
+        WHERE id = ${userId}
         RETURNING *
     `,
-      [username, email, password, userId]
+      Object.values(fieldsObject)
     );
     return user;
   } catch (error) {
@@ -162,7 +166,7 @@ async function getOrders() {
     const cartArr = [];
     for (let i = 0; i < rows.length; i++) {
       console.log("user id", rows[i].userId);
-      const cart = await getCompletedCart({ userId: rows[i].userId });
+      const cart = await getCompletedCart({ userId: rows[i].cartId });
       console.log("cart", cart, cart.length);
       const totalArr = [];
 
@@ -425,19 +429,32 @@ async function getCompletedCart({ userId }) {
 // list of orders for admin
 async function getOrder(userId) {
   try {
-    const { rows } = await client.query(`
-    SELECT * from orders
-    WHERE "userId" = ${userId}
-  `);
-    console.log("getOrder rows", rows);
+    const { rows } = await client.query(
+      `
+      SELECT * FROM orders
+      WHERE "userId" = $1
+    `,
+      [userId]
+    );
+
     const cartArr = [];
-    for (i = 0; i < rows.length; i++) {
-      cart = await getCompletedCart({ userId: rows[i].cartId });
-      cartArr.push(cart);
+    for (let i = 0; i < rows.length; i++) {
+      console.log("user id", rows[i].userId);
+      const cart = await getCompletedCart({ userId: rows[i].cartId });
+      console.log("cart", cart, cart.length);
+      const totalArr = [];
+
+      if (cart !== []) {
+        cart.products.map((product) => {
+          totalArr.push(parseFloat(product.price));
+        });
+        const total = totalArr.reduce((a, b) => a + b, 0).toFixed(2);
+        console.log("total", totalArr);
+        cartArr.push({ rows: rows[i], cart, total });
+      }
     }
-    console.log("cart array", cartArr);
-    // rows are order; cartArr is list of completed carts
-    return { rows, cartArr };
+    console.log("cart array get orders", cartArr);
+    return { cartArr };
   } catch (error) {
     throw error;
   }
@@ -448,6 +465,7 @@ async function getOrder(userId) {
 async function addToCart({ userId, productId }) {
   // get cart for user
   const cart = await getCart({ userId });
+  const cartId = cart.id;
   const oldProducts = cart.products;
   console.log("add to cart", cart);
   const newProducts = [];
@@ -468,10 +486,10 @@ async function addToCart({ userId, productId }) {
       `
       UPDATE cart
       SET "productId" = $1, status = $2
-      WHERE "userId" = $3
+      WHERE "id" = $3
       RETURNING *;
     `,
-      [newProducts, "processing", userId]
+      [newProducts, "processing", cartId]
     );
     console.log("updated cart", updatedCart);
     return updatedCart;
@@ -525,6 +543,7 @@ async function removeFromCart({ userId, productId }) {
 
 // who is checking out and which cart
 async function checkout({ userId, cartId }) {
+  console.log("checkout user cart id", userId, cartId);
   try {
     const {
       rows: [updatedCart],
@@ -653,6 +672,31 @@ async function subtractCount(id) {
   }
 }
 
+async function deleteOrdersAndCart(userId) {
+  try {
+    await client.query(
+      `
+    DELETE FROM orders
+    WHERE "userId"=$1;
+    `,
+      [userId]
+    );
+
+    const { rows } = await client.query(
+      `
+    DELETE FROM cart
+    WHERE "userId"=$1
+    RETURNING *;
+    `,
+      [userId]
+    );
+
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+}
+
 // export db functions
 module.exports = {
   client,
@@ -669,6 +713,7 @@ module.exports = {
   updateProduct,
   deleteUser,
   deleteProduct,
+  deleteOrdersAndCart,
   getCart,
   createCart,
   addToCart,

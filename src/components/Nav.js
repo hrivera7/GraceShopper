@@ -1,18 +1,17 @@
 import React from "react";
-import { Menu } from "semantic-ui-react";
+import { Menu, Button } from "semantic-ui-react";
 import NewModal from "./NewModal";
 
-import { Link, useHistory  } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import AddProductModal from "./AddProductModal";
 
-
-const Nav = (
-  { isAdmin, setProducts, products
-    /*  setToken,   setRole,  token,  role */
-  }
-) => {
+const Nav = ({
+  isAdmin,
+  setProducts,
+  products,
+  /*  setToken,   setRole,  token,  role */
+}) => {
   const history = useHistory();
-
 
   const handleSignOut = async () => {
     await localStorage.removeItem("token");
@@ -22,27 +21,17 @@ const Nav = (
     window.location.reload(false);
   };
 
-  console.log("token", localStorage.getItem("token"));
-
   return (
     <Menu secondary>
-      <Menu.Item
-        as={Link}
-        to="/"
-        name="home"
-       // active={navItem === 'home'}
-        value="home"
-      />
-      { isAdmin ? <>
-        <Menu.Item
-          as={Link}
-          to="/users"
-          name="Display Users"
-          
-        />
-       <Menu.Item>
-        <AddProductModal setProducts={setProducts} products={products}/>
-       </Menu.Item> </>: (
+      <Menu.Item as={Link} to="/" name="home" />
+      {isAdmin ? (
+        <>
+          <Menu.Item as={Link} to="/users" name="Display Users" />
+          <Menu.Item>
+            <AddProductModal setProducts={setProducts} products={products} />
+          </Menu.Item>{" "}
+        </>
+      ) : (
         ""
       )}
       {localStorage.getItem("token") ? (
@@ -53,32 +42,22 @@ const Nav = (
             name="orders"
             //active={navItem === 'orders'}
             value={"orders"}
-            onClick={() => {
+            /* onClick={() => {
               alert("You clicked orders!");
-            }}
+            }} */
           />{" "}
-          <Menu.Item
-            name="sign out"
-            //active={navItem === 'sign out'}
-            value={"sign out"}
-            onClick={handleSignOut}
-          />{" "}
+          <Menu.Item as={Link} to="/userinfo" name="my account" />
+          <Menu.Item onClick={handleSignOut} name="sign out" />
         </>
       ) : (
         <>
           <Menu.Item>
-            <NewModal/>
+            <NewModal />
           </Menu.Item>
         </>
       )}
 
-      <Menu.Item
-        as={Link}
-        to="/cart"
-        name="cart"
-       // active={navItem === "cart"}
-        value={"cart"}
-      />
+      <Menu.Item as={Link} to="/cart" name="cart" />
     </Menu>
   );
 };

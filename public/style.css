@@ -27,7 +27,7 @@ body {
 }
 
 .cart-header {
-  padding-top: 5px;
+  padding-top: 15px;
   font-size: 20px;
   font-weight: bold;
   background-color: transparent !important;
@@ -40,6 +40,7 @@ body {
 
 .cart-card-right {
   background-color: whitesmoke;
+  width: 100%;
 }
 
 .cart-card-image-container {
@@ -109,6 +110,7 @@ body {
   flex-wrap: wrap;
   margin-top: none;
   justify-content: center;
+  padding-bottom: 75px;
 }
 
 .visitor-cart-cards,
@@ -198,6 +200,7 @@ element.style {
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
+  padding-bottom: 120px;
 }
 
 #showText:hover {
@@ -245,11 +248,11 @@ element.style {
 }
 /* ================= */
 
-.header {
-  /* background-color: blue; */
-  /* display: flex;
-  flex-direction: column;
-  flex-wrap: wrap; */
+/* .header-product-card {
+  color: red !important;
+} */
+
+.header-nav {
   background-color: whitesmoke;
   display: grid;
   grid-template-columns: auto;
@@ -284,7 +287,7 @@ element.style {
   width: 100%;
   height: 100px;
   text-align: center;
-  background-color: rgba(245,245,245, .7)
+  background-color: rgba(245, 245, 245, 0.7);
 }
 
 .footer-links {
@@ -297,4 +300,19 @@ element.style {
 .footer-links a {
   font-size: 20px;
   color: red;
+}
+.myAccount {
+  margin: 45px 200px 45px 200px !important;
+}
+
+.myUserInfo {
+  width: 300px;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  justify-content: space-between !important;
+  /* justify-items: center !important; */
+  /* align-items: center !important; */
+  margin-bottom: 25px !important;
+  /* background-color: blue;   */
 }
