@@ -220,6 +220,7 @@ apiRouter.post("/register", async (req, res, next) => {
   // required fields from table
   const { username, email, role, password } = req.body;
   try {
+    console.log("hello")
     const user = await createUser({ username, email, role, password });
     if (user) {
       console.log("created user", user);
@@ -242,7 +243,20 @@ apiRouter.post("/register", async (req, res, next) => {
       res.send({ message: "Error creating user." });
     }
   } catch (error) {
-    next(error);
+    console.log("error in routes file:", error)
+    // next(error);
+    if (error.includes("users_email_key")) {
+      next({
+        name: "Bad Email",
+        message: "Please supply another email",
+      });
+    }
+    else if (error.includes("users_username_key")) {
+      next({
+        name: "Bad Username",
+        message: "Please supply another username",
+      });
+    }
   }
 });
 

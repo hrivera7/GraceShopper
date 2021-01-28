@@ -16,6 +16,7 @@ const LogIn = ({ setOpen }) => {
       .then((response) => {
 
         if (response.message) {
+          console.log(responseç)
 
           setLoginError(true);
         } else {

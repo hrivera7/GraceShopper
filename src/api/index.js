@@ -86,11 +86,12 @@ export async function createUser(username, email, role, password) {
       dataToSend.password.length > 0
     ) {
       const { data } = await axios.post(`/api/register`, dataToSend);
-
+      console.log(data)
       return data;
     }
   } catch (error) {
-    throw error.message;
+    console.dir(error)
+    throw error;
   }
 }
 

@@ -42,7 +42,8 @@ async function createUser({ username, email, role, password }) {
 
     return user;
   } catch (error) {
-    throw error;
+    console.log("error in DB: ", error.message)
+    throw error.message;
   }
 }
 

@@ -13,6 +13,19 @@ body {
   background-color: lightgray;
 }
 
+.header {
+  background-color: whitesmoke;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 55px 55px;
+  justify-items: center;
+  align-items: center;
+}
+
+.headerNav {
+  background-color: lightcoral !important;
+}
+
 /* CART CARDS */
 .flex {
   display: flex !important;
@@ -252,14 +265,14 @@ element.style {
   color: red !important;
 } */
 
-.header-nav {
+/* .header-nav {
   background-color: whitesmoke;
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: 55px 55px;
   justify-items: center;
   align-items: center;
-}
+} */
 
 .signInModal {
   display: grid;

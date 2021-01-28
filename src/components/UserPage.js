@@ -1,7 +1,7 @@
 import React from 'react'
 import { Tab } from 'semantic-ui-react'
 import EditUser from './EditUser'
-import PageHeader from './PageHeader'
+// import PageHeader from './PageHeader'
 
 
 
@@ -19,9 +19,8 @@ const UserPage = ({ userInfo }) => {
 
     ]
     return (
-
         <>
-            <PageHeader />
+            {/* <PageHeader /> */}
             <Tab className="myAccount" /*menu={{ secondary: true }}*/ panes={panes} />
             {/* <EditUser userInfo={userInfo} /> */}
         </>

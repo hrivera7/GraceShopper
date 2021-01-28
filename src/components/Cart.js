@@ -1,4 +1,4 @@
-import PageHeader from "../components/PageHeader";
+// import PageHeader from "../components/PageHeader";
 import React, { useState, useEffect } from "react";
 import DisplayCart from "./DisplayCart";
 import { getCart } from "../api";
@@ -26,7 +26,7 @@ const Cart = () => {
   return (
     <>
       <div>
-        <PageHeader />
+        {/* <PageHeader /> */}
         <div className="loggedin-cart-elements">
           <div className="loggedin-cart-cards">
             <DisplayCart products={cart} />
