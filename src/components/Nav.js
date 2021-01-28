@@ -91,7 +91,7 @@ let departmentList = Array.from(new Set(categoryList))
         active={activeItem === 'cart'}
         onClick={() => { setActiveItem("cart") }}
       />
-      <FilterProducts products={products} list={departmentList} setFilteredList={setFilteredList} setProducts={setProducts}/> 
+     {activeItem === 'home' ? <FilterProducts products={products} list={departmentList} setFilteredList={setFilteredList} setProducts={setProducts}/> : ''} 
 
     </Menu>
   );
