@@ -88,13 +88,13 @@ let departmentList = Array.from(new Set(categoryList))
           </>
         )}
 
-      <Menu.Item
+    {!isAdmin ?  <Menu.Item
         as={Link}
         to="/cart"
         name="cart"
         active={activeItem === 'cart'}
         onClick={() => { setActiveItem("cart") }}
-      />
+      />: ''}
      {activeItem === 'home' ? <FilterProducts products={products} list={departmentList} setFilteredList={setFilteredList} setProducts={setProducts}/> : ''} 
 
     </Menu>
