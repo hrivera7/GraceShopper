@@ -213,8 +213,7 @@ async function createInitialProducts() {
 
     const productFive = await createProduct({
       name: "Duracell - C Batteries (4-Pack)",
-      description:
-        "Invaluable renaissance artwork",
+      description: "Invaluable renaissance artwork",
       photoUrl:
         "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
       quantity: 10,
@@ -395,7 +394,7 @@ async function populateInitialData() {
     const user2 = await getUserByUsername("TestUser2");
     const product1 = await getProductById(1);
 
-    await addToCart({ userId: 1, productId: [2] });
+    //await addToCart({ userId: 1, productId: [2] });
     //await checkout({ userId: 1, cartId: 1 });
     const orders = await getOrder(1);
     const cart1 = await getCart({ userId: 2 });

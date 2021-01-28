@@ -1,17 +1,12 @@
-
-
-
 import React, { useState } from "react";
 import { Card, Icon, Button, Popup } from "semantic-ui-react";
 import theGathering from "../theGathering.jpg";
 import EditProductModal from "./EditProductModal";
-import ConfirmDeleteProduct from "./ConfirmDeleteProduct"
+import ConfirmDeleteProduct from "./ConfirmDeleteProduct";
 
 //returns product card
 
-
 import { addToCart } from "../api";
-
 
 //returns product card
 export default function ProductCard({ products, isAdmin, setProducts, cart }) {
@@ -80,42 +75,50 @@ export default function ProductCard({ products, isAdmin, setProducts, cart }) {
           }
 
           return (
-
-            <Card raised style={{ width: "25rem" }} className="product-card-text" key={id} >
-              <Popup inverted content={description} trigger={<img src={httpsImage} style={{ height: "20rem" }} />} />
-
-              {/*    <Card raised style={{ width: "25rem" }}  key={id}>
-              <img src={photoUrl} style={{ height: "20rem" }} /> */}
+            <Card
+              raised
+              style={{ width: "25rem" }}
+              className="product-card-text"
+              key={id}
+            >
+              <Popup
+                inverted
+                content={description}
+                trigger={<img src={httpsImage} style={{ height: "20rem" }} />}
+              />
 
               <Card.Content>
-                <Card.Header>{name}</Card.Header>
+                <Card.Header className="header-product-card">
+                  {name}
+                </Card.Header>
                 <Card.Meta>
                   <span>{department}</span>
                 </Card.Meta>
-                <Card.Description>
-                  {/* {truncatedDesc.length < 50 ? (
-                    truncatedDesc
-                  ) : (
-                      <span
-                        onClick={() => {
-                          setShowText(!showText);
-                        }}
-                      >
-                        {truncatedDesc}
-                        <span id="showText">
-                          ...Show {showText ? "more" : "less"}
-                        </span>
-                      </span>
-                    </span>
-                  )} */}
-                </Card.Description>
+                <Card.Description></Card.Description>
               </Card.Content>
 
+              {isAdmin ? (
+                <div className="admin-edit-delete">
+                  {" "}
+                  <EditProductModal
+                    id={id}
+                    name={name}
+                    products={products}
+                    setProducts={setProducts}
+                    inStock={inStock}
+                  />
+                  <ConfirmDeleteProduct
+                    id={id}
+                    name={name}
+                    setProducts={setProducts}
+                  />{" "}
+                </div>
+              ) : (
+                ""
+              )}
 
-              {isAdmin ? <div className='admin-edit-delete'> <EditProductModal id={id} name={name} products={products} setProducts={setProducts} inStock={inStock} /><ConfirmDeleteProduct id={id} name={name} setProducts={setProducts} /> </div> : ''}
-
-              <Card.Content className='product-price-cart'>
-                <Icon name="dollar" >{price}</Icon>
+              <Card.Content className="product-price-cart">
+                <Icon name="dollar">{price}</Icon>
 
                 {/*   <Card.Content>
                 {inStock ? (
@@ -155,30 +158,27 @@ export default function ProductCard({ products, isAdmin, setProducts, cart }) {
                   >
                     Add to Cart
                   </Button>
-
                 ) : (
-                    <Button
-                      onClick={() => addToLocalCart(product)}
-                      disabled={
-                        JSON.parse(localStorage.getItem("cart")).filter(
-                          (product) => {
-                            return product.name === name;
-                          }
-                        ).length > 0
-                      }
-                    >
-                      Add to cart
-                    </Button>
-                  )}
-
-
+                  <Button
+                    onClick={() => addToLocalCart(product)}
+                    disabled={
+                      JSON.parse(localStorage.getItem("cart")).filter(
+                        (product) => {
+                          return product.name === name;
+                        }
+                      ).length > 0
+                    }
+                  >
+                    Add to cart
+                  </Button>
+                )}
               </Card.Content>
             </Card>
           );
         })
       ) : (
-          <h1>Loading</h1>
-        )}
+        <h1>Loading</h1>
+      )}
     </>
   );
 }

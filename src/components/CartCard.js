@@ -82,10 +82,6 @@ export default function CartCard({ products }) {
                     <>
                       <Icon name="dollar" />
                       <span className="cart-card-amount">{price}</span>
-                      {" | "}
-                      <span className="cart-card-quantity">
-                        {quantity} left
-                      </span>
                     </>
                   ) : (
                     <>

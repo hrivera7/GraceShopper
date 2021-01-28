@@ -8,9 +8,8 @@ const jwt = require("jsonwebtoken");
 const stripe = require("stripe")(process.env.STRIPEKEY);
 console.log("env", process.env.STRIPEKEY);
 
-// google oauth 
-const passport = require('passport')
-
+// google oauth
+const passport = require("passport");
 
 const {
   getUsers,
@@ -31,6 +30,7 @@ const {
   addToCart,
   checkout,
   getOrder,
+  getOrders,
   removeFromCart,
   addCount,
   subtractCount,
@@ -155,6 +155,29 @@ apiRouter.get("/orders", verifyToken, async (req, res, next) => {
   }
 });
 
+// get all Orders > admin
+apiRouter.get("/orders/admin", verifyToken, async (req, res, next) => {
+  try {
+    console.log("am i in the /orders route?");
+    jwt.verify(req.token, "secretkey", async (err, authData) => {
+      if (err) {
+        res.send({ error: err, status: 403 });
+      } else if (authData.user.role === "admin") {
+        const allOrders = await getOrders();
+        console.log("all orders: ", allOrders);
+        console.log("authdata", authData);
+        res.send({
+          allOrders,
+        });
+      } else {
+        res.send({ message: "User does not have admin privileges!" });
+      }
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 // POST
 // send username and password
 // gets user by username
@@ -237,38 +260,33 @@ apiRouter.post("/register", async (req, res, next) => {
   }
 });
 
-
-
 /////////////// OAUTH //////////////////
 
-// auth Logout with Google 
+// auth Logout with Google
 apiRouter.get("/googlelogout", (req, res, next) => {
   // handle with passport
-  res.send("logging out")
+  res.send("logging out");
   // console.log("logging out of Google")
-})
-
+});
 
 // auth Login with Google
 // 'google' routes to the google login screen - which passport object to use from passport-setup.js
-apiRouter.get('/googlelogin', passport.authenticate('google', {
-
-  // scope is telling passport what we want to retrieve from the users' profile
-  scope: ['profile']
-
-}))
+apiRouter.get(
+  "/googlelogin",
+  passport.authenticate("google", {
+    // scope is telling passport what we want to retrieve from the users' profile
+    scope: ["profile"],
+  })
+);
 
 // apiRouter.get("/google", (req, res, next) => {
 //   // handle with passport
 //   res.send("logging in with google")
 //   // console.log("logging out of Google")
 // })
-apiRouter.get('google/redirect', (req, res) => { res.send('you reached teh callback URI') })
-
-
-
-
-
+apiRouter.get("google/redirect", (req, res) => {
+  res.send("you reached teh callback URI");
+});
 
 // creates product and adds to db
 // ADMIN only
@@ -281,9 +299,9 @@ apiRouter.post("/products", async (req, res, next) => {
     department,
     price,
     count,
-    quantity
+    quantity,
   } = req.body;
-  console.log('what does the req.body look like: ', req.body)
+  console.log("what does the req.body look like: ", req.body);
   try {
     // from index.js db
     const products = await createProduct({
@@ -293,7 +311,7 @@ apiRouter.post("/products", async (req, res, next) => {
       department,
       price,
       count,
-      quantity
+      quantity,
     });
     if (products) {
       res.json(products);
@@ -420,15 +438,15 @@ apiRouter.patch(
   async (req, res, next) => {
     const { username, email, password } = req.body;
     const { userId } = req.params;
-    const fieldsObject = {}
+    const fieldsObject = {};
     if (username) {
-      fieldsObject.username = username
+      fieldsObject.username = username;
     }
     if (email) {
-      fieldsObject.email = email
+      fieldsObject.email = email;
     }
     if (password) {
-      fieldsObject.password = password
+      fieldsObject.password = password;
     }
     console.log("patch params", req.params.userId);
     try {
@@ -495,38 +513,32 @@ apiRouter.patch(
   }
 ); */
 
-apiRouter.patch(
-  "/products/:productId/update",
-  async (req, res, next) => {
+apiRouter.patch("/products/:productId/update", async (req, res, next) => {
+  const updateFields = {};
+  const { name, description, photoUrl, price } = req.body;
 
-    const updateFields = {}
-    const { name, description, photoUrl, price } = req.body;
-
-    if (name) {
-      updateFields.name = name
-    }
-    if (description) {
-      updateFields.description = description
-    }
-    if (photoUrl) {
-      updateFields.photoUrl = photoUrl
-    }
-    if (price) {
-      updateFields.price = price
-    }
-
-
-
-    const { productId } = req.params;
-    console.log('in the routes updateFields: ', updateFields)
-    try {
-      const product = await updateProduct(productId, updateFields);
-      res.send(product)
-    } catch (error) {
-      next(error);
-    }
+  if (name) {
+    updateFields.name = name;
   }
-);
+  if (description) {
+    updateFields.description = description;
+  }
+  if (photoUrl) {
+    updateFields.photoUrl = photoUrl;
+  }
+  if (price) {
+    updateFields.price = price;
+  }
+
+  const { productId } = req.params;
+  console.log("in the routes updateFields: ", updateFields);
+  try {
+    const product = await updateProduct(productId, updateFields);
+    res.send(product);
+  } catch (error) {
+    next(error);
+  }
+});
 
 // updates cart
 apiRouter.patch("/cart", verifyToken, async (req, res, next) => {
@@ -602,9 +614,9 @@ apiRouter.patch("/count/subtract", verifyToken, async (req, res, next) => {
   }
 });
 
-apiRouter.get('/orders/:userId', verifyToken, async (req, res, next) => {
-  const { userId } = req.params
-  console.log('the userid in the routes: ', userId)
+apiRouter.get("/orders/:userId", verifyToken, async (req, res, next) => {
+  const { userId } = req.params;
+  console.log("the userid in the routes: ", userId);
   try {
     jwt.verify(req.token, "secretkey", async (err, authData) => {
       if (err) {
@@ -619,7 +631,6 @@ apiRouter.get('/orders/:userId', verifyToken, async (req, res, next) => {
     next(error);
   }
 });
-
 
 //export router
 module.exports = apiRouter;

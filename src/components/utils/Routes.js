@@ -11,6 +11,8 @@ import PageHeader from '../PageHeader'
 import { getProducts, getUsers } from "../../api";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import UserOrder from "../UserOrder"
+
 
 
 
@@ -86,9 +88,9 @@ const Routes = (props) => {
       {/* <Route path="/admin">
         <Admin />
       </Route> */}
-      {/* <Route path="/orders">
-        <Orders />
-      </Route>{" "} */}
+      <Route path="/user/orders">
+        <UserOrder />
+      </Route>{" "}
       <Route path="/users">
         <DisplayAllUsers users={users} setUsers={setUsers} />
       </Route>
