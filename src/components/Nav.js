@@ -64,6 +64,10 @@ let departmentList = Array.from(new Set(categoryList))
             to="/user/orders"
             name="orders"
             value={"orders"}
+            active={activeItem === "orders"}
+            onClick={() => {
+              setActiveItem("orders");
+            }}
           />
           <Menu.Item
             as={Link}
