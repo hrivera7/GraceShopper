@@ -1,7 +1,7 @@
 import React from "react";
 import DisplayAllProducts from "./DisplayAllProducts";
 // import PageHeader from "../components/PageHeader";
-
+import PageFooter from "../components/PageFooter";
 const Home = ({products, isAdmin, setProducts, filteredList}) => {
  
   console.log("Home products", products);
@@ -15,7 +15,7 @@ const Home = ({products, isAdmin, setProducts, filteredList}) => {
       products={products}  isAdmin={isAdmin} setProducts={setProducts}/*  setProductCount={setProductCount} productCount={productCount}  */
       /> }
      
-
+     <PageFooter />
     </>
   );
 };

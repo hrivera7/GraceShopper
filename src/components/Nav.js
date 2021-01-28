@@ -28,44 +28,53 @@ let departmentList = Array.from(new Set(categoryList))
     window.location.reload(false);
   };
 
-console.log('Nav products: ', products)
   return (
     <Menu secondary /*className="headerNav"*/>
       <Menu.Item
         as={Link}
         to="/"
         name="home"
-        active={activeItem === 'home'}
-        onClick={() => { setActiveItem("home") }}
+        active={activeItem === "home"}
+        onClick={() => {
+          setActiveItem("home");
+        }}
       />
-      {isAdmin ?
+      {isAdmin ? (
         <>
           <Menu.Item
             as={Link}
             to="/users"
             name="Display Users"
-            active={activeItem === 'Display Users'}
-            onClick={() => { setActiveItem("Display Users") }}
+            active={activeItem === "Display Users"}
+            onClick={() => {
+              setActiveItem("Display Users");
+            }}
           />
           <Menu.Item>
             <AddProductModal setProducts={setProducts} products={products} />
           </Menu.Item>
-        </> : (
-          ""
-        )}
+        </>
+      ) : (
+        ""
+      )}
       {localStorage.getItem("token") ? (
         <>
           <Menu.Item
             as={Link}
-            to="/userinfo"
-            name="my account"
-            active={activeItem === 'my account'}
-            onClick={() => { setActiveItem("my account") }}
+            to="/user/orders"
+            name="orders"
+            value={"orders"}
           />
           <Menu.Item
-            onClick={handleSignOut}
-            name="sign out"
+            as={Link}
+            to="/userinfo"
+            name="my account"
+            active={activeItem === "my account"}
+            onClick={() => {
+              setActiveItem("my account");
+            }}
           />
+          <Menu.Item onClick={handleSignOut} name="sign out" />
         </>
       ) : (
           <>
@@ -87,5 +96,4 @@ console.log('Nav products: ', products)
     </Menu>
   );
 };
-
 export default Nav;

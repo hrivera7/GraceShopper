@@ -112,12 +112,8 @@ export default function VisitorCard({ products }) {
                 <Card.Content className="cart-card-price">
                   {inStock ? (
                     <>
-                      <Icon name="dollar" className="visitor-card-dollar"/>
+                      <Icon name="dollar" className="visitor-card-dollar" />
                       <span className="cart-card-amount">{price}</span>
-                      {" | "}
-                      <span className="cart-card-quantity">
-                        {quantity} left
-                      </span>
                     </>
                   ) : (
                     <>
@@ -138,8 +134,13 @@ export default function VisitorCard({ products }) {
                   >
                     &#8722;
                   </Button>
-                  <span >{count}</span>{" "}
-                  <Button basic color="green" className="cart-card-plus-button" onClick={() => increment(id)}>
+                  <span>{count}</span>{" "}
+                  <Button
+                    basic
+                    color="green"
+                    className="cart-card-plus-button"
+                    onClick={() => increment(id)}
+                  >
                     &#43;
                   </Button>
                   <Icon
