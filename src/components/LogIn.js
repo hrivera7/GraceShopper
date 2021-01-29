@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Input, Form, Icon, Message } from "semantic-ui-react";
-import { loginUser, loginGoogle } from "../api";
+import { loginUser } from "../api";
 
 
 const LogIn = ({ setOpen }) => {
@@ -16,20 +16,16 @@ const LogIn = ({ setOpen }) => {
       .then((response) => {
 
         if (response.message) {
-          console.log(responseç)
+          console.log(response)
 
           setLoginError(true);
         } else {
           localStorage.setItem("token", response.token);
           localStorage.setItem("user", JSON.stringify(response.user));
-          //localStorage.setItem("cart", JSON.stringify([]));
-          /* setToken(response.token); */
-          /*  setRole(response.user.role); */
           console.log("userObject upon login:", response);
           setOpen(false);
           window.location.reload(false);
         }
-        // window.location.reload(false);
       })
       .catch((error) => {
         console.log(error);
@@ -41,32 +37,10 @@ const LogIn = ({ setOpen }) => {
   };
 
 
-  // const handleGoogleLogin = async () => {
-  //   event.preventDefault();
-  //   await loginGoogle()
-  //     .then((response) => {
-  //       console.log(response);
-
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }
-
-
-
-
   return (
     <>
       <Form className="signIn">
         <h2>Log in</h2>
-
-
-        {/* <Button onClick={handleGoogleLogin} color="orange">
-          <Icon name="google" /> Continue with Google
-        </Button> */}
-        {/* <a href="/api/googlelogin">Click Me</a> */}
-
         <Input
           style={{ width: "50%" }}
           name="username"

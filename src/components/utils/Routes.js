@@ -22,7 +22,7 @@ const Routes = (props) => {
   const [isAdmin, setIsAdmin] = useState(false)
   const [users, setUsers] = useState([]);
   // const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem("user")))
-  const userInfo = JSON.parse(localStorage.getItem("user"))
+  const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem("user")))
   // const [token, setToken] = useState("");
   //const [role, setRole] = useState("");
 
@@ -95,7 +95,7 @@ const Routes = (props) => {
         <DisplayAllUsers users={users} setUsers={setUsers} />
       </Route>
       <Route path="/userinfo">
-        <UserPage userInfo={userInfo} />
+        <UserPage userInfo={userInfo} setUserInfo={setUserInfo} />
       </Route>
       {/* <Route
         path="/products/:productId"
