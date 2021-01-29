@@ -32,7 +32,6 @@ const Routes = () => {;
   useEffect(() => {
     getProducts()
       .then((response) => {
-        console.log('Routes products: ', products)
         setProducts(response.allProducts);
       })
       .catch((error) => {
