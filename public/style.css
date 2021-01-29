@@ -294,6 +294,12 @@ element.style {
   justify-content: space-between;
 }
 
+#header-filter {
+  position: absolute;
+  right: 1rem;
+  width: 20%;
+}
+
 .footer {
   position: fixed;
   bottom: 0;

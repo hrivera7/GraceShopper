@@ -16,11 +16,11 @@ import UserOrder from "../UserOrder"
 
 
 
-const Routes = (props) => {
-  console.log("router props", props);
+const Routes = () => {;
   const [products, setProducts] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false)
   const [users, setUsers] = useState([]);
+  const [filteredList, setFilteredList] = useState([])
   // const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem("user")))
   const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem("user")))
   // const [token, setToken] = useState("");
@@ -32,7 +32,7 @@ const Routes = (props) => {
   useEffect(() => {
     getProducts()
       .then((response) => {
-
+        console.log('Routes products: ', products)
         setProducts(response.allProducts);
       })
       .catch((error) => {
@@ -65,11 +65,13 @@ const Routes = (props) => {
         localStorage.setItem('role', JSON.stringify({role: "user"}))
       } */
   }, []);
+
+
   return (
     <>
-      <PageHeader isAdmin={isAdmin} />
+      <PageHeader isAdmin={isAdmin} filteredList={filteredList} setFilteredList={setFilteredList} products={products}/>
       <Route exact path="/">
-        <Home products={products} isAdmin={isAdmin} setProducts={setProducts} />
+        <Home products={products} isAdmin={isAdmin} setProducts={setProducts} filteredList={filteredList} setFilteredList={setFilteredList}/>
       </Route>
       {localStorage.getItem("token") ? (
         <Route path="/cart">
@@ -92,7 +94,7 @@ const Routes = (props) => {
         <UserOrder />
       </Route>{" "}
       <Route path="/users">
-        <DisplayAllUsers users={users} setUsers={setUsers} />
+        <DisplayAllUsers users={users} setUsers={setUsers} products={products} isAdmin={isAdmin} setProducts={setProducts} />
       </Route>
       <Route path="/userinfo">
         <UserPage userInfo={userInfo} setUserInfo={setUserInfo} />
