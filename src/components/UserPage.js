@@ -5,12 +5,12 @@ import EditUser from './EditUser'
 
 
 
-const UserPage = ({ userInfo }) => {
+const UserPage = ({ userInfo, setUserInfo }) => {
     console.log("userInfo in UserPage", userInfo)
     const panes = [
         {
             menuItem: 'My Info',
-            render: () => <Tab.Pane /*attached={false}*/>{<EditUser userInfo={userInfo} />}</Tab.Pane>,
+            render: () => <Tab.Pane /*attached={false}*/>{<EditUser userInfo={userInfo} setUserInfo={setUserInfo} />}</Tab.Pane>,
         },
         {
             menuItem: 'My Orders',

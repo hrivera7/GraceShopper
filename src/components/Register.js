@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Button, Input, Form } from "semantic-ui-react";
+import { Button, Input, Form, Message } from "semantic-ui-react";
 import { createUser } from "../api";
+import { validate } from 'react-email-validator'
 
 const Register = ({ setOpen }) => {
   const [credentials, setCredentials] = useState({
@@ -8,29 +9,63 @@ const Register = ({ setOpen }) => {
     password: "",
     email: "",
   });
+  const [badEmail, setBadEmail] = useState(false)
+  const [badUsername, setBadUsername] = useState(false)
+  const [invalidEmail, setInvalidEmail] = useState(false)
 
   const register = async () => {
-    event.preventDefault();
-    await createUser(
-      credentials.username,
-      credentials.email,
-      "user",
-      credentials.password
-    )
-      .then((response) => {
-        console.log(response);
-        localStorage.setItem("token", response.token);
-        localStorage.setItem("user", JSON.stringify(response.user));
 
-        setOpen(false);
-        window.location.reload(false);
-      })
+    if (validate(credentials.email)) {
+      console.log("hey good email!")
+      event.preventDefault();
+      await createUser(
+        credentials.username,
+        credentials.email,
+        "user",
+        credentials.password
+      )
 
-      .catch((error) => {
-        console.log(error);
 
-      });
-  };
+
+        .then((response) => {
+
+          if (response.name === "Bad Username") {
+            console.log("bad username")
+            setBadUsername(true)
+            localStorage.removeItem("token")
+            localStorage.setItem("user", JSON.stringify({ "role": "user" }))
+          }
+          else if (response.name === "Bad Email") {
+            console.log("bad email")
+            setBadEmail(true)
+            localStorage.removeItem("token")
+            localStorage.setItem("user", JSON.stringify({ "role": "user" }))
+          }
+          else {
+            console.log("here we go")
+            console.log(response);
+            localStorage.setItem("token", response.token);
+            localStorage.setItem("user", JSON.stringify(response.user));
+
+            setOpen(false);
+            window.location.reload(false);
+          }
+        })
+        .catch((error) => {
+          localStorage.removeItem("token")
+          localStorage.setItem("user", { "role": "user" })
+          console.log(error);
+
+        })
+    } else {
+      console.log("email is bad")
+      setOpen(true)
+      setInvalidEmail(true)
+    }
+
+  }
+
+
 
   const handleChanges = (event) => {
     setCredentials({ ...credentials, [event.target.name]: event.target.value });
@@ -40,7 +75,6 @@ const Register = ({ setOpen }) => {
     <>
       <Form className="register">
         <h2>Register</h2>
-
         <Input
           style={{ width: "50%" }}
           name="email"
@@ -48,15 +82,41 @@ const Register = ({ setOpen }) => {
           onChange={handleChanges}
           placeholder="email"
         />
+        {badEmail ? (
+          <Message negative size="mini" style={{ marginTop: "6px" }}>
+
+            <p>This email already exists. Please use another email.</p>
+          </Message>
+        ) : (
+            ""
+          )}
+        {invalidEmail ? (
+          <Message negative size="mini" style={{ marginTop: "6px" }}>
+
+            <p>Please use a valid email address.</p>
+          </Message>
+        ) : (
+            ""
+          )}
+
         <br></br>
 
         <Input
+
           style={{ width: "50%" }}
           name="username"
           value={credentials.username}
           onChange={handleChanges}
           placeholder="username"
         />
+        {badUsername ? (
+          <Message negative size="mini" style={{ marginTop: "6px" }}>
+
+            <p>This username already exists. Please create another username.</p>
+          </Message>
+        ) : (
+            ""
+          )}
         <br></br>
 
         <Input
