@@ -14,7 +14,7 @@ const LogIn = ({ setOpen }) => {
     event.preventDefault();
     await loginUser(credentials.username, credentials.password)
       .then((response) => {
-
+        console.log('the error from logging in : ', response)
         if (response.message) {
           console.log(responseç)
 

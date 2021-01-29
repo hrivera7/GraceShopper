@@ -35,7 +35,7 @@ export default function UserOrder() {
     <>
       {(orders && orders.cartArr.length > 0) || adminOrders ? (
         <>
-          <PageHeader />
+      {/*     <PageHeader /> */}
           {JSON.parse(localStorage.getItem("user")).role === "admin" ? (
             adminOrders !== undefined ? (
               <Table celled>
@@ -117,7 +117,7 @@ export default function UserOrder() {
       ) : (
         <>
           {" "}
-          <PageHeader /> <h1>No orders yet...</h1> <PageFooter />{" "}
+       {/*    <PageHeader /> <h1>No orders yet...</h1>  */}<PageFooter />{" "}
         </>
       )}
     </>
