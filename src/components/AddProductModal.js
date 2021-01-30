@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Button, Input, Menu } from "semantic-ui-react";
 import { createProduct } from "../api"
 
 export default function AddProductModal({ setProducts, products }) {
-  console.log('what is products here: ', products)
+
   const [open, setOpen] = useState(false);
+  const [disableSubmit, setDisableSubmit] = useState(true)
   const [productDetails, setProductDetails] = useState({
     name: "",
     description: "",
@@ -13,6 +14,10 @@ export default function AddProductModal({ setProducts, products }) {
     price: "",
     count: 1
   });
+
+  useEffect(() => {
+    setDisableSubmit((productDetails.name && productDetails.description && productDetails.photoUrl && productDetails.department && productDetails.price) ? false : true)
+}, [productDetails.name, productDetails.description, productDetails.photoUrl, productDetails.department, productDetails.price])
 
   return (
     <Modal
@@ -31,7 +36,11 @@ export default function AddProductModal({ setProducts, products }) {
           <Input
             fluid
             autoComplete="off"
-            style={{ marginBottom: "1rem" }}
+            style={{ 
+            marginBottom: "1rem" ,
+            borderRadius: '.35rem', 
+            border: productDetails.name ? '2px solid #3ef737' : '2px solid #f73737'
+            }}
             name="name"
             value={productDetails.name}
             onChange={(event) => {
@@ -46,7 +55,12 @@ export default function AddProductModal({ setProducts, products }) {
           <Input
             fluid
             autoComplete="off"
-            style={{ marginBottom: "1rem" }}
+           
+            style={{ 
+              marginBottom: "1rem" ,
+              borderRadius: '.35rem', 
+              border: productDetails.description ? '2px solid #3ef737' : '2px solid #f73737'
+              }}
             name="description"
             type="textarea"
             value={productDetails.description}
@@ -62,7 +76,11 @@ export default function AddProductModal({ setProducts, products }) {
           <Input
             fluid
             autoComplete="off"
-            style={{ marginBottom: "1rem" }}
+            style={{ 
+              marginBottom: "1rem" ,
+              borderRadius: '.35rem', 
+              border: productDetails.photoUrl ? '2px solid #3ef737' : '2px solid #f73737'
+              }}
             name="photoUrl"
             type="textarea"
             value={productDetails.photoUrl}
@@ -78,7 +96,12 @@ export default function AddProductModal({ setProducts, products }) {
           <Input
             fluid
             autoComplete="off"
-            style={{ marginBottom: "1rem" }}
+            style={{ 
+              marginBottom: "1rem" ,
+              borderRadius: '.35rem', 
+              border: productDetails.price ? '2px solid #3ef737' : '2px solid #f73737'
+              }}
+            type='number'
             name="price"
             value={productDetails.price}
             onChange={(event) => {
@@ -93,7 +116,11 @@ export default function AddProductModal({ setProducts, products }) {
           <Input
             fluid
             autoComplete="off"
-            style={{ marginBottom: "1rem" }}
+            style={{ 
+              marginBottom: "1rem" ,
+              borderRadius: '.35rem', 
+              border: productDetails.department ? '2px solid #3ef737' : '2px solid #f73737'
+              }}
             name="department"
             value={productDetails.department}
             onChange={(event) => {
@@ -129,6 +156,8 @@ export default function AddProductModal({ setProducts, products }) {
 
         <Button
           icon="checkmark"
+          disabled={disableSubmit}
+          style={{backgroundColor: disableSubmit ? '#f73737' : '#3ef737'}}
           onClick={async () => {
             const newProducts = await createProduct(
               productDetails.name,
@@ -138,6 +167,7 @@ export default function AddProductModal({ setProducts, products }) {
               productDetails.price,
               productDetails.count
             );
+          if(newProducts){
             newProducts.sort((a, b) => a.id - b.id);
             setProducts(newProducts);
             setProductDetails({
@@ -148,7 +178,17 @@ export default function AddProductModal({ setProducts, products }) {
               price: "",
               count: 1
             })
-            setOpen(false);
+            setOpen(false)} else {
+              setProductDetails({
+                name: "",
+                description: "",
+                photoUrl: "",
+                department: "",
+                price: "",
+                count: 1
+              })
+              setOpen(false)
+            }
           }}
         />
       </Modal.Actions>
