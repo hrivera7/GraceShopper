@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Input, Menu } from "semantic-ui-react";
-import { createProduct } from "../api"
+import { createProduct } from "../api";
 
 export default function AddProductModal({ setProducts, filteredList, products, setFilteredList }) {
 
@@ -12,7 +12,7 @@ export default function AddProductModal({ setProducts, filteredList, products, s
     photoUrl: "",
     department: "",
     price: "",
-    count: 1
+    count: 1,
   });
 
   useEffect(() => {
@@ -135,7 +135,7 @@ export default function AddProductModal({ setProducts, filteredList, products, s
           <Input
             fluid
             autoComplete="off"
-            type='number'
+            type="number"
             style={{ marginBottom: "1rem" }}
             name="count"
             value={productDetails.count}
@@ -144,11 +144,10 @@ export default function AddProductModal({ setProducts, filteredList, products, s
                 ...productDetails,
                 [event.target.name]: Number(event.target.value),
               });
-              console.log(typeof (productDetails.count))
+              console.log(typeof productDetails.count);
             }}
             placeholder="Count of the item?"
           />
-
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions>
@@ -200,6 +199,18 @@ export default function AddProductModal({ setProducts, filteredList, products, s
             }
     
         }}
+       /*      newProducts.sort((a, b) => a.id - b.id);
+            setProducts(newProducts);
+            setProductDetails({
+              name: "",
+              description: "",
+              photoUrl: "",
+              department: "",
+              price: "",
+              count: 1,
+            });
+            setOpen(false);
+          }} */
         />
       </Modal.Actions>
     </Modal>

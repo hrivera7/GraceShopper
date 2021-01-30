@@ -265,14 +265,15 @@ element.style {
   color: red !important;
 } */
 
-/* .header-nav {
+.header-nav {
   background-color: whitesmoke;
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: 55px 55px;
   justify-items: center;
   align-items: center;
-} */
+  margin: 0 !important;
+}
 
 .signInModal {
   display: grid;

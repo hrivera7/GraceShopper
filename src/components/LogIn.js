@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Button, Input, Form, Icon, Message } from "semantic-ui-react";
-import { loginUser } from "../api";
-
+import { loginUser, sendGoogleData, loginGoogle } from "../api";
+// Google button
+import GoogleLogin from "react-google-login";
 
 const LogIn = ({ setOpen }) => {
   const [credentials, setCredentials] = useState({
@@ -14,9 +15,9 @@ const LogIn = ({ setOpen }) => {
     event.preventDefault();
     await loginUser(credentials.username, credentials.password)
       .then((response) => {
-        console.log('the error from logging in : ', response)
+        console.log("the error from logging in : ", response);
         if (response.message) {
-          console.log(response)
+          console.log(response);
 
           setLoginError(true);
         } else {
@@ -36,6 +37,29 @@ const LogIn = ({ setOpen }) => {
     setCredentials({ ...credentials, [event.target.name]: event.target.value });
   };
 
+  // sends token that we get from login success
+  // googleData is obj with token in it
+  const handleLogin = async (googleData) => {
+    console.log("google data", googleData);
+    await sendGoogleData(googleData)
+      .then((res) => {
+        console.log("response", res);
+        localStorage.setItem("token", res.token);
+
+        //add info to my account fields...
+        //
+        if (res.user) {
+          localStorage.setItem("user", JSON.stringify(res.user));
+        } else {
+          localStorage.setItem("user", JSON.stringify(res.user));
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    window.location.reload(false);
+  };
 
   return (
     <>
@@ -60,7 +84,6 @@ const LogIn = ({ setOpen }) => {
         />
         <br></br>
 
-
         <Button
           style={{ width: "50%" }}
           content="Submit"
@@ -68,14 +91,22 @@ const LogIn = ({ setOpen }) => {
         ></Button>
         {loginError ? (
           <Message negative size="mini" style={{ marginTop: "6px" }}>
-
-            <p>Login failed: Incorrect username or password. Please try again.</p>
+            <p>
+              Login failed: Incorrect username or password. Please try again.
+            </p>
           </Message>
         ) : (
-            ""
-          )}
-
+          ""
+        )}
       </Form>
+      {/* Google button */}
+      <GoogleLogin
+        clientId={process.env.REACT_APP_CLIENTID}
+        buttonText="login with Google"
+        onSuccess={handleLogin}
+        onFailure={handleLogin}
+        cookiePolicy={"single_host_origin"}
+      />
     </>
   );
 };

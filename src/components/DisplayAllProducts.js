@@ -9,7 +9,6 @@ export default function DisplayAllProducts({ products, role, isAdmin, setProduct
   useEffect(() => {
     getCart()
       .then((response) => {
-        console.log("this is the cart:", response);
         setCart(response.cart.products);
       })
       .catch((error) => {
