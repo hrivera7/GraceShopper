@@ -4,7 +4,6 @@ import DisplayAllProducts from "./DisplayAllProducts";
 import PageFooter from "../components/PageFooter";
 const Home = ({products, isAdmin, setProducts, filteredList}) => {
  
-  console.log("Home products", products);
   return (
     <>
       {filteredList.length ?   

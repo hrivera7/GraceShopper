@@ -62,8 +62,6 @@ export default function ProductCard({ products, isAdmin, setProducts, cart }) {
             quantity,
           } = product;
 
-          // const [showText, setShowText] = useState(true);
-          // let truncatedDesc = showText ? description.slice(0, 50) : description;
 
           let httpsImage;
           if (photoUrl) {
@@ -120,29 +118,7 @@ export default function ProductCard({ products, isAdmin, setProducts, cart }) {
               <Card.Content className="product-price-cart">
                 <Icon name="dollar">{price}</Icon>
 
-                {/*   <Card.Content>
-                {inStock ? (
-                  <>
-                    <Icon name="dollar" className="price-text" />
-                    <span className="product-card-amount" >
-                      {price}
-                      { {" | "}
-                      {quantity} left }
-                    </span>
-                  </>
-                ) : (
-                  <>
-                    <Icon name="dollar" className="price-text" />
-                    <span className="product-card-amount">
-                      {price }
-                     {  {" | "}Out of Stock }
-                    </span>
-                  </>
-                )}
-              </Card.Content>
-              <Card.Content> */}
-
-                {localStorage.getItem("token") ? (
+            {isAdmin ? '' : localStorage.getItem("token") ? 
                   <Button
                     onClick={() =>
                       addToDbCart(
@@ -158,7 +134,7 @@ export default function ProductCard({ products, isAdmin, setProducts, cart }) {
                   >
                     Add to Cart
                   </Button>
-                ) : (
+                 : 
                   <Button
                     onClick={() => addToLocalCart(product)}
                     disabled={
@@ -171,7 +147,7 @@ export default function ProductCard({ products, isAdmin, setProducts, cart }) {
                   >
                     Add to cart
                   </Button>
-                )}
+                }
               </Card.Content>
             </Card>
           );
