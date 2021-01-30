@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Modal, Button, Input, Menu } from "semantic-ui-react";
-import { createProduct } from "../api"
+import { createProduct } from "../api";
 
 export default function AddProductModal({ setProducts, products }) {
-  console.log('what is products here: ', products)
+  //console.log('what is products here: ', products)
   const [open, setOpen] = useState(false);
   const [productDetails, setProductDetails] = useState({
     name: "",
@@ -11,7 +11,7 @@ export default function AddProductModal({ setProducts, products }) {
     photoUrl: "",
     department: "",
     price: "",
-    count: 1
+    count: 1,
   });
 
   return (
@@ -108,7 +108,7 @@ export default function AddProductModal({ setProducts, products }) {
           <Input
             fluid
             autoComplete="off"
-            type='number'
+            type="number"
             style={{ marginBottom: "1rem" }}
             name="count"
             value={productDetails.count}
@@ -117,11 +117,10 @@ export default function AddProductModal({ setProducts, products }) {
                 ...productDetails,
                 [event.target.name]: Number(event.target.value),
               });
-              console.log(typeof (productDetails.count))
+              console.log(typeof productDetails.count);
             }}
             placeholder="Count of the item?"
           />
-
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions>
@@ -146,8 +145,8 @@ export default function AddProductModal({ setProducts, products }) {
               photoUrl: "",
               department: "",
               price: "",
-              count: 1
-            })
+              count: 1,
+            });
             setOpen(false);
           }}
         />

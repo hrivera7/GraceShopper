@@ -5,27 +5,25 @@ import Home from "../Home";
 import DisplayAllUsers from "../DisplayAllUsers";
 import Cart from "../Cart";
 import VisitorCart from "../VisitorCart";
-import UserPage from '../UserPage'
-import PageHeader from '../PageHeader'
+import UserPage from "../UserPage";
+import PageHeader from "../PageHeader";
 
 import { getProducts, getUsers } from "../../api";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import UserOrder from "../UserOrder"
+import UserOrder from "../UserOrder";
 
-
-
-
-const Routes = () => {;
+const Routes = () => {
   const [products, setProducts] = useState([]);
-  const [isAdmin, setIsAdmin] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(false);
   const [users, setUsers] = useState([]);
-  const [filteredList, setFilteredList] = useState([])
+  const [filteredList, setFilteredList] = useState([]);
   // const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem("user")))
-  const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem("user")))
+  const [userInfo, setUserInfo] = useState(
+    JSON.parse(localStorage.getItem("user"))
+  );
   // const [token, setToken] = useState("");
   //const [role, setRole] = useState("");
-
 
   const StripePromise = loadStripe(process.env.REACT_APP_STRIPEKEY);
 
@@ -39,38 +37,42 @@ const Routes = () => {;
       });
     getUsers()
       .then((response) => {
-        setUsers(response.allUsers)
+        setUsers(response.allUsers);
       })
       .catch((error) => {
-        setUsers(error.message)
-      })
+        setUsers(error.message);
+      });
     if (!localStorage.getItem("cart")) {
       localStorage.setItem("cart", JSON.stringify([]));
     }
-
-    // if(!JSON.parse(localStorage.getItem('user'))) {
-    //   localStorage.setItem('user', JSON.stringify({role: "user"}))
-    // } else {
-    //   JSON.parse(localStorage.getItem('user')).role === 'admin' ? setIsAdmin(true) : setIsAdmin(false)     
-    if (JSON.parse(localStorage.getItem("user")).id) {
+    // if user exists then check for id
+    // if admin role set state to admin
+    if (
+      JSON.parse(localStorage.getItem("user")) &&
+      JSON.parse(localStorage.getItem("user")).id
+    ) {
       JSON.parse(localStorage.getItem("user")).role === "admin"
         ? setIsAdmin(true)
         : setIsAdmin(false);
     }
-
-    /*   if(JSON.parse(localStorage.getItem('user')).id) {
-        JSON.parse(localStorage.getItem('user')).role === 'admin' ? setIsAdmin(true) : setIsAdmin(false)
-      } else {
-        localStorage.setItem('role', JSON.stringify({role: "user"}))
-      } */
   }, []);
-
 
   return (
     <>
-      <PageHeader isAdmin={isAdmin} filteredList={filteredList} setFilteredList={setFilteredList} products={products}/>
+      <PageHeader
+        isAdmin={isAdmin}
+        filteredList={filteredList}
+        setFilteredList={setFilteredList}
+        products={products}
+      />
       <Route exact path="/">
-        <Home products={products} isAdmin={isAdmin} setProducts={setProducts} filteredList={filteredList} setFilteredList={setFilteredList}/>
+        <Home
+          products={products}
+          isAdmin={isAdmin}
+          setProducts={setProducts}
+          filteredList={filteredList}
+          setFilteredList={setFilteredList}
+        />
       </Route>
       {localStorage.getItem("token") ? (
         <Route path="/cart">
@@ -79,29 +81,27 @@ const Routes = () => {;
           </Elements>
         </Route>
       ) : (
-          <Route path="/cart">
-            <Elements stripe={StripePromise}>
-              <VisitorCart />
-            </Elements>
-          </Route>
-        )}
-
-      {/* <Route path="/admin">
-        <Admin />
-      </Route> */}
+        <Route path="/cart">
+          <Elements stripe={StripePromise}>
+            <VisitorCart />
+          </Elements>
+        </Route>
+      )}
       <Route path="/user/orders">
         <UserOrder />
       </Route>{" "}
       <Route path="/users">
-        <DisplayAllUsers users={users} setUsers={setUsers} products={products} isAdmin={isAdmin} setProducts={setProducts} />
+        <DisplayAllUsers
+          users={users}
+          setUsers={setUsers}
+          products={products}
+          isAdmin={isAdmin}
+          setProducts={setProducts}
+        />
       </Route>
       <Route path="/userinfo">
         <UserPage userInfo={userInfo} setUserInfo={setUserInfo} />
       </Route>
-      {/* <Route
-        path="/products/:productId"
-        render={(props) => <ProductbyId {...props} />}
-      ></Route>  */}
     </>
   );
 };
