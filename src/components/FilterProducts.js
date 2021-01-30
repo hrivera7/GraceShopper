@@ -1,17 +1,11 @@
 import React from "react";
 import { Dropdown } from "semantic-ui-react";
-import {getProducts} from '../api'
 
-export default function FilterProducts({ products, setProducts, setFilteredList, list }) {
-console.log('this is products.length: ', products)
-    
-    
+export default function FilterProducts({ products, setFilteredList, list }) {
 
+    
     const filterProducts = (selectedDepartment) => {    
     const newerList = products.filter(product => product.department === selectedDepartment);
-    console.log('the selected department: ', selectedDepartment)
-    console.log('the newerList: ', newerList)
-
     setFilteredList(newerList);
     }
 
