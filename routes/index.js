@@ -402,10 +402,7 @@ apiRouter.delete(
           res.send({ error: err, status: 403 });
         } else if (authData.user.role === "admin") {
           const deletedProduct = await deleteProduct(productId);
-          console.log("authdata2", authData);
-          res.send({
-            deletedProduct,
-          });
+          res.send(deletedProduct);
         } else {
           res.send({ message: "User is not an admin!" });
         }

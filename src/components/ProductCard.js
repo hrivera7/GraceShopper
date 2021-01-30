@@ -9,7 +9,7 @@ import ConfirmDeleteProduct from "./ConfirmDeleteProduct";
 import { addToCart } from "../api";
 
 //returns product card
-export default function ProductCard({ products, isAdmin, setProducts, cart }) {
+export default function ProductCard({ products, isAdmin, setProducts, cart, setFilteredList }) {
   // add products to db cart
   const addToDbCart = (userId, productId) => {
     console.log("adding to db");
@@ -17,7 +17,7 @@ export default function ProductCard({ products, isAdmin, setProducts, cart }) {
     addToCart(userId, [productId]);
     window.location.reload(false);
   };
-
+console.log('in the  productCard: ', products)
   //console.log("token", localStorage.getItem("token"));
   //console.log("storage user", localStorage.getItem("user"));
 
@@ -108,7 +108,9 @@ export default function ProductCard({ products, isAdmin, setProducts, cart }) {
                   <ConfirmDeleteProduct
                     id={id}
                     name={name}
+                    products={products}
                     setProducts={setProducts}
+                    setFilteredList={setFilteredList}
                   />{" "}
                 </div>
               ) : (
