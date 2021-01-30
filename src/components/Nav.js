@@ -2,23 +2,23 @@ import React, { useState } from "react";
 import { Menu, Button } from "semantic-ui-react";
 import NewModal from "./NewModal";
 import FilterProducts from './FilterProducts'
-import { Link, useHistory  } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import AddProductModal from "./AddProductModal";
 
 
-const Nav = ({ isAdmin, setProducts, products, filteredList, setFilteredList}
+const Nav = ({ isAdmin, setProducts, products, filteredList, setFilteredList }
 ) => {
   const history = useHistory();
   const [activeItem, setActiveItem] = useState("home")
 
-//++++++++++++++
+  //++++++++++++++
 
 
-/* let categoryList
-{filteredList.length ? categoryList = filteredList.map(product => product.department) :  categoryList = products.map(product => product.department); */
-let categoryList = products.map(product => product.department);
-let departmentList = Array.from(new Set(categoryList))
-//++++++++++++++
+  /* let categoryList
+  {filteredList.length ? categoryList = filteredList.map(product => product.department) :  categoryList = products.map(product => product.department); */
+  let categoryList = products.map(product => product.department);
+  let departmentList = Array.from(new Set(categoryList))
+  //++++++++++++++
 
   const handleSignOut = async () => {
     await localStorage.removeItem("token");
@@ -53,22 +53,23 @@ let departmentList = Array.from(new Set(categoryList))
           <Menu.Item>
             <AddProductModal setProducts={setProducts} products={products} setFilteredList={setFilteredList} filteredList={filteredList} />
           </Menu.Item>
-        </>
-      ) : (
-        ""
-      )}
-      {localStorage.getItem("token") ? (
-        <>
           <Menu.Item
             as={Link}
             to="/user/orders"
-            name="orders"
+            name="all orders"
             value={"orders"}
             active={activeItem === "orders"}
             onClick={() => {
               setActiveItem("orders");
             }}
           />
+        </>
+      ) : (
+          ""
+        )}
+      {localStorage.getItem("token") ? (
+        <>
+
           <Menu.Item
             as={Link}
             to="/userinfo"
@@ -88,14 +89,14 @@ let departmentList = Array.from(new Set(categoryList))
           </>
         )}
 
-    {isAdmin ? '' : <Menu.Item
+      {isAdmin ? '' : <Menu.Item
         as={Link}
         to="/cart"
         name="cart"
         active={activeItem === 'cart'}
         onClick={() => { setActiveItem("cart") }}
-      /> }
-     {activeItem === 'home' ? <FilterProducts products={products} list={departmentList} setFilteredList={setFilteredList} /> : ''} 
+      />}
+      {activeItem === 'home' ? <FilterProducts products={products} list={departmentList} setFilteredList={setFilteredList} /> : ''}
 
     </Menu>
   );
