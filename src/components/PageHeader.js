@@ -5,7 +5,7 @@ import Nav from "./Nav";
 const PageHeader = ({ isAdmin, setProducts, products }) => {
   return (
     <>
-      <Header className="header">
+      <Header className="header-nav">
         <h1>Kid Art 4 U</h1>
         <Nav isAdmin={isAdmin} setProducts={setProducts} products={products} />
       </Header>

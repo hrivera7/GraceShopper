@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Card, Icon, Button, Popup } from "semantic-ui-react";
 import theGathering from "../theGathering.jpg";
 import EditProductModal from "./EditProductModal";
@@ -18,18 +18,12 @@ export default function ProductCard({ products, isAdmin, setProducts, cart }) {
     window.location.reload(false);
   };
 
-  //console.log("token", localStorage.getItem("token"));
-  //console.log("storage user", localStorage.getItem("user"));
-
   const addToLocalCart = (product) => {
-    //console.log("cart working", product);
-    //console.log("product count", product.count);
     const oldProducts = JSON.parse(localStorage.getItem("cart"));
-    //console.log("old products", oldProducts);
+
     const newProducts = [];
     if (oldProducts.length > 0) {
       for (let i = 0; i < oldProducts.length; i++) {
-        //console.log("inside for loop", oldProducts[i]);
         newProducts.push(oldProducts[i]);
       }
       for (let i = 0; i < product.count; i++) {
@@ -41,11 +35,9 @@ export default function ProductCard({ products, isAdmin, setProducts, cart }) {
       }
     }
     localStorage.setItem("cart", JSON.stringify(newProducts));
-    //console.log("new products", newProducts);
+
     window.location.reload(false);
   };
-
-  //console.log("products", products);
 
   return (
     <>
@@ -61,9 +53,6 @@ export default function ProductCard({ products, isAdmin, setProducts, cart }) {
             price,
             quantity,
           } = product;
-
-          // const [showText, setShowText] = useState(true);
-          // let truncatedDesc = showText ? description.slice(0, 50) : description;
 
           let httpsImage;
           if (photoUrl) {
@@ -120,28 +109,6 @@ export default function ProductCard({ products, isAdmin, setProducts, cart }) {
               <Card.Content className="product-price-cart">
                 <Icon name="dollar">{price}</Icon>
 
-                {/*   <Card.Content>
-                {inStock ? (
-                  <>
-                    <Icon name="dollar" className="price-text" />
-                    <span className="product-card-amount" >
-                      {price}
-                      { {" | "}
-                      {quantity} left }
-                    </span>
-                  </>
-                ) : (
-                  <>
-                    <Icon name="dollar" className="price-text" />
-                    <span className="product-card-amount">
-                      {price }
-                     {  {" | "}Out of Stock }
-                    </span>
-                  </>
-                )}
-              </Card.Content>
-              <Card.Content> */}
-
                 {localStorage.getItem("token") ? (
                   <Button
                     onClick={() =>
@@ -150,6 +117,7 @@ export default function ProductCard({ products, isAdmin, setProducts, cart }) {
                         id
                       )
                     }
+                    // cart was undefined on google logged in user
                     disabled={
                       cart.filter((product) => {
                         return product.name == name;

@@ -8,6 +8,10 @@ const jwt = require("jsonwebtoken");
 const stripe = require("stripe")(process.env.STRIPEKEY);
 console.log("env", process.env.STRIPEKEY);
 
+// token confirmation
+const { OAuth2Client } = require("google-auth-library");
+const client = new OAuth2Client(process.env.REACT_APP_CLIENTID);
+
 // google oauth
 const passport = require("passport");
 
@@ -129,6 +133,7 @@ apiRouter.get("/cart", verifyToken, async (req, res, next) => {
       if (err) {
         res.send({ error: err, status: 403 });
       } else {
+        console.log("auth data above", authData);
         const cart = await getCart({ userId: authData.user.id });
         console.log("auth data", authData);
         res.send({ cart });
@@ -220,7 +225,7 @@ apiRouter.post("/register", async (req, res, next) => {
   // required fields from table
   const { username, email, role, password } = req.body;
   try {
-    console.log("hello")
+    console.log("hello");
     const user = await createUser({ username, email, role, password });
     if (user) {
       console.log("created user", user);
@@ -243,15 +248,14 @@ apiRouter.post("/register", async (req, res, next) => {
       res.send({ message: "Error creating user." });
     }
   } catch (error) {
-    console.log("error in routes file:", error)
+    console.log("error in routes file:", error);
     // next(error);
     if (error.includes("users_email_key")) {
       next({
         name: "Bad Email",
         message: "Please supply another email",
       });
-    }
-    else if (error.includes("users_username_key")) {
+    } else if (error.includes("users_username_key")) {
       next({
         name: "Bad Username",
         message: "Please supply another username",
@@ -261,6 +265,83 @@ apiRouter.post("/register", async (req, res, next) => {
 });
 
 /////////////// OAUTH //////////////////
+
+apiRouter.post("/google-login", async (req, res, next) => {
+  // grab token from body
+  const { token } = req.body;
+  console.log("token", token);
+  try {
+    // checks token and client id
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: process.env.REACT_APP_CLIENTID,
+    });
+    console.log("ticket1", ticket);
+    // grab fields from token object
+    const { name, email } = ticket.getPayload();
+    console.log("ticket payload", ticket.getPayload());
+    const role = "user";
+    const password = "password";
+    // grab the user by username
+    const user = await getUserByUsername(name);
+    // check if user exists
+    if (user) {
+      console.log("google name", name);
+      // encrypt user with json webtoken
+      jwt.sign(
+        { user },
+        "secretkey",
+        { expiresIn: "1day" },
+        async (err, token) => {
+          if (err) {
+            console.log("jwt error", err);
+            res.sendStatus(403);
+          } else {
+            res.json({ user, token });
+          }
+        }
+      );
+    } else {
+      // if user doesn't exist, create user
+      const user = await createUser({
+        username: name,
+        email,
+        role,
+        password,
+      });
+      console.log("google name", name);
+      // encrypt user
+      jwt.sign(
+        { user },
+        "secretkey",
+        { expiresIn: "1day" },
+        async (err, token) => {
+          if (err) {
+            console.log("jwt error", err);
+            res.sendStatus(403);
+          } else {
+            res.json({ user, token });
+            await createCart({ userId: user.id, productId: [] });
+          }
+        }
+      );
+    }
+  } catch (error) {
+    console.log("error in routes file:", error);
+    // next(error);
+    if (error.includes("users_email_key")) {
+      next({
+        name: "Bad Email",
+        message: "Please supply another email",
+      });
+    } else if (error.includes("users_username_key")) {
+      next({
+        name: "Bad Username",
+        message: "Please supply another username",
+      });
+    }
+  }
+});
 
 // auth Logout with Google
 apiRouter.get("/googlelogout", (req, res, next) => {

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Table } from "semantic-ui-react";
 import { getOrder, getOrders } from "../api";
 import PageFooter from "./PageFooter";
-import PageHeader from "./PageHeader";
+/* import PageHeader from "./PageHeader"; */
 
 export default function UserOrder() {
   const [orders, setOrders] = useState();
@@ -35,7 +35,7 @@ export default function UserOrder() {
     <>
       {(orders && orders.cartArr.length > 0) || adminOrders ? (
         <>
-          <PageHeader />
+          {/*   <PageHeader /> */}
           {JSON.parse(localStorage.getItem("user")).role === "admin" ? (
             adminOrders !== undefined ? (
               <Table celled>
@@ -59,9 +59,11 @@ export default function UserOrder() {
                         <Table.Cell>
                           {cart.cart.products.map((product) => {
                             totalArr.push(parseFloat(product.price));
+                            console.log("product", product);
                             return (
                               <div>
-                                {product.name} - ${product.price}
+                                {product.name} - ${product.price} x{" "}
+                                {product.count}
                               </div>
                             );
                           })}
@@ -95,9 +97,11 @@ export default function UserOrder() {
                       <Table.Cell>
                         {cart.cart.products.map((product) => {
                           totalArr.push(parseFloat(product.price));
+                          console.log("product", product);
                           return (
                             <div>
-                              {product.name} - ${product.price}
+                              {product.name} - ${product.price} x{" "}
+                              {product.count}
                             </div>
                           );
                         })}
@@ -117,7 +121,7 @@ export default function UserOrder() {
       ) : (
         <>
           {" "}
-          <PageHeader /> <h1>No orders yet...</h1> <PageFooter />{" "}
+          {/* <PageHeader /> */} <h1>No orders yet...</h1> <PageFooter />{" "}
         </>
       )}
     </>
