@@ -96,8 +96,8 @@ const LogIn = ({ setOpen }) => {
             </p>
           </Message>
         ) : (
-          ""
-        )}
+            ""
+          )}
       </Form>
       {/* Google button */}
       <GoogleLogin
