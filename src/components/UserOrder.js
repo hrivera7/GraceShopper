@@ -33,9 +33,10 @@ export default function UserOrder() {
 
   return (
     <>
+
       {(orders && orders.cartArr.length > 0) || adminOrders ? (
         <>
-      {/*     <PageHeader /> */}
+          {/*     <PageHeader /> */}
           {JSON.parse(localStorage.getItem("user")).role === "admin" ? (
             adminOrders !== undefined ? (
               <Table celled>
@@ -73,8 +74,8 @@ export default function UserOrder() {
                 </Table.Body>
               </Table>
             ) : (
-              <h1>Loading</h1>
-            )
+                <h1>Loading</h1>
+              )
           ) : orders !== undefined ? (
             <Table celled>
               <Table.Header>
@@ -109,17 +110,17 @@ export default function UserOrder() {
               </Table.Body>
             </Table>
           ) : (
-            <h1>Loading</h1>
-          )}
+                <h1>Loading</h1>
+              )}
 
           <PageFooter />
         </>
       ) : (
-        <>
-          {" "}
-       {/*    <PageHeader /> <h1>No orders yet...</h1>  */}<PageFooter />{" "}
-        </>
-      )}
+          <>
+            {" "}
+            {/*    <PageHeader /> <h1>No orders yet...</h1>  */}<PageFooter />{" "}
+          </>
+        )}
     </>
   );
 }
