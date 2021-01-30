@@ -1,12 +1,25 @@
 import React, { useState } from "react";
 import { Menu, Button } from "semantic-ui-react";
 import NewModal from "./NewModal";
-import { Link, useHistory } from "react-router-dom";
+import FilterProducts from './FilterProducts'
+import { Link, useHistory  } from "react-router-dom";
 import AddProductModal from "./AddProductModal";
 
-const Nav = ({ isAdmin, setProducts, products }) => {
+
+const Nav = ({ isAdmin, setProducts, products, filteredList, setFilteredList}
+) => {
   const history = useHistory();
-  const [activeItem, setActiveItem] = useState("home");
+  const [activeItem, setActiveItem] = useState("home")
+
+//++++++++++++++
+
+
+/* let categoryList
+{filteredList.length ? categoryList = filteredList.map(product => product.department) :  categoryList = products.map(product => product.department); */
+let categoryList = products.map(product => product.department);
+let departmentList = Array.from(new Set(categoryList))
+//++++++++++++++
+
   const handleSignOut = async () => {
     await localStorage.removeItem("token");
     localStorage.removeItem("user");
@@ -51,6 +64,10 @@ const Nav = ({ isAdmin, setProducts, products }) => {
             to="/user/orders"
             name="orders"
             value={"orders"}
+            active={activeItem === "orders"}
+            onClick={() => {
+              setActiveItem("orders");
+            }}
           />
           <Menu.Item
             as={Link}
@@ -64,23 +81,22 @@ const Nav = ({ isAdmin, setProducts, products }) => {
           <Menu.Item onClick={handleSignOut} name="sign out" />
         </>
       ) : (
-        <>
-          <Menu.Item>
-            <NewModal />
-          </Menu.Item>
-        </>
-      )}
-      <>
-        <Menu.Item
-          as={Link}
-          to="/cart"
-          name="cart"
-          active={activeItem === "cart"}
-          onClick={() => {
-            setActiveItem("cart");
-          }}
-        />
-      </>
+          <>
+            <Menu.Item>
+              <NewModal />
+            </Menu.Item>
+          </>
+        )}
+
+    {isAdmin ? '' : <Menu.Item
+        as={Link}
+        to="/cart"
+        name="cart"
+        active={activeItem === 'cart'}
+        onClick={() => { setActiveItem("cart") }}
+      /> }
+     {activeItem === 'home' ? <FilterProducts products={products} list={departmentList} setFilteredList={setFilteredList} /> : ''} 
+
     </Menu>
   );
 };

@@ -1,26 +1,21 @@
 import React from "react";
 import DisplayAllProducts from "./DisplayAllProducts";
-//import PageHeader from "../components/PageHeader";
+// import PageHeader from "../components/PageHeader";
 import PageFooter from "../components/PageFooter";
-
-const Home = ({ products, isAdmin, setProducts }) => {
-  // console.log("products", products);
+const Home = ({products, isAdmin, setProducts, filteredList}) => {
+ 
   return (
-    <div className="app">
-      {/* <PageHeader
-        isAdmin={isAdmin}
-        products={products}
-        setProducts={setProducts}
-      /> */}
+    <>
+      {filteredList.length ?   
       <DisplayAllProducts
-        products={products}
-        isAdmin={isAdmin}
-        setProducts={setProducts}
-      />
-
-      <PageFooter />
-    </div>
+      products={filteredList}  isAdmin={isAdmin} setProducts={setProducts}/*  setProductCount={setProductCount} productCount={productCount}  */
+      /> :
+      <DisplayAllProducts
+      products={products}  isAdmin={isAdmin} setProducts={setProducts}/*  setProductCount={setProductCount} productCount={productCount}  */
+      /> }
+     
+     <PageFooter />
+    </>
   );
 };
-
-export default Home;
+export default Home

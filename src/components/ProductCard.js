@@ -109,7 +109,9 @@ export default function ProductCard({ products, isAdmin, setProducts, cart }) {
               <Card.Content className="product-price-cart">
                 <Icon name="dollar">{price}</Icon>
 
-                {localStorage.getItem("token") ? (
+                {isAdmin ? (
+                  ""
+                ) : localStorage.getItem("token") ? (
                   <Button
                     onClick={() =>
                       addToDbCart(

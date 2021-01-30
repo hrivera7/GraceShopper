@@ -20,7 +20,7 @@ function NewModal(
       onOpen={() => setOpen(true)}
       open={open}
       // trigger={<Button>Sign In</Button>}
-      trigger={<Menu.Item>Sign </Menu.Item>}
+      trigger={<Menu.Item>Sign In</Menu.Item>}
     >
       <Modal.Header>Please sign in or register</Modal.Header>
       <Modal.Content /*image*/>

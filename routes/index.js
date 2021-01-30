@@ -77,7 +77,6 @@ apiRouter.get("/", (req, res, next) => {
 // ADMIN only
 apiRouter.get("/users", verifyToken, async (req, res, next) => {
   try {
-    console.log("am i in the /users route?");
     jwt.verify(req.token, "secretkey", async (err, authData) => {
       if (err) {
         res.send({ error: err, status: 403 });
