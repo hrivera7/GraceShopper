@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Button, Input, Modal, Dropdown, Menu, Checkbox } from "semantic-ui-react";
+import { Button, Input, Modal} from "semantic-ui-react";
 import { updateProduct } from "../api";
 //import EditInStock from "./EditInStock";
 
 //import EditProductCard from './EditProductCard'
 
-export default function EditProductModal({ id, name,  setProducts }) {
+export default function EditProductModal({ id, name, setProducts, setFilteredList }) {
   const [open, setOpen] = useState(false);
   //const [itemInStock, setItemInStock] = useState('')
 
@@ -108,8 +108,8 @@ export default function EditProductModal({ id, name,  setProducts }) {
             );
             if (Array.isArray(updatedProducts)) {
               updatedProducts.sort((a, b) => a.id - b.id);
-              console.log("this is the return after update: ", updatedProducts)
               setProducts(updatedProducts);
+              setFilteredList(updatedProducts)
               setProductDetails({
                 name: "",
                 description: "",

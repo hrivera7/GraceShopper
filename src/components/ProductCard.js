@@ -103,7 +103,7 @@ console.log('in the  productCard: ', products)
                     name={name}
                     products={products}
                     setProducts={setProducts}
-                    inStock={inStock}
+                    setFilteredList={setFilteredList}
                   />
                   <ConfirmDeleteProduct
                     id={id}

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Modal, Button, Input, Menu } from "semantic-ui-react";
 import { createProduct } from "../api"
 
-export default function AddProductModal({ setProducts, products }) {
+export default function AddProductModal({ setProducts, filteredList, products, setFilteredList }) {
 
   const [open, setOpen] = useState(false);
   const [disableSubmit, setDisableSubmit] = useState(true)
@@ -159,7 +159,7 @@ export default function AddProductModal({ setProducts, products }) {
           disabled={disableSubmit}
           style={{backgroundColor: disableSubmit ? '#f73737' : '#3ef737'}}
           onClick={async () => {
-            const newProducts = await createProduct(
+            const newProduct = await createProduct(
               productDetails.name,
               productDetails.description,
               productDetails.photoUrl,
@@ -167,18 +167,27 @@ export default function AddProductModal({ setProducts, products }) {
               productDetails.price,
               productDetails.count
             );
-          if(newProducts){
-            newProducts.sort((a, b) => a.id - b.id);
-            setProducts(newProducts);
-            setProductDetails({
-              name: "",
-              description: "",
-              photoUrl: "",
-              department: "",
-              price: "",
-              count: 1
-            })
-            setOpen(false)} else {
+
+            if(newProduct) {
+              let productsCopy = [...products]
+              productsCopy.push(newProduct) 
+              if(filteredList) {
+                let filteredCopy = [...filteredList]
+                filteredCopy.push(newProduct)
+                setFilteredList(filteredCopy)
+              }            
+              setProducts(productsCopy)
+              
+                setProductDetails({
+                name: "",
+                description: "",
+                photoUrl: "",
+                department: "",
+                price: "",
+                count: 1
+              })
+              setOpen(false)
+            } else {
               setProductDetails({
                 name: "",
                 description: "",
@@ -189,7 +198,8 @@ export default function AddProductModal({ setProducts, products }) {
               })
               setOpen(false)
             }
-          }}
+    
+        }}
         />
       </Modal.Actions>
     </Modal>

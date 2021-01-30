@@ -51,7 +51,7 @@ let departmentList = Array.from(new Set(categoryList))
             }}
           />
           <Menu.Item>
-            <AddProductModal setProducts={setProducts} products={products} />
+            <AddProductModal setProducts={setProducts} products={products} setFilteredList={setFilteredList} filteredList={filteredList} />
           </Menu.Item>
         </>
       ) : (

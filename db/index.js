@@ -215,7 +215,7 @@ async function createProduct({
   count,
 }) {
   try {
-    await client.query(
+const {rows: [product]} =  await client.query(
       `
       INSERT INTO products(name, description, "photoUrl", quantity, price, department, "inStock",  count)
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
@@ -224,11 +224,11 @@ async function createProduct({
       [name, description, photoUrl, quantity, price, department, inStock, count]
     );
 
-    const { rows } = await client.query(`
-      SELECT * FROM products;
-    `);
+    // const { rows } = await client.query(`
+    //   SELECT * FROM products;
+    // `);
 
-    return rows;
+    return product;
   } catch (error) {
     throw error;
   }
