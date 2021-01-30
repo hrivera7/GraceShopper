@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Card, Icon, Button, Popup } from "semantic-ui-react";
 import theGathering from "../theGathering.jpg";
 import EditProductModal from "./EditProductModal";
@@ -18,18 +18,12 @@ export default function ProductCard({ products, isAdmin, setProducts, cart }) {
     window.location.reload(false);
   };
 
-  //console.log("token", localStorage.getItem("token"));
-  //console.log("storage user", localStorage.getItem("user"));
-
   const addToLocalCart = (product) => {
-    //console.log("cart working", product);
-    //console.log("product count", product.count);
     const oldProducts = JSON.parse(localStorage.getItem("cart"));
-    //console.log("old products", oldProducts);
+
     const newProducts = [];
     if (oldProducts.length > 0) {
       for (let i = 0; i < oldProducts.length; i++) {
-        //console.log("inside for loop", oldProducts[i]);
         newProducts.push(oldProducts[i]);
       }
       for (let i = 0; i < product.count; i++) {
@@ -41,11 +35,9 @@ export default function ProductCard({ products, isAdmin, setProducts, cart }) {
       }
     }
     localStorage.setItem("cart", JSON.stringify(newProducts));
-    //console.log("new products", newProducts);
+
     window.location.reload(false);
   };
-
-  //console.log("products", products);
 
   return (
     <>
@@ -61,7 +53,6 @@ export default function ProductCard({ products, isAdmin, setProducts, cart }) {
             price,
             quantity,
           } = product;
-
 
           let httpsImage;
           if (photoUrl) {
@@ -118,7 +109,9 @@ export default function ProductCard({ products, isAdmin, setProducts, cart }) {
               <Card.Content className="product-price-cart">
                 <Icon name="dollar">{price}</Icon>
 
-            {isAdmin ? '' : localStorage.getItem("token") ? 
+                {isAdmin ? (
+                  ""
+                ) : localStorage.getItem("token") ? (
                   <Button
                     onClick={() =>
                       addToDbCart(
@@ -126,6 +119,7 @@ export default function ProductCard({ products, isAdmin, setProducts, cart }) {
                         id
                       )
                     }
+                    // cart was undefined on google logged in user
                     disabled={
                       cart.filter((product) => {
                         return product.name == name;
@@ -134,7 +128,7 @@ export default function ProductCard({ products, isAdmin, setProducts, cart }) {
                   >
                     Add to Cart
                   </Button>
-                 : 
+                ) : (
                   <Button
                     onClick={() => addToLocalCart(product)}
                     disabled={
@@ -147,7 +141,7 @@ export default function ProductCard({ products, isAdmin, setProducts, cart }) {
                   >
                     Add to cart
                   </Button>
-                }
+                )}
               </Card.Content>
             </Card>
           );

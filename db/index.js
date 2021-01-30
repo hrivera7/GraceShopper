@@ -42,7 +42,7 @@ async function createUser({ username, email, role, password }) {
 
     return user;
   } catch (error) {
-    console.log("error in DB: ", error.message)
+    console.log("error in DB: ", error.message);
     throw error.message;
   }
 }
@@ -173,8 +173,9 @@ async function getOrders() {
 
       if (cart !== []) {
         cart.products.map((product) => {
-          totalArr.push(parseFloat(product.price));
+          totalArr.push(parseFloat(product.price * product.count));
         });
+
         const total = totalArr.reduce((a, b) => a + b, 0).toFixed(2);
         console.log("total", totalArr);
         cartArr.push({ rows: rows[i], cart, total });
@@ -447,7 +448,7 @@ async function getOrder(userId) {
 
       if (cart !== []) {
         cart.products.map((product) => {
-          totalArr.push(parseFloat(product.price));
+          totalArr.push(parseFloat(product.price * product.count));
         });
         const total = totalArr.reduce((a, b) => a + b, 0).toFixed(2);
         console.log("total", totalArr);

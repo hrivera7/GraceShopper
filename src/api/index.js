@@ -86,11 +86,11 @@ export async function createUser(username, email, role, password) {
       dataToSend.password.length > 0
     ) {
       const { data } = await axios.post(`/api/register`, dataToSend);
-      console.log(data)
+      console.log(data);
       return data;
     }
   } catch (error) {
-    console.dir(error)
+    console.dir(error);
     throw error;
   }
 }
@@ -108,7 +108,24 @@ export async function loginUser(username, password) {
   }
 }
 
-// google login
+// Send google data token to backend
+export async function sendGoogleData(googleData) {
+  console.log("gooogle data", googleData);
+  const token = googleData.tokenId;
+  const dataToSend = { token };
+  console.log("data send", dataToSend);
+  try {
+    if (dataToSend.token.length > 0) {
+      const { data } = await axios.post(`/api/google-login`, dataToSend);
+      console.log("login success");
+      return data;
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+// google login - Will
 export async function loginGoogle() {
   // const dataForGoogle = {}
   console.log("in loginGoogle()");
