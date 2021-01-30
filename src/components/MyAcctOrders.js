@@ -47,7 +47,8 @@ const MyAccountOrders = ({ orders }) => {
                                         totalArr.push(parseFloat(product.price));
                                         return (
                                             <div>
-                                                {product.name} - ${product.price}
+                                                {product.name} - ${product.price} x{" "}
+                                                {product.count}
                                             </div>
                                         );
                                     })}

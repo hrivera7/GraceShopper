@@ -8,10 +8,10 @@ import { getOrder } from '../api'
 
 
 
-const UserPage = ({ userInfo, setUserInfo }) => {
-    console.log("userInfo in UserPage", userInfo)
+const UserPage = ({ userInfo, setUserInfo, isAdmin }) => {
+    // console.log("userInfo in UserPage", userInfo)
     const [orders, setOrders] = useState()
-
+    // console.log("isAdmin: ", isAdmin)
 
     useEffect(() => {
         getOrder()
@@ -24,8 +24,10 @@ const UserPage = ({ userInfo, setUserInfo }) => {
             })
     }, [])
 
-    console.log("orders in myacctorders: ", orders)
+    // console.log("orders in myacctorders: ", orders)
+
     const panes = [
+
         {
             menuItem: 'My Info',
             render: () => <Tab.Pane /*attached={false}*/>{<EditUser userInfo={userInfo} setUserInfo={setUserInfo} />}</Tab.Pane>,
@@ -36,11 +38,20 @@ const UserPage = ({ userInfo, setUserInfo }) => {
         },
 
     ]
+
+    const panes2 = [
+
+        {
+            menuItem: 'My Info',
+            render: () => <Tab.Pane /*attached={false}*/>{<EditUser userInfo={userInfo} setUserInfo={setUserInfo} />}</Tab.Pane>,
+        }
+
+    ]
     return (
         <>
-            {/* <PageHeader /> */}
-            <Tab className="myAccount" /*menu={{ secondary: true }}*/ panes={panes} />
-            {/* <EditUser userInfo={userInfo} /> */}
+            {isAdmin ? <Tab className="myAccount" /*menu={{ secondary: true }}*/ panes={panes2} /> : <Tab className="myAccount" /*menu={{ secondary: true }}*/ panes={panes} />}
+
+
         </>
     )
 }
