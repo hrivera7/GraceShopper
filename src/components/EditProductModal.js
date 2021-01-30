@@ -5,15 +5,15 @@ import { updateProduct } from "../api";
 
 //import EditProductCard from './EditProductCard'
 
-export default function EditProductModal({ id, name, setProducts, setFilteredList }) {
+export default function EditProductModal({ id, name, setProducts, setFilteredList, products }) {
   const [open, setOpen] = useState(false);
-  //const [itemInStock, setItemInStock] = useState('')
 
   const [productDetails, setProductDetails] = useState({
     name: "",
     description: "",
     photoUrl: "",
     price: "",
+    department: ""
   });
 
   return (
@@ -91,6 +91,22 @@ export default function EditProductModal({ id, name, setProducts, setFilteredLis
             }}
             placeholder="Edit the product price..."
           />
+           <p style={{ margin: 0 }}>Department: </p>
+          <Input
+            fluid
+            autoComplete="off"
+            style={{ marginBottom: "1rem" }}
+            name="department"
+            type="text"
+            value={productDetails.department}
+            onChange={(event) => {
+              setProductDetails({
+                ...productDetails,
+                [event.target.name]: event.target.value,
+              });
+            }}
+            placeholder="Edit the product department..."
+          />
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions>
@@ -99,22 +115,29 @@ export default function EditProductModal({ id, name, setProducts, setFilteredLis
         <Button
           icon="checkmark"
           onClick={async () => {
-            const updatedProducts = await updateProduct(
+            const newProduct = await updateProduct(
               productDetails.name,
               productDetails.description,
               productDetails.photoUrl,
               productDetails.price,
+              productDetails.department,
               id
             );
-            if (Array.isArray(updatedProducts)) {
-              updatedProducts.sort((a, b) => a.id - b.id);
-              setProducts(updatedProducts);
-              setFilteredList(updatedProducts)
+            if (newProduct) {
+                let productsCopy = [...products]
+                productsCopy.forEach((product) => {
+                  if(newProduct.id === product.id){
+                    productsCopy.splice(productsCopy.indexOf(product), 1, newProduct)
+                    return 
+                  }
+                })
+              setFilteredList(productsCopy)
               setProductDetails({
                 name: "",
                 description: "",
                 photoUrl: "",
                 price: "",
+                department: ""
               });
               setOpen(false);
             } else {

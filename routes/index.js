@@ -592,7 +592,7 @@ apiRouter.patch(
 
 apiRouter.patch("/products/:productId/update", async (req, res, next) => {
   const updateFields = {};
-  const { name, description, photoUrl, price } = req.body;
+  const { name, description, photoUrl, price, department } = req.body;
 
   if (name) {
     updateFields.name = name;
@@ -605,6 +605,9 @@ apiRouter.patch("/products/:productId/update", async (req, res, next) => {
   }
   if (price) {
     updateFields.price = price;
+  }
+  if (department) {
+    updateFields.department = department;
   }
 
   const { productId } = req.params;

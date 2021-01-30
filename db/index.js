@@ -291,19 +291,20 @@ async function updateProduct(productId, fields = {}) {
   try {
     // update any fields that need to be updated
     if (setString.length > 0) {
-      await client.query(
+     const {rows: [product]} = await client.query(
         `
           UPDATE products
           SET ${setString}
-          WHERE id=${productId};
+          WHERE id=${productId}
+          RETURNING *;
         `,
         Object.values(fields)
       );
 
-      const { rows } = await client.query(`
-        SELECT * FROM products;
-        `);
-      return rows;
+      // const { rows } = await client.query(`
+      //   SELECT * FROM products;
+      //   `);
+      return product;
     }
   } catch (error) {
     throw error;

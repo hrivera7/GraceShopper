@@ -290,9 +290,10 @@ export async function updateProduct(
   description,
   photoUrl,
   price,
+  department,
   productId
 ) {
-  const fieldsObj = { name, description, photoUrl, price };
+  const fieldsObj = { name, description, photoUrl, price, department };
   console.log("the fields object: ", fieldsObj);
   console.log("the productID", productId);
   try {

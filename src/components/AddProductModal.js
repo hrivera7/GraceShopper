@@ -169,10 +169,10 @@ export default function AddProductModal({ setProducts, filteredList, products, s
 
             if(newProduct) {
               let productsCopy = [...products]
-              productsCopy.push(newProduct) 
-              if(filteredList) {
+              productsCopy.unshift(newProduct) 
+              if(filteredList.length > 0) {
                 let filteredCopy = [...filteredList]
-                filteredCopy.push(newProduct)
+                filteredCopy.unshift(newProduct)
                 setFilteredList(filteredCopy)
               }            
               setProducts(productsCopy)

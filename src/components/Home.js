@@ -3,8 +3,7 @@ import DisplayAllProducts from "./DisplayAllProducts";
 // import PageHeader from "../components/PageHeader";
 import PageFooter from "../components/PageFooter";
 const Home = ({products, isAdmin, setProducts, filteredList, setFilteredList}) => {
- console.log('filteredList: ', filteredList)
- console.log('products: ', products)
+
   return (
     <>
       {filteredList.length ?   
