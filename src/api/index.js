@@ -206,9 +206,7 @@ export async function createProduct(
   description,
   photoUrl,
   department,
-  price,
-  count,
-  quantity
+  price
 ) {
   const dataToSend = {
     name,
@@ -228,7 +226,7 @@ export async function createProduct(
       dataToSend.count = 1;
       dataToSend.quantity = 1;
       console.log("dataToSend in api is: ", dataToSend);
-      const { data } = await axios.post(`/api/products`, dataToSend);
+      const { data } = await axiosWithAuth().post(`/api/products`, dataToSend);
       return data;
     }
   } catch (error) {

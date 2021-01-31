@@ -370,7 +370,7 @@ apiRouter.get("google/redirect", (req, res) => {
 
 // creates product and adds to db
 // ADMIN only
-apiRouter.post("/products", async (req, res, next) => {
+apiRouter.post("/products", verifyToken, async (req, res, next) => {
   // required fields from table
   const {
     name,
@@ -383,20 +383,23 @@ apiRouter.post("/products", async (req, res, next) => {
   } = req.body;
   console.log("what does the req.body look like: ", req.body);
   try {
-    // from index.js db
-    const product = await createProduct({
-      name,
-      description,
-      photoUrl,
-      department,
-      price,
-      count,
-      quantity,
-    });
-    if (product) {
-      res.json(product);
-      // encrypt user
-    }
+    jwt.verify(req.token, "secretkey", async (err, authData) => {
+      if (err) {
+        res.send({ error: err, status: 403 });
+      } else if (authData.user.role === "admin") {
+          const product = await createProduct({
+          name,
+          description,
+          photoUrl,
+          department,
+          price,
+          count,
+          quantity,
+        });
+          res.send(product)
+          } else {
+            res.send({ message: "User is not an admin!" });
+          }})
   } catch (error) {
     next(error);
   }
