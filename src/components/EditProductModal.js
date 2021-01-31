@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import { Button, Input, Modal} from "semantic-ui-react";
 import { updateProduct } from "../api";
-//import EditInStock from "./EditInStock";
-
-//import EditProductCard from './EditProductCard'
 
 export default function EditProductModal({ id, name, setProducts, setFilteredList, products }) {
   const [open, setOpen] = useState(false);

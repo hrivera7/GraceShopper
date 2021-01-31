@@ -384,7 +384,7 @@ apiRouter.post("/products", async (req, res, next) => {
   console.log("what does the req.body look like: ", req.body);
   try {
     // from index.js db
-    const products = await createProduct({
+    const product = await createProduct({
       name,
       description,
       photoUrl,
@@ -393,8 +393,8 @@ apiRouter.post("/products", async (req, res, next) => {
       count,
       quantity,
     });
-    if (products) {
-      res.json(products);
+    if (product) {
+      res.json(product);
       // encrypt user
     }
   } catch (error) {

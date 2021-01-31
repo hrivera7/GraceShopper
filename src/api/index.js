@@ -216,9 +216,7 @@ export async function createProduct(
     photoUrl,
     department,
     price,
-    count,
   };
-  console.log("dataToSend in api is: ", dataToSend);
   try {
     if (
       dataToSend.name.length > 0 &&
@@ -228,7 +226,6 @@ export async function createProduct(
       dataToSend.price.length > 0
     ) {
       dataToSend.count = 1;
-      console.log("this is dataToSend.count: ", dataToSend.count);
       dataToSend.quantity = 1;
       console.log("dataToSend in api is: ", dataToSend);
       const { data } = await axios.post(`/api/products`, dataToSend);

@@ -12,13 +12,13 @@ export default function AddProductModal({ setProducts, filteredList, products, s
     photoUrl: "",
     department: "",
     price: "",
-    count: 1,
-  });
+  })
+  //count: 1,
 
   useEffect(() => {
     setDisableSubmit((productDetails.name && productDetails.description && productDetails.photoUrl && productDetails.department && productDetails.price) ? false : true)
 }, [productDetails.name, productDetails.description, productDetails.photoUrl, productDetails.department, productDetails.price])
-
+//productDetails.count > 0
   return (
     <Modal
       onClose={() => setOpen(false)}
@@ -131,7 +131,7 @@ export default function AddProductModal({ setProducts, filteredList, products, s
             }}
             placeholder="Which department does this belong in?"
           />
-          <p style={{ margin: 0 }}>Count: </p>
+          {/* <p style={{ margin: 0 }}>Count: </p>
           <Input
             fluid
             autoComplete="off"
@@ -147,7 +147,7 @@ export default function AddProductModal({ setProducts, filteredList, products, s
               console.log(typeof productDetails.count);
             }}
             placeholder="Count of the item?"
-          />
+          /> */}
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions>
@@ -164,9 +164,9 @@ export default function AddProductModal({ setProducts, filteredList, products, s
               productDetails.photoUrl,
               productDetails.department,
               productDetails.price,
-              productDetails.count
+              
             );
-
+            /* productDetails.count */
             if(newProduct) {
               let productsCopy = [...products]
               productsCopy.unshift(newProduct) 
@@ -175,16 +175,16 @@ export default function AddProductModal({ setProducts, filteredList, products, s
                 filteredCopy.unshift(newProduct)
                 setFilteredList(filteredCopy)
               }            
-              setProducts(productsCopy)
-              
+              setProducts(productsCopy)              
                 setProductDetails({
                 name: "",
                 description: "",
                 photoUrl: "",
                 department: "",
                 price: "",
-                count: 1
+                
               })
+              //count: 1
               setOpen(false)
             } else {
               setProductDetails({
@@ -193,8 +193,9 @@ export default function AddProductModal({ setProducts, filteredList, products, s
                 photoUrl: "",
                 department: "",
                 price: "",
-                count: 1
+            
               })
+              //count: 1
               setOpen(false)
             }
     
