@@ -381,7 +381,6 @@ apiRouter.post("/products", verifyToken, async (req, res, next) => {
     count,
     quantity,
   } = req.body;
-  console.log("what does the req.body look like: ", req.body);
   try {
     jwt.verify(req.token, "secretkey", async (err, authData) => {
       if (err) {
