@@ -35,6 +35,7 @@ const LogIn = ({ setOpen }) => {
 
   const handleChanges = (event) => {
     setCredentials({ ...credentials, [event.target.name]: event.target.value });
+    setLoginError(false)
   };
 
   // sends token that we get from login success
@@ -63,14 +64,25 @@ const LogIn = ({ setOpen }) => {
 
   return (
     <>
-      <Form className="signIn">
+      <Form className="logIn">
         <h2>Log in</h2>
+        <GoogleLogin
+          style={{ marginBottom: "15px" }}
+          clientId={process.env.REACT_APP_CLIENTID}
+          buttonText="with Google"
+          onSuccess={handleLogin}
+          onFailure={handleLogin}
+          cookiePolicy={"single_host_origin"}
+        />
+        <br></br>
+        <div>or</div>
         <Input
-          style={{ width: "50%" }}
+          style={{ width: "50%", marginTop: "15px" }}
           name="username"
           value={credentials.username}
           onChange={handleChanges}
           placeholder="username"
+
         />
         <br></br>
         <Input
@@ -92,21 +104,16 @@ const LogIn = ({ setOpen }) => {
         {loginError ? (
           <Message negative size="mini" style={{ marginTop: "6px" }}>
             <p>
-              Login failed: Incorrect username or password. Please try again.
+              Login failed due to incorrect username or password. Please try again.
             </p>
           </Message>
         ) : (
             ""
           )}
+
       </Form>
-      {/* Google button */}
-      <GoogleLogin
-        clientId={process.env.REACT_APP_CLIENTID}
-        buttonText="login with Google"
-        onSuccess={handleLogin}
-        onFailure={handleLogin}
-        cookiePolicy={"single_host_origin"}
-      />
+
+
     </>
   );
 };
