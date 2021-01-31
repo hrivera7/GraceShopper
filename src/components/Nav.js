@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Menu, Button } from "semantic-ui-react";
-import NewModal from "./NewModal";
+import SignIn from "./SignIn";
 import FilterProducts from './FilterProducts'
 import { Link, useHistory } from "react-router-dom";
 import AddProductModal from "./AddProductModal";
@@ -84,7 +84,7 @@ const Nav = ({ isAdmin, setProducts, products, filteredList, setFilteredList }
       ) : (
           <>
             <Menu.Item>
-              <NewModal />
+              <SignIn />
             </Menu.Item>
           </>
         )}
