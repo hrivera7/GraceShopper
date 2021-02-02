@@ -39,12 +39,10 @@ const VisitorSummary = ({ stripe, elements }) => {
       console.log(result.error.message);
     } else {
       console.log(result.token);
-      await sendToken(total, result.token).then(
-        res => {
-          console.log("res", res)
-          setCharge(res.charge)
-        }
-      );
+      await sendToken(total, result.token).then((res) => {
+        console.log("res", res);
+        setCharge(res.charge);
+      });
       localStorage.setItem("cart", JSON.stringify([]));
       setOpen(true);
     }
