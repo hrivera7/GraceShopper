@@ -7,11 +7,14 @@
 }
 
 body {
-  height: 100vh;
+  height: 100vh; 
+
 }
 
 .app {
   background-color: lightgray;
+
+
 }
 
 .header {
@@ -299,7 +302,7 @@ element.style {
   /* display: grid;
   grid-template-columns: 1fr, 1fr;
   grid-template-rows: auto; */
-  background-color: bisque;
+  /* background-color: bisque; */
   height: 425px;
 }
 
@@ -328,8 +331,8 @@ element.style {
 }
 
 .footer {
-  position: fixed;
-  bottom: 0;
+ position: absolute;
+  /* bottom: 0; */
   width: 100%;
   height: 4rem;
   text-align: center;
