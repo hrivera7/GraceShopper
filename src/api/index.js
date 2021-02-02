@@ -206,9 +206,7 @@ export async function createProduct(
   description,
   photoUrl,
   department,
-  price,
-  count,
-  quantity
+  price
 ) {
   const dataToSend = {
     name,
@@ -216,9 +214,7 @@ export async function createProduct(
     photoUrl,
     department,
     price,
-    count,
   };
-  console.log("dataToSend in api is: ", dataToSend);
   try {
     if (
       dataToSend.name.length > 0 &&
@@ -228,10 +224,9 @@ export async function createProduct(
       dataToSend.price.length > 0
     ) {
       dataToSend.count = 1;
-      console.log("this is dataToSend.count: ", dataToSend.count);
       dataToSend.quantity = 1;
       console.log("dataToSend in api is: ", dataToSend);
-      const { data } = await axios.post(`/api/products`, dataToSend);
+      const { data } = await axiosWithAuth().post(`/api/products`, dataToSend);
       return data;
     }
   } catch (error) {
@@ -290,9 +285,10 @@ export async function updateProduct(
   description,
   photoUrl,
   price,
+  department,
   productId
 ) {
-  const fieldsObj = { name, description, photoUrl, price };
+  const fieldsObj = { name, description, photoUrl, price, department };
   console.log("the fields object: ", fieldsObj);
   console.log("the productID", productId);
   try {
