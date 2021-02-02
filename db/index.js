@@ -216,7 +216,7 @@ async function createProduct({
   count,
 }) {
   try {
-    await client.query(
+const {rows: [product]} =  await client.query(
       `
       INSERT INTO products(name, description, "photoUrl", quantity, price, department, "inStock",  count)
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
@@ -225,11 +225,11 @@ async function createProduct({
       [name, description, photoUrl, quantity, price, department, inStock, count]
     );
 
-    const { rows } = await client.query(`
-      SELECT * FROM products;
-    `);
+    // const { rows } = await client.query(`
+    //   SELECT * FROM products;
+    // `);
 
-    return rows;
+    return product;
   } catch (error) {
     throw error;
   }
@@ -291,19 +291,20 @@ async function updateProduct(productId, fields = {}) {
   try {
     // update any fields that need to be updated
     if (setString.length > 0) {
-      await client.query(
+     const {rows: [product]} = await client.query(
         `
           UPDATE products
           SET ${setString}
-          WHERE id=${productId};
+          WHERE id=${productId}
+          RETURNING *;
         `,
         Object.values(fields)
       );
 
-      const { rows } = await client.query(`
-        SELECT * FROM products;
-        `);
-      return rows;
+      // const { rows } = await client.query(`
+      //   SELECT * FROM products;
+      //   `);
+      return product;
     }
   } catch (error) {
     throw error;
