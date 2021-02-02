@@ -66,14 +66,20 @@ export default function ProductCard({ products, isAdmin, setProducts, cart }) {
           return (
             <Card
               raised
-              style={{ width: "25rem" }}
+              style={{ width: "20rem" }}
               className="product-card-text"
               key={id}
             >
               <Popup
                 inverted
                 content={description}
-                trigger={<img src={httpsImage} style={{ height: "20rem" }} />}
+                trigger={
+                  <img
+                    src={httpsImage}
+                    className="scale-down"
+                    style={{ height: "20rem" }}
+                  />
+                }
               />
 
               <Card.Content>

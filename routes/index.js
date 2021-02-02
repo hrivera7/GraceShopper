@@ -343,30 +343,25 @@ apiRouter.post("/google-login", async (req, res, next) => {
 });
 
 // auth Logout with Google
-apiRouter.get("/googlelogout", (req, res, next) => {
+/* apiRouter.get("/googlelogout", (req, res, next) => {
   // handle with passport
   res.send("logging out");
   // console.log("logging out of Google")
-});
+}); */
 
 // auth Login with Google
 // 'google' routes to the google login screen - which passport object to use from passport-setup.js
-apiRouter.get(
+/* apiRouter.get(
   "/googlelogin",
   passport.authenticate("google", {
     // scope is telling passport what we want to retrieve from the users' profile
     scope: ["profile"],
   })
-);
+); */
 
-// apiRouter.get("/google", (req, res, next) => {
-//   // handle with passport
-//   res.send("logging in with google")
-//   // console.log("logging out of Google")
-// })
-apiRouter.get("google/redirect", (req, res) => {
+/* apiRouter.get("google/redirect", (req, res) => {
   res.send("you reached teh callback URI");
-});
+}); */
 
 // creates product and adds to db
 // ADMIN only
