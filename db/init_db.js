@@ -161,195 +161,185 @@ async function createInitialProducts() {
     console.log("Trying to create products...");
 
     const productOne = await createProduct({
-      name: "Duracell - AAA Batteries (4-Pack)",
-      description:
-        "Compatible with select electronic devices; AAA size; DURALOCK Power Preserve technology; 4-pack",
+      name: "My Family Reunion",
+      description: "A festive family celebration.",
       photoUrl:
-        "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ACtC-3dk9OfK0v6-okyh4bkcVdxmDQROgAH7jYIQi74leC90kuhG6DQSkbfsDkk4bH7yZNhwbsBZIXQjf0bHfQyhTR6tC6fpk4ZNKMJ4-3a4PI6GVa_7dL62jIF6NXVahpXBSa0hwn-MWnU_AdMJLawTvKaH=w1344-h915-no?authuser=0",
       quantity: 5,
-      price: 5.49,
-      department: "Connected Home & Housewares",
+      price: 200,
+      department: "Magic Markers",
       inStock: true,
       count: 1,
     });
 
     const productTwo = await createProduct({
-      name: "Duracell - AA 1.5V CopperTop Batteries (4-Pack)",
-      description:
-        "Long-lasting energy; DURALOCK Power Preserve technology; for toys, clocks, radios, games, remotes, PDAs and more",
+      name: "The Gathering",
+      description: "Happiness - when everyone comes together.",
       photoUrl:
-        "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ACtC-3fx7CbyF1XasVCcZN-r1EFGu5yBWc_5-L2gLwOmgBh9nM-MUbE7qVFBg8bleBpMtjxOezGmakXAzxbqtKsotGnU2p_YjAiGL4zVWItgcn9TDzk-rt4Qeap5ixTSdprPf25VFK-asYPbUZK_2bm3LzaagQ=w626-h830-no?authuser=0",
       quantity: 19,
-      price: 5.49,
-      department: "Connected Home & Housewares",
+      price: 250,
+      department: "Oil and Canvas",
       inStock: true,
       count: 1,
     });
 
     const productThree = await createProduct({
-      name: "Duracell - AA Batteries (8-Pack)",
-      description:
-        "Compatible with select electronic devices; AA size; DURALOCK Power Preserve technology; 8-pack",
+      name: "Big Bird Replica",
+      description: "Impressionist view of Sesame Street's beloved character.",
       photoUrl:
-        "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ACtC-3ejpuDcmS2FlVWiTnO7iKu0vg3zmWqB9_73FMqdIRC0R-NTZg6yYUbZlDeRMk6D1DkwbOOnr9BUiheJrG34ZoLuF5Zyp_2S68b78xkW0rBqY9eee5ILyGOuhTDU-Lwtm-l9B-LA0qlkJ1JueSyUap8z=w483-h837-no?authuser=0",
       quantity: 7,
-      price: 7.49,
-      department: "Connected Home & Housewares",
+      price: 300,
+      department: "Sculptures",
       inStock: true,
       count: 1,
     });
 
     const productFour = await createProduct({
-      name: "Energizer - MAX Batteries AA (4-Pack)",
-      description: "4-pack AA alkaline batteries; battery tester included",
+      name: "Smooth Sailing",
+      description: "Living and sailing on a majestic clear sky day.",
       photoUrl:
         "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
       quantity: 12,
-      price: 4.99,
-      department: "Connected Home & Housewares",
+      price: 500,
+      department: "Crayons",
       inStock: true,
       count: 1,
     });
 
     const productFive = await createProduct({
-      name: "Duracell - C Batteries (4-Pack)",
-      description: "Invaluable renaissance artwork",
+      name: "Puffy-eyed Stick Figure",
+      description:
+        "Celebration of colors displayed in a plethora of materials.",
       photoUrl:
-        "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ACtC-3em3sE1ecrn1kazZ6eLyqWRxYG6DWg_clEg2BD2lTQMHCgDQkx3P48BkbdD5uJEVqEbDEBnVtnbQ2y47k6d8_RMUHZwmrmq3pKVhzD60dcsy3ew4C0iWWrGMuKmimiSaldQWM74uqfAGUQmJ-nm_Evc=w851-h923-no?authuser=0",
       quantity: 10,
-      price: 8.99,
-      department: "Connected Home & Housewares",
+      price: 75,
+      department: "Sculptures",
       inStock: true,
       count: 1,
     });
 
     const productSix = await createProduct({
-      name: "Duracell - D Batteries (4-Pack)",
-      description:
-        "Compatible with select electronic devices; D size; DURALOCK Power Preserve technology; 4-pack",
+      name: "Wildlife and Nature",
+      description: "Amazing wildlife in a gorgeous scenery.",
       photoUrl:
-        "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ACtC-3cT4mRzuSplz8BPwQAH-1UdYoduS-iYiYkwJG3PESLESnXo51fKaVNG7wqmRMqjRoIyo9bKpDQv_lO9Ckki88m3SLDGzR-QDb7lyklQLbGKyzEDfm2tv0xfh0Zb9K3U0pd8xoZMXB7WtKHrcfB3kMI4=w732-h923-no?authuser=0",
       quantity: 8,
-      price: 9.99,
-      department: "Connected Home & Housewares",
+      price: 140,
+      department: "Construction Paper",
       inStock: true,
       count: 1,
     });
 
     const productSeven = await createProduct({
-      name: "Duracell - 9V Batteries (2-Pack)",
+      name: "The Loving Chef",
       description:
-        "Compatible with select electronic devices; alkaline chemistry; 9V size; DURALOCK Power Preserve technology; 2-pack",
+        "A dedicated cooking professional embracing the environment.",
       photoUrl:
-        "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ACtC-3fbRHcrNV_QJ5sOaVwS9gO5OlUATDydn8nmzhrbTe6LZEAhqd3T2-T0FoIZGaANodBIQSIgfWCtjLsd58lAXiIXQgTqw4Jpl7DGqt6ZHFupmVs5yJDsqfoJxVmA069TY3CSGD_63Dc5IpwADIstDC8PdQ=w687-h915-no?authuser=0",
       quantity: 2,
-      price: 7.99,
-      department: "Connected Home & Housewares",
+      price: 100,
+      department: "Construction Paper",
       inStock: true,
       count: 1,
     });
 
     const productEight = await createProduct({
-      name: "Directed Electronics - Viper Audio Glass Break Sensor",
-      description:
-        "From our expanded online assortment; compatible with Directed Electronics alarm systems; microphone and microprocessor detect and analyze intrusions; detects quiet glass breaks",
+      name: "The Scroll of Life",
+      description: "Portable fine art paper embellished with colored strings.",
       photoUrl:
-        "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ACtC-3cPtbz5ZwOZUyvhTlxh9LGsSojtv75LdDmihOq4bB2892Aftlad91lENNoixr09HEU3GowWPl1FAx_Rmx_WVXojEyfY00eJ3qXKtrWpUbXjT3DhF0ZLkVXS660rCa-Ew5hYixkdvz7r8v9CjfmjbjL9dQ=w693-h923-no?authuser=0",
       quantity: 1,
-      price: 39.99,
-      department: "Carfi Instore Only",
+      price: 225,
+      department: "Fine Art Paper",
       inStock: true,
       count: 1,
     });
 
     const productNine = await createProduct({
-      name: "Energizer - N Cell E90 Batteries (2-Pack)",
-      description: "Alkaline batteries; 1.5V",
+      name: "Life Struggles & Successes",
+      description: "Electric and colorful display of life lessons.",
       photoUrl:
-        "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ACtC-3drNolRSjehPT00C-s9eJnEvezFcYjCt50Zq6bW7NYqJatlGPTW_yxwVAeoSR26L9csZq6ROcWMWbDT5UVwHfX7NP1nGiZeVqmZIamsMvf0g5F-wCARy4s183R5Tqi0U0SZ5HpXZMQ6ZyRu8Wmb_Drq1Q=w687-h915-no?authuser=0",
       quantity: 6,
-      price: 5.99,
-      department: "Connected Home & Housewares",
+      price: 125,
+      department: "Construction Paper",
       inStock: true,
       count: 1,
     });
 
     const productTen = await createProduct({
-      name:
-        "Metra - Radio Installation Dash Kit for Most 1989-2000 Ford, Lincoln & Mercury Vehicles - Black",
-      description:
-        "From our expanded online assortment; compatible with most 1989-2000 Ford, Lincoln and Mercury vehicles; snap-in TurboKit offers fast installation; spacer/trim ring; rear support bracket",
+      name: "Cat Girl",
+      description: "Cat looking aqua make-up illustration.",
       photoUrl:
-        "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ACtC-3fZg-GIW8MMbhvqWmEuE6rcRdEzYkXgYFILvtqeGsrh8LDPWWAF6F9gbg14J0_d0Z0PVYaZoyMKDiINPKEF1zE8xc4lmM3wzD7b7PXvibFYOM4mvtZBWOA9voJ55CaIN0P9fVAtnV6fcTKC86OK44HP=w640-h426-no?authuser=0",
       quantity: 4,
-      price: 16.99,
-      department: "Car Electronics & GPS",
+      price: 425,
+      department: "Portrait",
       inStock: true,
       count: 1,
     });
 
     const productEleven = await createProduct({
-      name: "Metra - Radio Dash Multikit for Select GM Vehicles - Black",
+      name: "Classroom Children",
       description:
-        "From our expanded online assortment; compatible with select GM vehicles; plastic material",
+        "Psychedelic drawing of children enjoying the learning process.",
       photoUrl:
-        "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ACtC-3eIcK8pN4gmaZZBoIRImKn5BewoiAl9WNAiode2VykmzhoOVP_w9RdsAB_AtjcK6iLvpnnPoQbTrWs7NqVVmKZxYlLQQfBUGAGl8QGO7C7pauuIaIdpOrpQ0f35miKHI4gsVPEl5AnI4p014t6mTzDD=w640-h467-no?authuser=0",
       quantity: 9,
-      price: 16.99,
-      department: "Car Electronics & GPS",
+      price: 150,
+      department: "Fine Markers",
       inStock: true,
       count: 1,
     });
 
     const productTwelve = await createProduct({
-      name:
-        "Metra - Wiring Harness for Select 1998-2008 Ford Vehicles - Multicolored",
+      name: "Speak Your Mind",
       description:
-        "From our expanded online assortment; compatible with most 1989-2000 Ford, Lincoln and Mercury vehicles; snap-in TurboKit offers fast installation; spacer/trim ring; rear support bracket",
+        "Watercolor (black & white) painting of child expressing himself.",
       photoUrl:
-        "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ACtC-3cqY0MCIIGOjaMS0Meo08PGbnEsYOjVM8gHDpgZ2UAwd8bHVzENbcRfbyOOIbuS0ec5eXvuk4-MsGLbRGpxtIePXTUuk33157PNoReS_YaVnkZ_RLlL5PG_ImhhpCtlnlKBKJQhLbDWDJJ7JNrTweq4=w640-h426-no?authuser=0",
       quantity: 0,
-      price: 16.99,
-      department: "Car Electronics & GPS",
+      price: 325,
+      department: "Painting",
       inStock: false,
       count: 1,
     });
 
     const productThirteen = await createProduct({
-      name: "INSTALL - PORTABLE RADAR DETECTOR INST",
-      description: "PORTABLE RADAR DETECTOR INST",
+      name: "Steering The Ship",
+      description: "Matte painting of boy on boat on a serene night.",
       photoUrl:
-        "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ACtC-3dsoi-pt7HRhKuZC7CkItsxf4Ip8E1QULl0CB6ZLm3LVIfnpEgeBiwy-gV0clsoIU0KWkFhOQRCrAqh10bYAIQI83Tcw9RQvMvnECAq6IU96m_G1Bxl2MXB8UIbXdFvN3S9M2ZYvGGaEEQWmbdlq_fI=w640-h360-no?authuser=0",
       quantity: 0,
-      price: 29.99,
-      department: "In-Store Only",
+      price: 175,
+      department: "Painting",
       inStock: false,
       count: 1,
     });
 
     const productFourteen = await createProduct({
-      name: "Jensen - 3.6V NiCad Battery for 900MHz Phones",
-      description:
-        "Rechargeable 3.6V 300 mAh NiCad battery for GE 2-9614 model cordless phones",
+      name: "Princess, Roses & Sparkles",
+      description: "Anonymous painting of a noble princess.",
       photoUrl:
-        "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ACtC-3eZ7wa1UB2nSfEX-lxs7dedInOqXkRF188NvKppKC_AgFHnYg25TAVHwhKh0vpLOZZZabvIVcApwahCvjDtNZsMbCPe1khWWy6-nbSO4RRrMZBKk-bTFcaGXHTeZ8MRWevnSWW39e04PAnO3unLs6LokA=w1104-h915-no?authuser=0",
       quantity: 11,
-      price: 19.99,
-      department: "Connected Home & Housewares",
+      price: 135,
+      department: "Oil and Canvas",
       inStock: true,
       count: 1,
     });
 
     const productFifteen = await createProduct({
-      name:
-        "Metra - Turbo Wire Aftermarket Radio Wire Harness Adapter for Select Vehicles",
-      description:
-        "Compatible with Honda and Acura vehicles; connects an aftermarket radio to your car's harness",
+      name: "Madam Butterfly",
+      description: "Fantasy girl perusing the colorful garden.",
       photoUrl:
-        "https://lh3.googleusercontent.com/pw/ACtC-3eZejd574vc7Ioci3q5fio21i3zwM04JQE4SySU5vwJ5p_Dz-vhY8FlYque5HZ_gahwg88F5jnO-kFNny2lvJlI6KWnBGeyrHDzFB_cFnExQkXy_1KaUPCuGg01iP7fPr2U9H59UnrXFAqiOrHh7-Pn=w720-h915-no?authuser=0",
+        "https://lh3.googleusercontent.com/pw/ACtC-3dXB_V2cV1ojYiq89_QoW7ncA_S8sDlxCtaQPmCKBx1M1_gTOpmiD3q9F6X1nb1J3WdmQuIV5fGyv-_Pl7Uuz07nonkQWt1xx5p7LBV4VMTVLSGxz23P3rzquAMhkqb8JUmvGVuUAJL4Qe6f1NxfBai=w640-h452-no?authuser=0",
       quantity: 8,
-      price: 16.99,
-      department: "Car Electronics & GPS",
+      price: 255,
+      department: "Oil and Canvas",
       inStock: true,
       count: 1,
     });
