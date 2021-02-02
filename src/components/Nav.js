@@ -51,7 +51,7 @@ const Nav = ({ isAdmin, setProducts, products, filteredList, setFilteredList }
             }}
           />
           <Menu.Item>
-            <AddProductModal setProducts={setProducts} products={products} />
+            <AddProductModal setProducts={setProducts} products={products} setFilteredList={setFilteredList} filteredList={filteredList} />
           </Menu.Item>
           <Menu.Item
             as={Link}
