@@ -8,7 +8,7 @@ import VisitorCart from "../VisitorCart";
 import UserPage from "../UserPage";
 import PageHeader from "../PageHeader";
 
-import { getProducts, getUsers } from "../../api";
+import { getProducts, getUsers, getOrders } from "../../api";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import UserOrder from "../UserOrder";
@@ -18,12 +18,14 @@ const Routes = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [users, setUsers] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
+  const [adminOrders, setAdminOrders] = useState([]);
   // const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem("user")))
   const [userInfo, setUserInfo] = useState(
     JSON.parse(localStorage.getItem("user"))
   );
   // const [token, setToken] = useState("");
   //const [role, setRole] = useState("");
+
 
   const StripePromise = loadStripe(process.env.REACT_APP_STRIPEKEY);
 
@@ -42,6 +44,13 @@ const Routes = () => {
       .catch((error) => {
         setUsers(error.message);
       });
+    getOrders()
+      .then((response) => {
+        setAdminOrders(response.allOrders);
+      })
+      .catch((error) => {
+        setAdminOrders(error.message);
+      });
     if (!localStorage.getItem("cart")) {
       localStorage.setItem("cart", JSON.stringify([]));
     }
@@ -57,14 +66,11 @@ const Routes = () => {
     }
   }, []);
 
+  // console.log("adminOrders in Routes: ", adminOrders)
+
   return (
     <>
-      <PageHeader
-        isAdmin={isAdmin}
-        filteredList={filteredList}
-        setFilteredList={setFilteredList}
-        products={products}
-      />
+      <PageHeader isAdmin={isAdmin} filteredList={filteredList} setFilteredList={setFilteredList} products={products} setProducts={setProducts}/>
       <Route exact path="/">
         <Home
           products={products}
@@ -81,14 +87,14 @@ const Routes = () => {
           </Elements>
         </Route>
       ) : (
-        <Route path="/cart">
-          <Elements stripe={StripePromise}>
-            <VisitorCart />
-          </Elements>
-        </Route>
-      )}
+          <Route path="/cart">
+            <Elements stripe={StripePromise}>
+              <VisitorCart />
+            </Elements>
+          </Route>
+        )}
       <Route path="/user/orders">
-        <UserOrder />
+        <UserOrder adminOrders={adminOrders} />
       </Route>{" "}
       <Route path="/users">
         <DisplayAllUsers
@@ -100,7 +106,7 @@ const Routes = () => {
         />
       </Route>
       <Route path="/userinfo">
-        <UserPage userInfo={userInfo} setUserInfo={setUserInfo} />
+        <UserPage userInfo={userInfo} setUserInfo={setUserInfo} isAdmin={isAdmin} />
       </Route>
     </>
   );

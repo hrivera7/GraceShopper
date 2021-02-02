@@ -9,7 +9,7 @@ import ConfirmDeleteProduct from "./ConfirmDeleteProduct";
 import { addToCart } from "../api";
 
 //returns product card
-export default function ProductCard({ products, isAdmin, setProducts, cart }) {
+export default function ProductCard({ products, isAdmin, setProducts, cart, setFilteredList }) {
   // add products to db cart
   const addToDbCart = (userId, productId) => {
     console.log("adding to db");
@@ -100,12 +100,14 @@ export default function ProductCard({ products, isAdmin, setProducts, cart }) {
                     name={name}
                     products={products}
                     setProducts={setProducts}
-                    inStock={inStock}
+                    setFilteredList={setFilteredList}
                   />
                   <ConfirmDeleteProduct
                     id={id}
                     name={name}
+                    products={products}
                     setProducts={setProducts}
+                    setFilteredList={setFilteredList}
                   />{" "}
                 </div>
               ) : (

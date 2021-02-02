@@ -365,7 +365,7 @@ apiRouter.post("/google-login", async (req, res, next) => {
 
 // creates product and adds to db
 // ADMIN only
-apiRouter.post("/products", async (req, res, next) => {
+apiRouter.post("/products", verifyToken, async (req, res, next) => {
   // required fields from table
   const {
     name,
@@ -376,22 +376,24 @@ apiRouter.post("/products", async (req, res, next) => {
     count,
     quantity,
   } = req.body;
-  console.log("what does the req.body look like: ", req.body);
   try {
-    // from index.js db
-    const products = await createProduct({
-      name,
-      description,
-      photoUrl,
-      department,
-      price,
-      count,
-      quantity,
-    });
-    if (products) {
-      res.json(products);
-      // encrypt user
-    }
+    jwt.verify(req.token, "secretkey", async (err, authData) => {
+      if (err) {
+        res.send({ error: err, status: 403 });
+      } else if (authData.user.role === "admin") {
+          const product = await createProduct({
+          name,
+          description,
+          photoUrl,
+          department,
+          price,
+          count,
+          quantity,
+        });
+          res.send(product)
+          } else {
+            res.send({ message: "User is not an admin!" });
+          }})
   } catch (error) {
     next(error);
   }
@@ -478,10 +480,7 @@ apiRouter.delete(
           res.send({ error: err, status: 403 });
         } else if (authData.user.role === "admin") {
           const deletedProduct = await deleteProduct(productId);
-          console.log("authdata2", authData);
-          res.send({
-            deletedProduct,
-          });
+          res.send(deletedProduct);
         } else {
           res.send({ message: "User is not an admin!" });
         }
@@ -590,7 +589,7 @@ apiRouter.patch(
 
 apiRouter.patch("/products/:productId/update", async (req, res, next) => {
   const updateFields = {};
-  const { name, description, photoUrl, price } = req.body;
+  const { name, description, photoUrl, price, department } = req.body;
 
   if (name) {
     updateFields.name = name;
@@ -603,6 +602,9 @@ apiRouter.patch("/products/:productId/update", async (req, res, next) => {
   }
   if (price) {
     updateFields.price = price;
+  }
+  if (department) {
+    updateFields.department = department;
   }
 
   const { productId } = req.params;
