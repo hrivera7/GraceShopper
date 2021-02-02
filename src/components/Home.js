@@ -14,7 +14,6 @@ const Home = ({ products, isAdmin, setProducts, filteredList, setFilteredList })
           products={products} isAdmin={isAdmin} setProducts={setProducts} setFilteredList={setFilteredList}/*  setProductCount={setProductCount} productCount={productCount}  */
         />}
 
-      <PageFooter />
     </>
   );
 };
