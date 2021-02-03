@@ -33,6 +33,7 @@ const Routes = () => {
   useEffect(() => {
     getProducts()
       .then((response) => {
+        console.log('products are: ', response)
         setProducts(response.allProducts);
       })
       .catch((error) => {
