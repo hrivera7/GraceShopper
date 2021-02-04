@@ -9,8 +9,13 @@ import ConfirmDeleteProduct from "./ConfirmDeleteProduct";
 import { addToCart } from "../api";
 
 //returns product card
-export default function ProductCard({ products, isAdmin, setProducts, cart, setFilteredList }) {
-
+export default function ProductCard({
+  products,
+  isAdmin,
+  setProducts,
+  cart,
+  setFilteredList,
+}) {
   // add products to db cart
   const addToDbCart = (userId, productId) => {
     console.log("adding to db");
@@ -112,8 +117,8 @@ export default function ProductCard({ products, isAdmin, setProducts, cart, setF
                   />{" "}
                 </div>
               ) : (
-                  ""
-                )}
+                ""
+              )}
 
               <Card.Content className="product-price-cart">
                 <Icon name="dollar">{price}</Icon>
@@ -138,26 +143,26 @@ export default function ProductCard({ products, isAdmin, setProducts, cart, setF
                     Add to Cart
                   </Button>
                 ) : (
-                      <Button
-                        onClick={() => addToLocalCart(product)}
-                        disabled={
-                          JSON.parse(localStorage.getItem("cart")).filter(
-                            (product) => {
-                              return product.name === name;
-                            }
-                          ).length > 0
+                  <Button
+                    onClick={() => addToLocalCart(product)}
+                    disabled={
+                      JSON.parse(localStorage.getItem("cart")).filter(
+                        (product) => {
+                          return product.name === name;
                         }
-                      >
-                        Add to cart
-                      </Button>
-                    )}
+                      ).length > 0
+                    }
+                  >
+                    Add to cart
+                  </Button>
+                )}
               </Card.Content>
             </Card>
           );
         })
       ) : (
-          <h1>Loading</h1>
-        )}
+        <h1>Loading</h1>
+      )}
     </>
   );
 }

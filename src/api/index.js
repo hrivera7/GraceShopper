@@ -2,6 +2,7 @@
 // doesn't need .then chaining
 import axios from "axios";
 
+// adds header with user token to all auth requests
 const axiosWithAuth = () => {
   const token = `Bearer ${localStorage.getItem("token")}`;
   return axios.create({ headers: { Authorization: token } });
@@ -15,16 +16,6 @@ export async function getUsers() {
     throw error;
   }
 }
-
-// get users by id
-/* export async function getUserById(userId) {
-    try {
-      const { data } = await axios.get(`/api/users/${userId}`);
-      return data;
-    } catch (error) {
-      throw error;
-    }
-  } */
 
 // get all products > products route
 export async function getProducts() {
@@ -125,31 +116,11 @@ export async function sendGoogleData(googleData) {
   }
 }
 
-// google login - Will
-export async function loginGoogle() {
-  // const dataForGoogle = {}
-  console.log("in loginGoogle()");
-  try {
-    const { data } = await axios.get("api/googlelogin" /*, dataForGoogle*/);
-    console.log("in loginGoogle() api/index", data);
-    return data;
-  } catch (error) {
-    throw error;
-  }
-}
-
 // update user
 // user object fields required
 export async function updateUser(username, email, password, userId) {
   const dataToSend = { username, email, password, userId };
   try {
-    // if (
-    //   dataToSend.username.length > 0 &&
-    //   dataToSend.email.length > 0 &&
-    //   dataToSend.password.length > 0
-    // )
-    // {}
-
     const { data } = await axiosWithAuth().patch(
       `/api/users/${userId}/update`,
       dataToSend
@@ -233,52 +204,6 @@ export async function createProduct(
     throw error;
   }
 }
-// update product
-// fields product object
-/* export async function updateProduct(
-  name,
-  description,
-  photoUrl,
-  quantity,
-  price,
-  department,
-  inStock,
-  productId
-) {
-  const dataToSend = {
-    name,
-    description,
-    photoUrl,
-    quantity,
-    price,
-    department,
-    inStock,
-    productId,
-  };
-  console.log('need to possibly remove the && operators below')
-  try {
-    if (
-      dataToSend.name.length > 0 &&
-      dataToSend.description.length > 0 &&
-      dataToSend.photoUrl.length > 0 &&
-      dataToSend.quantity.length > 0 &&
-      dataToSend.price.length > 0 &&
-      dataToSend.department.length > 0 &&
-      dataToSend.inStock.length > 0 &&
-      dataToSend.productId.length > 0
-    ) {
-    
-      const { data } = await axios.patch(
-        `/api/products/${productId}/update`,
-        dataToSend
-      );
-      return data;
-    }
-  
-  } catch (error) {
-    throw error;
-  }
-} */
 
 export async function updateProduct(
   name,

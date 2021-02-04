@@ -51,8 +51,11 @@ export default function CartCard({ products }) {
           <Card className="cart-card" style={{ width: "45rem" }} key={id}>
             <div className="flex">
               <div className="cart-card-image-container">
-                <img src={photoUrl} className="cart-card-image" /*className="scale-down"
-                  style={{ height: "20rem" }}*/ />
+                <img
+                  src={photoUrl}
+                  className="cart-card-image" /*className="scale-down"
+                  style={{ height: "20rem" }}*/
+                />
               </div>
               <div className="cart-card-right">
                 <Card.Content>
@@ -65,34 +68,24 @@ export default function CartCard({ products }) {
                     {truncatedDesc.length < 50 ? (
                       truncatedDesc
                     ) : (
-                        <span
-                          onClick={() => {
-                            setShowText(!showText);
-                          }}
-                        >
-                          {truncatedDesc}
-                          <span id="showText">
-                            ...Show {showText ? "more" : "less"}
-                          </span>
+                      <span
+                        onClick={() => {
+                          setShowText(!showText);
+                        }}
+                      >
+                        {truncatedDesc}
+                        <span id="showText">
+                          ...Show {showText ? "more" : "less"}
                         </span>
-                      )}
+                      </span>
+                    )}
                   </Card.Description>
                 </Card.Content>
                 <Card.Content className="cart-card-price">
-                  {inStock ? (
-                    <>
-                      <Icon name="dollar" />
-                      <span className="cart-card-amount">{price}</span>
-                    </>
-                  ) : (
-                      <>
-                        <Icon name="dollar" />
-                        <span>
-                          {price}
-                          {" | "}Out of Stock
-                      </span>
-                      </>
-                    )}
+                  <>
+                    <Icon name="dollar" />
+                    <span className="cart-card-amount">{price}</span>
+                  </>
                 </Card.Content>
                 <Card.Content className="cart-card-buttons-trash">
                   <Button

@@ -304,7 +304,7 @@ async function createInitialProducts() {
       quantity: 0,
       price: 325,
       department: "Painting",
-      inStock: false,
+      inStock: true,
       count: 1,
     });
 
@@ -316,7 +316,7 @@ async function createInitialProducts() {
       quantity: 0,
       price: 175,
       department: "Painting",
-      inStock: false,
+      inStock: true,
       count: 1,
     });
 

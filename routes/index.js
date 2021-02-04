@@ -8,12 +8,9 @@ const jwt = require("jsonwebtoken");
 const stripe = require("stripe")(process.env.STRIPEKEY);
 console.log("env", process.env.STRIPEKEY);
 
-// token confirmation
+// Google token confirmation
 const { OAuth2Client } = require("google-auth-library");
 const client = new OAuth2Client(process.env.REACT_APP_CLIENTID);
-
-// google oauth
-const passport = require("passport");
 
 const {
   getUsers,
@@ -143,6 +140,7 @@ apiRouter.get("/cart", verifyToken, async (req, res, next) => {
   }
 });
 
+// get order > user
 apiRouter.get("/orders", verifyToken, async (req, res, next) => {
   try {
     jwt.verify(req.token, "secretkey", async (err, authData) => {
@@ -285,7 +283,7 @@ apiRouter.post("/google-login", async (req, res, next) => {
     const user = await getUserByUsername(name);
     // check if user exists
     if (user) {
-      console.log("google name", name);
+      console.log("google name", name, user);
       // encrypt user with json webtoken
       jwt.sign(
         { user },
@@ -342,27 +340,6 @@ apiRouter.post("/google-login", async (req, res, next) => {
   }
 });
 
-// auth Logout with Google
-/* apiRouter.get("/googlelogout", (req, res, next) => {
-  // handle with passport
-  res.send("logging out");
-  // console.log("logging out of Google")
-}); */
-
-// auth Login with Google
-// 'google' routes to the google login screen - which passport object to use from passport-setup.js
-/* apiRouter.get(
-  "/googlelogin",
-  passport.authenticate("google", {
-    // scope is telling passport what we want to retrieve from the users' profile
-    scope: ["profile"],
-  })
-); */
-
-/* apiRouter.get("google/redirect", (req, res) => {
-  res.send("you reached teh callback URI");
-}); */
-
 // creates product and adds to db
 // ADMIN only
 apiRouter.post("/products", verifyToken, async (req, res, next) => {
@@ -381,7 +358,7 @@ apiRouter.post("/products", verifyToken, async (req, res, next) => {
       if (err) {
         res.send({ error: err, status: 403 });
       } else if (authData.user.role === "admin") {
-          const product = await createProduct({
+        const product = await createProduct({
           name,
           description,
           photoUrl,
@@ -390,10 +367,11 @@ apiRouter.post("/products", verifyToken, async (req, res, next) => {
           count,
           quantity,
         });
-          res.send(product)
-          } else {
-            res.send({ message: "User is not an admin!" });
-          }})
+        res.send(product);
+      } else {
+        res.send({ message: "User is not an admin!" });
+      }
+    });
   } catch (error) {
     next(error);
   }

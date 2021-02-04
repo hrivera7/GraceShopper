@@ -3,23 +3,21 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
 }
 
 body {
-  height: 100vh; 
+  height: 100vh;
 }
 
 #root {
-  background-image: url('./image/bg9.jpg');
+  background-image: url("./image/bg9.jpg");
   background-size: cover;
   background-attachment: fixed;
   background-repeat: no-repeat;
   position: relative;
   min-height: 100vh;
-
 }
-
 
 .app {
   background-color: lightgray;
@@ -35,9 +33,9 @@ body {
 }
 
 .header h1 {
-  font-family: 'Indie Flower', cursive;
+  font-family: "Indie Flower", cursive;
   font-size: 4rem;
-  line-height: 4rem; 
+  line-height: 4rem;
   margin: 0;
   padding-top: 2rem;
 }
@@ -158,7 +156,6 @@ body {
 .order-summary-card {
   width: 350px !important;
   margin-top: 50px !important;
-  
 }
 
 .order-summary-header {
@@ -183,7 +180,6 @@ body {
 
 .order-summary-button-container {
   text-align: center;
-  
 }
 
 .order-summary-shopping-button {
@@ -321,7 +317,7 @@ element.style {
   align-items: center;
   justify-content: space-between;
   margin: 15px;
-  width: 100%
+  width: 100%;
 }
 
 .register {
@@ -330,18 +326,18 @@ element.style {
   align-items: center;
   justify-content: space-between;
   margin: 15px;
-  width: 100%
+  width: 100%;
 }
 
 #header-filter {
   position: absolute;
   right: 1rem;
   width: 20%;
-  top: 5.5rem
+  top: 5.5rem;
 }
 
 .footer {
- /* position: absolute;
+  /* position: absolute;
   width: 100%;
   height: 100px;
   text-align: center; */
@@ -349,10 +345,10 @@ element.style {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 16rem; 
-  display:grid;
+  height: 16rem;
+  display: grid;
   grid-template-columns: 2fr 1fr 1fr;
-  grid-template-rows:  auto 40px; 
+  grid-template-rows: auto 40px;
   column-gap: 10px;
   row-gap: 15px;
   /* background-color: rgba(245, 245, 245, 0.9); */
@@ -370,47 +366,50 @@ element.style {
   /* align-items: center; */
   /* padding: 8px; */
   color: black;
+  padding-left: 10px;
 }
 
 .footer-links a {
-  font-family: 'Indie Flower', cursive;
+  font-family: "Indie Flower", cursive;
   font-size: 20px;
-  
+
   color: black;
   padding: 4px;
 }
 
 .footer-links h2 {
-  font-family: 'Indie Flower', cursive;
+  font-family: "Indie Flower", cursive;
   padding: 17px 8px 8px 3px;
 }
 
-.about-kids-art > *{
-  font-family: 'Indie Flower', cursive;
+.about-kids-art > * {
+  font-family: "Indie Flower", cursive;
   grid-column-start: 1;
   grid-column-end: 1;
   color: black;
-  padding: 17px 8px 8px 10px;
-  
+  padding: 17px 8px 8px 30px;
 }
 
-.stay-in-touch > *{
-  font-family: 'Indie Flower', cursive;
+.about-kids-art p {
+  padding-right: 100px;
+}
+
+.stay-in-touch > * {
+  font-family: "Indie Flower", cursive;
   grid-column-start: 3;
   grid-column-end: 3;
   color: black;
   padding: 17px 8px 8px 10px;
-  
 }
 
 .footer-copyright {
-  font-family: 'Indie Flower', cursive;
+  font-family: "Indie Flower", cursive;
   grid-column-start: 1;
   grid-column-end: 4;
   grid-row-start: 2;
   grid-row-end: 2;
   text-align: center;
-  align-self: center  ;
+  align-self: center;
   font-size: 1.5rem;
 }
 
