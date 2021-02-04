@@ -216,7 +216,9 @@ async function createProduct({
   count,
 }) {
   try {
-const {rows: [product]} =  await client.query(
+    const {
+      rows: [product],
+    } = await client.query(
       `
       INSERT INTO products(name, description, "photoUrl", quantity, price, department, "inStock",  count)
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
@@ -291,7 +293,9 @@ async function updateProduct(productId, fields = {}) {
   try {
     // update any fields that need to be updated
     if (setString.length > 0) {
-     const {rows: [product]} = await client.query(
+      const {
+        rows: [product],
+      } = await client.query(
         `
           UPDATE products
           SET ${setString}
@@ -620,6 +624,25 @@ async function deleteUser(userId) {
 
 async function deleteProduct(productId) {
   try {
+
+    //===================
+    const { rows: carts } = await client.query(`
+    SELECT * FROM cart;
+    `);
+  carts.forEach( async (cart) => {
+  let newArr = []
+    for (let product of cart.productId) {
+      if(productId != product){
+        newArr.push(product)
+      }
+    }
+    await client.query(`
+    UPDATE cart
+    SET "productId" = $1
+    WHERE "userId" = $2;
+  `, [newArr, cart.userId])
+  });
+//==========
     const {
       rows: [product],
     } = await client.query(
@@ -631,6 +654,9 @@ async function deleteProduct(productId) {
       [productId]
     );
     console.log("product", product);
+
+
+
     return product;
   } catch (error) {
     throw error;

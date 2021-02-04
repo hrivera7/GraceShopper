@@ -3,32 +3,42 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-
+  font-family: 'Nunito', sans-serif;
 }
 
 body {
   height: 100vh; 
-
 }
 
-#root{
+#root {
+  background-image: url('./image/bg9.jpg');
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
   position: relative;
   min-height: 100vh;
 }
 
+
 .app {
   background-color: lightgray;
-  
-
 }
 
 .header {
-  background-color: whitesmoke;
+  background-color: rgb(247, 181, 83);
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: 55px 55px;
   justify-items: center;
   align-items: center;
+}
+
+.header h1 {
+  font-family: 'Indie Flower', cursive;
+  font-size: 4rem;
+  line-height: 4rem; 
+  margin: 0;
+  padding-top: 2rem;
 }
 
 .headerNav {
@@ -330,7 +340,7 @@ element.style {
   width: 100%;
   height: 100px;
   text-align: center; */
-  background-color: whitesmoke;
+  /* background-color: whitesmoke; */
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -340,6 +350,7 @@ element.style {
   grid-template-rows:  auto 40px; 
   column-gap: 10px;
   row-gap: 15px;
+  background-color: rgba(245, 245, 245, 0.4);
 }
 
 .footer-links {
