@@ -24,7 +24,7 @@ export default function DisplayAllUsers({ setToken, setRole, token, role }) {
 
   return (
     <>
-      <div className="userCardSection">
+      <div className="userCardSection" style={{ paddingBottom: "16rem" }}>
         <UserCards users={users} setUsers={setUsers} />
       </div>
     </>

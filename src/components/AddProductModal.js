@@ -166,6 +166,7 @@ export default function AddProductModal({ setProducts, filteredList, products, s
               productDetails.price,
               
             );
+            console.log('the new product : ', newProduct)
             /* productDetails.count */
             if(newProduct) {
               let productsCopy = [...products]

@@ -3,10 +3,20 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Nunito", sans-serif;
 }
 
 body {
   height: 100vh;
+}
+
+#root {
+  background-image: url("./image/bg9.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  position: relative;
+  min-height: 100vh;
 }
 
 .app {
@@ -14,12 +24,20 @@ body {
 }
 
 .header {
-  background-color: whitesmoke;
+  background-color: rgb(247, 181, 83);
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: 55px 55px;
   justify-items: center;
   align-items: center;
+}
+
+.header h1 {
+  font-family: "Indie Flower", cursive;
+  font-size: 4rem;
+  line-height: 4rem;
+  margin: 0;
+  padding-top: 2rem;
 }
 
 .headerNav {
@@ -123,7 +141,7 @@ body {
   flex-wrap: wrap;
   margin-top: none;
   justify-content: center;
-  padding-bottom: 75px;
+  padding-bottom: 16rem;
 }
 
 .visitor-cart-cards,
@@ -167,6 +185,7 @@ body {
 .order-summary-shopping-button {
   text-align: center;
   padding-top: 25px;
+  padding-bottom: 16rem !important;
 }
 
 .order-summary-button {
@@ -213,7 +232,10 @@ element.style {
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
-  padding-bottom: 120px;
+  /* width: 75%; */
+  padding-right: 100px;
+  padding-left: 100px;
+  padding-bottom: 19rem;
 }
 
 #showText:hover {
@@ -236,7 +258,7 @@ element.style {
 }
 
 .product-card-text {
-  margin: 10px 0px !important;
+  margin: 1rem 1rem !important;
   text-align: center;
 }
 
@@ -285,7 +307,7 @@ element.style {
   /* display: grid;
   grid-template-columns: 1fr, 1fr;
   grid-template-rows: auto; */
-  background-color: bisque;
+  /* background-color: bisque; */
   height: 425px;
 }
 
@@ -311,30 +333,89 @@ element.style {
   position: absolute;
   right: 1rem;
   width: 20%;
+  top: 5.5rem;
 }
 
 .footer {
-  position: fixed;
-  bottom: 0;
+  /* position: absolute;
   width: 100%;
   height: 100px;
-  text-align: center;
-  background-color: rgba(245, 245, 245, 0.4);
+  text-align: center; */
+  /* background-color: whitesmoke; */
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 16rem;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: auto 40px;
+  column-gap: 10px;
+  row-gap: 15px;
+  /* background-color: rgba(245, 245, 245, 0.9); */
+  background-color: rgb(247, 181, 83);
 }
 
 .footer-links {
+  grid-column-start: 2;
+  grid-column-end: 3;
   display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
   height: 100%;
-  justify-content: space-around;
-  align-items: center;
+  /* justify-content: space-around; */
+  /* align-items: center; */
+  /* padding: 8px; */
+  color: black;
+  padding-left: 10px;
 }
 
 .footer-links a {
+  font-family: "Indie Flower", cursive;
   font-size: 20px;
-  color: red;
+
+  color: black;
+  padding: 4px;
 }
+
+.footer-links h2 {
+  font-family: "Indie Flower", cursive;
+  padding: 17px 8px 8px 3px;
+}
+
+.about-kids-art > * {
+  font-family: "Indie Flower", cursive;
+  grid-column-start: 1;
+  grid-column-end: 1;
+  color: black;
+  padding: 17px 8px 8px 30px;
+}
+
+.about-kids-art p {
+  padding-right: 100px;
+}
+
+.stay-in-touch > * {
+  font-family: "Indie Flower", cursive;
+  grid-column-start: 3;
+  grid-column-end: 3;
+  color: black;
+  padding: 17px 8px 8px 10px;
+}
+
+.footer-copyright {
+  font-family: "Indie Flower", cursive;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 2;
+  grid-row-end: 2;
+  text-align: center;
+  align-self: center;
+  font-size: 1.5rem;
+}
+
 .myAccount {
   margin: 45px 200px 45px 200px !important;
+  padding-bottom: 19rem;
 }
 
 .myUserInfo {

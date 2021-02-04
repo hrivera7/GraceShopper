@@ -7,6 +7,7 @@ import Cart from "../Cart";
 import VisitorCart from "../VisitorCart";
 import UserPage from "../UserPage";
 import PageHeader from "../PageHeader";
+import PageFooter from '../PageFooter'
 
 import { getProducts, getUsers, getOrders } from "../../api";
 import { loadStripe } from "@stripe/stripe-js";
@@ -32,6 +33,7 @@ const Routes = () => {
   useEffect(() => {
     getProducts()
       .then((response) => {
+        console.log('products are: ', response)
         setProducts(response.allProducts);
       })
       .catch((error) => {
@@ -70,8 +72,8 @@ const Routes = () => {
 
   return (
     <>
-      <PageHeader isAdmin={isAdmin} filteredList={filteredList} setFilteredList={setFilteredList} products={products} setProducts={setProducts}/>
-      <Route exact path="/">
+      <PageHeader isAdmin={isAdmin} filteredList={filteredList} setFilteredList={setFilteredList} products={products} setProducts={setProducts} />
+      <Route exact path="/" className="app">
         <Home
           products={products}
           isAdmin={isAdmin}
@@ -108,6 +110,7 @@ const Routes = () => {
       <Route path="/userinfo">
         <UserPage userInfo={userInfo} setUserInfo={setUserInfo} isAdmin={isAdmin} />
       </Route>
+      <PageFooter />
     </>
   );
 };

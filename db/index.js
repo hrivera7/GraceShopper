@@ -570,6 +570,25 @@ async function deleteUser(userId) {
 
 async function deleteProduct(productId) {
   try {
+
+    //===================
+    const { rows: carts } = await client.query(`
+    SELECT * FROM cart;
+    `);
+  carts.forEach( async (cart) => {
+  let newArr = []
+    for (let product of cart.productId) {
+      if(productId != product){
+        newArr.push(product)
+      }
+    }
+    await client.query(`
+    UPDATE cart
+    SET "productId" = $1
+    WHERE "userId" = $2;
+  `, [newArr, cart.userId])
+  });
+//==========
     const {
       rows: [product],
     } = await client.query(
@@ -581,6 +600,9 @@ async function deleteProduct(productId) {
       [productId]
     );
     console.log("product", product);
+
+
+
     return product;
   } catch (error) {
     throw error;

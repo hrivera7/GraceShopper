@@ -24,7 +24,7 @@ const VisitorCart = () => {
             )}
           </ElementsConsumer>
         </div>
-        <PageFooter/>
+
       </div>
       {/* </div> */}
     </>
