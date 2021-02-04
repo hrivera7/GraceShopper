@@ -72,8 +72,8 @@ const Routes = () => {
 
   return (
     <>
-      <PageHeader isAdmin={isAdmin} filteredList={filteredList} setFilteredList={setFilteredList} products={products} setProducts={setProducts}/>
-      <Route exact path="/">
+      <PageHeader isAdmin={isAdmin} filteredList={filteredList} setFilteredList={setFilteredList} products={products} setProducts={setProducts} />
+      <Route exact path="/" className="app">
         <Home
           products={products}
           isAdmin={isAdmin}
