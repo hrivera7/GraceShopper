@@ -23,7 +23,7 @@ const PageFooter = () => {
     <div className="footer">
       <AboutKidsArt4U />
       <div className="footer-links">
-        <h2 style={{ borderBottom: "1px solid blue" }}>Site Curators</h2>
+        <h2 >Site Curators</h2>
         <a href="https://github.com/wtheiler" target="_blank">
           Will Theiler
       </a>
@@ -37,7 +37,7 @@ const PageFooter = () => {
       </div>
       <div className="footer-copyright"> <span>&#169;</span> {(new Date().getFullYear())} Kids Art 4 U</div>
       <div className="stay-in-touch">
-        <h2 style={{ borderBottom: "1px solid blue" }}>Stay In Touch</h2>
+        <h2 >Stay In Touch</h2>
         <Input placeholder='Enter Email...' value={contactEmail} onChange={handleEmail} />
         <Button onClick={handleEmailSubmit}>Submit</Button>
 

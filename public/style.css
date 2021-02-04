@@ -17,6 +17,7 @@ body {
   background-repeat: no-repeat;
   position: relative;
   min-height: 100vh;
+
 }
 
 
@@ -98,9 +99,9 @@ body {
   padding-left: 15px;
 }
 
-.cart-card-amount {
+/* .cart-card-amount {
   padding-left: 15px;
-}
+} */
 
 .cart-card-plus-button {
   margin-left: 15px !important;
@@ -233,8 +234,11 @@ element.style {
 .productSection {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
+  /* width: 75%; */
+  padding-right: 100px;
+  padding-left: 100px;
   padding-bottom: 19rem;
 }
 
@@ -258,7 +262,7 @@ element.style {
 }
 
 .product-card-text {
-  margin: 10px 0px !important;
+  margin: 1rem 1rem !important;
   text-align: center;
 }
 
@@ -333,6 +337,7 @@ element.style {
   position: absolute;
   right: 1rem;
   width: 20%;
+  top: 5.5rem
 }
 
 .footer {
@@ -350,7 +355,8 @@ element.style {
   grid-template-rows:  auto 40px; 
   column-gap: 10px;
   row-gap: 15px;
-  background-color: rgba(245, 245, 245, 0.4);
+  /* background-color: rgba(245, 245, 245, 0.9); */
+  background-color: rgb(247, 181, 83);
 }
 
 .footer-links {
@@ -362,40 +368,50 @@ element.style {
   height: 100%;
   /* justify-content: space-around; */
   /* align-items: center; */
-  padding: 8px;
-  color: blue;
+  /* padding: 8px; */
+  color: black;
 }
 
 .footer-links a {
+  font-family: 'Indie Flower', cursive;
   font-size: 20px;
   
-  color: blue;
+  color: black;
   padding: 4px;
 }
 
-.about-kids-art{
+.footer-links h2 {
+  font-family: 'Indie Flower', cursive;
+  padding: 17px 8px 8px 3px;
+}
+
+.about-kids-art > *{
+  font-family: 'Indie Flower', cursive;
   grid-column-start: 1;
   grid-column-end: 1;
-  color: blue;
-  padding: 8px;
+  color: black;
+  padding: 17px 8px 8px 10px;
   
 }
 
-.stay-in-touch{
+.stay-in-touch > *{
+  font-family: 'Indie Flower', cursive;
   grid-column-start: 3;
   grid-column-end: 3;
-  color: blue;
-  padding: 8px;
+  color: black;
+  padding: 17px 8px 8px 10px;
   
 }
 
 .footer-copyright {
+  font-family: 'Indie Flower', cursive;
   grid-column-start: 1;
   grid-column-end: 4;
   grid-row-start: 2;
   grid-row-end: 2;
   text-align: center;
   align-self: center  ;
+  font-size: 1.5rem;
 }
 
 .myAccount {
