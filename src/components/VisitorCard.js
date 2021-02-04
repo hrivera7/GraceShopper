@@ -110,20 +110,10 @@ export default function VisitorCard({ products }) {
                   </Card.Description>
                 </Card.Content>
                 <Card.Content className="cart-card-price">
-                  {inStock ? (
-                    <>
-                      <Icon name="dollar" className="visitor-card-dollar" />
-                      <span className="cart-card-amount">{price}</span>
-                    </>
-                  ) : (
-                    <>
-                      <Icon name="dollar" />
-                      <span>
-                        {price}
-                        {" | "}Out of Stock
-                      </span>
-                    </>
-                  )}
+                  <>
+                    <Icon name="dollar" className="visitor-card-dollar" />
+                    <span className="cart-card-amount">{price}</span>
+                  </>
                 </Card.Content>
                 <Card.Content className="cart-card-buttons-trash">
                   <Button

@@ -227,62 +227,11 @@ async function createProduct({
       [name, description, photoUrl, quantity, price, department, inStock, count]
     );
 
-    // const { rows } = await client.query(`
-    //   SELECT * FROM products;
-    // `);
-
     return product;
   } catch (error) {
     throw error;
   }
 }
-
-// Shane modified updateProduct to make it work with admin page...
-/* async function updateProduct({
-  name,
-  description,
-  photoUrl,
-  quantity,
-  price,
-  department,
-  inStock,
-  productId,
-}) {
-  try {
-    // retrieve product by id
-    const retrievedProduct = await getProductById(productId);
-    console.log("retrieved product", retrievedProduct);
-    // if product doesnt exists throw error
-    if (retrievedProduct === null) {
-      throw new Error("Product with that id does not exist.");
-    }
-    // update products table
-    const {
-      rows: [product],
-    } = await client.query(
-      `
-        UPDATE products 
-        SET name = $1, description = $2, "photoUrl" = $3, quantity = $4, price = $5, department = $6, "inStock" = $7
-        WHERE id = $8
-        RETURNING *
-      `,
-      [
-        name,
-        description,
-        photoUrl,
-        quantity,
-        price,
-        department,
-        inStock,
-        productId,
-      ]
-    );
-    // return product
-    return product;
-  } catch (error) {
-    throw error;
-  }
-}  */
 
 async function updateProduct(productId, fields = {}) {
   const setString = Object.keys(fields)
@@ -305,9 +254,6 @@ async function updateProduct(productId, fields = {}) {
         Object.values(fields)
       );
 
-      // const { rows } = await client.query(`
-      //   SELECT * FROM products;
-      //   `);
       return product;
     }
   } catch (error) {
@@ -433,7 +379,7 @@ async function getCompletedCart({ userId }) {
   }
 }
 
-// list of orders for admin
+// list of orders for users
 async function getOrder(userId) {
   try {
     const { rows } = await client.query(

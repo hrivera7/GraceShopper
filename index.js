@@ -9,8 +9,6 @@ const server = express();
 const morgan = require("morgan");
 server.use(morgan("dev"));
 
-const passportSetup = require('./oauth-config/passport-setup')
-
 // handle application/json requests
 const bodyParser = require("body-parser");
 server.use(bodyParser.json());
@@ -19,17 +17,12 @@ server.use(bodyParser.json());
 const path = require("path");
 server.use(express.static(path.join(__dirname, "build")));
 
-
-
-
-
 // here's our API - /api default for every endpoint
 // anytime using these routes - /api will prepended to every endpoint.
 // connect routes to our application using .use
 server.use("/api", require("./routes"));
 
 // by default serve react app if we don't recognize the route
-
 
 server.use((req, res, next) => {
   res.sendFile(path.join(__dirname, "build", "index.html"));
@@ -38,7 +31,6 @@ server.use((req, res, next) => {
 server.use((error, req, res, next) => {
   res.send(error);
 });
-
 
 // bring in DB connection
 const { client } = require("./db");
@@ -55,6 +47,3 @@ server.listen(PORT, async () => {
     console.error("Database is closed for repairs!\n", error);
   }
 });
-
-
-
