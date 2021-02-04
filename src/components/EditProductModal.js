@@ -129,6 +129,7 @@ export default function EditProductModal({ id, name, setProducts, setFilteredLis
                   }
                 })
               setFilteredList(productsCopy)
+              setProducts(productsCopy)
               setProductDetails({
                 name: "",
                 description: "",
