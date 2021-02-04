@@ -79,9 +79,9 @@ body {
   padding-left: 15px;
 }
 
-.cart-card-amount {
+/* .cart-card-amount {
   padding-left: 15px;
-}
+} */
 
 .cart-card-plus-button {
   margin-left: 15px !important;
@@ -295,7 +295,7 @@ element.style {
   align-items: center;
   justify-content: space-between;
   margin: 15px;
-  width: 100%
+  width: 100%;
 }
 
 .register {
@@ -304,7 +304,7 @@ element.style {
   align-items: center;
   justify-content: space-between;
   margin: 15px;
-  width: 100%
+  width: 100%;
 }
 
 #header-filter {

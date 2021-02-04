@@ -35,7 +35,7 @@ const LogIn = ({ setOpen }) => {
 
   const handleChanges = (event) => {
     setCredentials({ ...credentials, [event.target.name]: event.target.value });
-    setLoginError(false)
+    setLoginError(false);
   };
 
   // sends token that we get from login success
@@ -82,7 +82,6 @@ const LogIn = ({ setOpen }) => {
           value={credentials.username}
           onChange={handleChanges}
           placeholder="username"
-
         />
         <br></br>
         <Input
@@ -104,16 +103,14 @@ const LogIn = ({ setOpen }) => {
         {loginError ? (
           <Message negative size="mini" style={{ marginTop: "6px" }}>
             <p>
-              Login failed due to incorrect username or password. Please try again.
+              Login failed due to incorrect username or password. Please try
+              again.
             </p>
           </Message>
         ) : (
-            ""
-          )}
-
+          ""
+        )}
       </Form>
-
-
     </>
   );
 };

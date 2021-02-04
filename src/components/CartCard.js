@@ -78,12 +78,12 @@ export default function CartCard({ products }) {
                   </Card.Description>
                 </Card.Content>
                 <Card.Content className="cart-card-price">
-                  {inStock ? (
-                    <>
-                      <Icon name="dollar" />
-                      <span className="cart-card-amount">{price}</span>
-                    </>
-                  ) : (
+                  {/* {inStock ? ( */}
+                  <>
+                    <Icon name="dollar" />
+                    <span className="cart-card-amount">{price}</span>
+                  </>
+                  {/* ) : (
                     <>
                       <Icon name="dollar" />
                       <span>
@@ -91,7 +91,7 @@ export default function CartCard({ products }) {
                         {" | "}Out of Stock
                       </span>
                     </>
-                  )}
+                  )} */}
                 </Card.Content>
                 <Card.Content className="cart-card-buttons-trash">
                   <Button

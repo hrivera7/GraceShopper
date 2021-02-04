@@ -16,7 +16,7 @@ function OrderSuccess({ total, charge }) {
           {charge && charge.amount / 100}.
         </Modal.Header>
         <Modal.Content>
-          <Modal.Description className="signInModal">
+          <Modal.Description className="signInModal1">
             <Button color="green" onClick={home}>
               Continue Shopping
             </Button>
