@@ -281,7 +281,7 @@ apiRouter.post("/google-login", async (req, res, next) => {
     const password = "password";
     // grab the user by username
     const user = await getUserByUsername(name);
-    // check if user exists
+    // check if user already exists
     if (user) {
       console.log("google name", name, user);
       // encrypt user with json webtoken
