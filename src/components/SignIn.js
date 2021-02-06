@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Modal, Divider, Menu, Grid } from "semantic-ui-react";
+import { Modal, Divider, Menu, Grid } from "semantic-ui-react";
 import LogIn from "./LogIn";
 import Register from "./Register";
 
@@ -21,9 +21,7 @@ function SignIn() {
           <Grid.Column>
             <LogIn setOpen={setOpen} />
           </Grid.Column>
-          {/* <Grid.Column width={1}> */}
 
-          {/* </Grid.Column> */}
           <Grid.Column>
             <Register setOpen={setOpen} />
           </Grid.Column>

@@ -1,23 +1,31 @@
 import React, { useState } from "react";
 import { Menu, Button } from "semantic-ui-react";
 import SignIn from "./SignIn";
-import FilterProducts from './FilterProducts'
+import FilterProducts from "./FilterProducts";
 import { Link, useHistory } from "react-router-dom";
 import AddProductModal from "./AddProductModal";
 
-
-const Nav = ({ isAdmin, setProducts, products, filteredList, setFilteredList }
-) => {
+const Nav = ({
+  isAdmin,
+  setProducts,
+  products,
+  filteredList,
+  setFilteredList,
+}) => {
   const history = useHistory();
-  const [activeItem, setActiveItem] = useState("home")
+  const [activeItem, setActiveItem] = useState("home");
 
   //++++++++++++++
 
+  /* let categoryList;
+  {
+    filteredList.length
+      ? (categoryList = filteredList.map((product) => product.department))
+      : (categoryList = products.map((product) => product.department));
+  } */
 
-  /* let categoryList
-  {filteredList.length ? categoryList = filteredList.map(product => product.department) :  categoryList = products.map(product => product.department); */
-  let categoryList = products.map(product => product.department);
-  let departmentList = Array.from(new Set(categoryList))
+  let categoryList = products.map((product) => product.department);
+  let departmentList = Array.from(new Set(categoryList));
   //++++++++++++++
 
   const handleSignOut = async () => {
@@ -51,7 +59,12 @@ const Nav = ({ isAdmin, setProducts, products, filteredList, setFilteredList }
             }}
           />
           <Menu.Item>
-            <AddProductModal setProducts={setProducts} products={products} setFilteredList={setFilteredList} filteredList={filteredList} />
+            <AddProductModal
+              setProducts={setProducts}
+              products={products}
+              setFilteredList={setFilteredList}
+              filteredList={filteredList}
+            />
           </Menu.Item>
           <Menu.Item
             as={Link}
@@ -65,11 +78,10 @@ const Nav = ({ isAdmin, setProducts, products, filteredList, setFilteredList }
           />
         </>
       ) : (
-          ""
-        )}
+        ""
+      )}
       {localStorage.getItem("token") ? (
         <>
-
           <Menu.Item
             as={Link}
             to="/userinfo"
@@ -82,23 +94,37 @@ const Nav = ({ isAdmin, setProducts, products, filteredList, setFilteredList }
           <Menu.Item onClick={handleSignOut} name="sign out" />
         </>
       ) : (
-          <>
-            <Menu.Item>
-              <SignIn />
-            </Menu.Item>
-          </>
-        )}
+        <>
+          <Menu.Item>
+            <SignIn />
+          </Menu.Item>
+        </>
+      )}
 
-      {isAdmin ? '' : <Menu.Item
-        as={Link}
-        to="/cart"
-        name="cart"
-        active={activeItem === 'cart'}
-        onClick={() => { setActiveItem("cart") }}
-      />}
-      {activeItem === 'home' ? <FilterProducts products={products} list={departmentList} setFilteredList={setFilteredList} /> : ''}
-
+      {isAdmin ? (
+        ""
+      ) : (
+        <Menu.Item
+          as={Link}
+          to="/cart"
+          name="cart"
+          active={activeItem === "cart"}
+          onClick={() => {
+            setActiveItem("cart");
+          }}
+        />
+      )}
+      {activeItem === "home" ? (
+        <FilterProducts
+          products={products}
+          list={departmentList}
+          setFilteredList={setFilteredList}
+        />
+      ) : (
+        ""
+      )}
     </Menu>
   );
 };
+
 export default Nav;

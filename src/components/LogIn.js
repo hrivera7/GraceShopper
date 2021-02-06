@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Button, Input, Form, Icon, Message } from "semantic-ui-react";
-import { loginUser, sendGoogleData, loginGoogle } from "../api";
+import { Button, Input, Form, Message } from "semantic-ui-react";
+import { loginUser, sendGoogleData } from "../api";
 // Google button
 import GoogleLogin from "react-google-login";
 

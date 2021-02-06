@@ -7,7 +7,7 @@ import Cart from "../Cart";
 import VisitorCart from "../VisitorCart";
 import UserPage from "../UserPage";
 import PageHeader from "../PageHeader";
-import PageFooter from '../PageFooter'
+import PageFooter from "../PageFooter";
 
 import { getProducts, getUsers, getOrders } from "../../api";
 import { loadStripe } from "@stripe/stripe-js";
@@ -24,16 +24,13 @@ const Routes = () => {
   const [userInfo, setUserInfo] = useState(
     JSON.parse(localStorage.getItem("user"))
   );
-  // const [token, setToken] = useState("");
-  //const [role, setRole] = useState("");
-
 
   const StripePromise = loadStripe(process.env.REACT_APP_STRIPEKEY);
 
   useEffect(() => {
     getProducts()
       .then((response) => {
-        console.log('products are: ', response)
+        console.log("products are: ", response);
         setProducts(response.allProducts);
       })
       .catch((error) => {
@@ -72,7 +69,13 @@ const Routes = () => {
 
   return (
     <>
-      <PageHeader isAdmin={isAdmin} filteredList={filteredList} setFilteredList={setFilteredList} products={products} setProducts={setProducts} />
+      <PageHeader
+        isAdmin={isAdmin}
+        filteredList={filteredList}
+        setFilteredList={setFilteredList}
+        products={products}
+        setProducts={setProducts}
+      />
       <Route exact path="/" className="app">
         <Home
           products={products}
@@ -89,12 +92,12 @@ const Routes = () => {
           </Elements>
         </Route>
       ) : (
-          <Route path="/cart">
-            <Elements stripe={StripePromise}>
-              <VisitorCart />
-            </Elements>
-          </Route>
-        )}
+        <Route path="/cart">
+          <Elements stripe={StripePromise}>
+            <VisitorCart />
+          </Elements>
+        </Route>
+      )}
       <Route path="/user/orders">
         <UserOrder adminOrders={adminOrders} />
       </Route>{" "}
@@ -108,7 +111,11 @@ const Routes = () => {
         />
       </Route>
       <Route path="/userinfo">
-        <UserPage userInfo={userInfo} setUserInfo={setUserInfo} isAdmin={isAdmin} />
+        <UserPage
+          userInfo={userInfo}
+          setUserInfo={setUserInfo}
+          isAdmin={isAdmin}
+        />
       </Route>
       <PageFooter />
     </>
